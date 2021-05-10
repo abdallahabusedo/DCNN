@@ -6,7 +6,7 @@
         {
             "label": "compile the current vhdl file",
             "type": "shell",
-            "command": "vcom -work work ./${relativeFileDirname}/${fileBasename}",
+            "command": "vcom -2008 -work work ./${relativeFileDirname}/${fileBasename}",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
@@ -34,7 +34,7 @@
         {
             "label": "Simulate Current File",
             "type": "shell",
-            "command": "vsim -gui -default_radix 10 work.${fileBasenameNoExtension}",
+            "command": "vsim -gui -default_radix sfixed work.${fileBasenameNoExtension}",
             "problemMatcher": [],
             "group": {
                 "kind": "test",
