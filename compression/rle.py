@@ -19,10 +19,16 @@ def rle(img):
             if(status == col):
                 code += 1
             else:
-                f.write(str(code)+'\n')
+                stringCode = str(bin(code)).replace('0b', '')
+                while(len(stringCode) < 5):
+                    stringCode = '0'+stringCode
+                f.write(stringCode+'\n')
                 code = 1
                 status = (not status)**1
-        f.write(str(code)+'\n')
+        stringCode = str(bin(code)).replace('0b', '')
+        while(len(stringCode) < 5):
+            stringCode = '0'+stringCode
+        f.write(stringCode+'\n')
     f.close()
 
 
