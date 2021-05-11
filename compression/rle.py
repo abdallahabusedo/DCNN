@@ -1,36 +1,65 @@
+from decimal import ROUND_DOWN
+from math import log2
 import cv2
+from fxpmath import Fxp
+from fxpmath.utils import bits_len
+import math
+f = open("out.txt", 'w')
 
 
 def readImg(path):
     return cv2.imread(path, 0)
 
 
-def rle(img):
-    f = open("out.txt", "w")
-    ret2, th2 = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-    th2 = th2/255
-    img = th2
-    compressedImg = []
+def getNewRows(img):
+    img = img/255
+    newRows = []
     for row in img:
-        code = 0
-        status = 1
-        rowCode = ''
+        rowValue = ''
         for col in row:
-            if(status == col):
+            bitCol = Fxp(col, n_word=16, n_frac=8)
+            rowValue += bitCol.bin()
+        newRows.append(rowValue)
+    return newRows
+
+
+def rle(rows):
+    for row in rows:
+        code = 0
+        status = 0
+        maxCode = 0
+        rowCodes = []
+        for col in row:
+            if(str(status) == col):
                 code += 1
             else:
-                stringCode = str(bin(code)).replace('0b', '')
-                while(len(stringCode) < 5):
-                    stringCode = '0'+stringCode
-                f.write(stringCode+'\n')
+                if(code > maxCode):
+                    maxCode = code
+                rowCodes.append(code)
                 code = 1
                 status = (not status)**1
-        stringCode = str(bin(code)).replace('0b', '')
-        while(len(stringCode) < 5):
-            stringCode = '0'+stringCode
-        f.write(stringCode+'\n')
-    f.close()
+        if(code > maxCode):
+            maxCode = code
+        rowCodes.append(code)
+        outToFile(rowCodes, maxCode)
+    return
+
+
+def outToFile(rowCodes, maxCode):
+    maxCode = math.ceil(math.log2(maxCode))
+    maxCodeBin = str(bin(maxCode)).replace('0b', '')
+    while(len(maxCodeBin) < 9):
+        maxCodeBin = '0'+maxCodeBin
+    f.write(maxCodeBin)
+    for num in rowCodes:
+        numBin = str(bin(num)).replace('0b', '')
+        while(len(numBin) < maxCode):
+            numBin = '0'+numBin
+        f.write(numBin)
+    f.write('\n')
 
 
 img = readImg("tmp.png")
-compressedImg = rle(img)
+newRows = getNewRows(img)
+compressedImg = rle(newRows)
+f.close()
