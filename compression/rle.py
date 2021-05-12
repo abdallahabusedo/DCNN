@@ -7,6 +7,9 @@ import math
 f = open("out.txt", 'w')
 
 
+rowsData = ''
+
+
 def readImg(path):
     return cv2.imread(path, 0)
 
@@ -41,25 +44,38 @@ def rle(rows):
         if(code > maxCode):
             maxCode = code
         rowCodes.append(code)
-        outToFile(rowCodes, maxCode)
+        OutesData(rowCodes, maxCode)
     return
 
-
-def outToFile(rowCodes, maxCode):
+def OutesData(rowCodes, maxCode):
+    global rowsData
     maxCode = math.ceil(math.log2(maxCode))
     maxCodeBin = str(bin(maxCode)).replace('0b', '')
-    while(len(maxCodeBin) < 9):
+    while(len(maxCodeBin) < 16):
         maxCodeBin = '0'+maxCodeBin
-    f.write(maxCodeBin)
+    rowsData += maxCodeBin
     for num in rowCodes:
         numBin = str(bin(num)).replace('0b', '')
         while(len(numBin) < maxCode):
             numBin = '0'+numBin
-        f.write(numBin)
-    f.write('\n')
+        rowsData += numBin
+
+
+def outToFile():
+    global rowsData
+    for i in range(0, len(rowsData), 16):
+        outData = ''
+        for k in range(16):
+            if(k+i >= len(rowsData)):
+                break
+            outData += rowsData[i+k]
+        while(len(outData) < 16):
+            outData = outData+'0'
+        f.write(outData+'\n')
 
 
 img = readImg("tmp.png")
 newRows = getNewRows(img)
 compressedImg = rle(newRows)
+outToFile()
 f.close()
