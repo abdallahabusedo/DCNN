@@ -46,21 +46,21 @@ def rle(rows):
 
 
 def OutesData(rowCodes, maxCode):
+    maxCode = math.ceil(math.log2(maxCode))
     rowSize = maxCode*len(rowCodes)
     rowSizeBin = str(bin(rowSize)).replace('0b', '')
     while(len(rowSizeBin) < 16):
         rowSizeBin = '0'+rowSizeBin
-    f.write(rowSizeBin)
-    maxCode = math.ceil(math.log2(maxCode))
     maxCodeBin = str(bin(maxCode)).replace('0b', '')
     while(len(maxCodeBin) < 16):
         maxCodeBin = '0'+maxCodeBin
-    f.write(maxCodeBin)
     for num in rowCodes:
         numBin = str(bin(num)).replace('0b', '')
         while(len(numBin) < maxCode):
             numBin = '0'+numBin
         f.write(numBin)
+    f.write(maxCodeBin)
+    f.write(rowSizeBin)
     f.write('\n')
 
 
