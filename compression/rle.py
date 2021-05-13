@@ -50,12 +50,12 @@ def OutesData(rowCodes, maxCode):
     rowSizeBin = str(bin(rowSize)).replace('0b', '')
     while(len(rowSizeBin) < 16):
         rowSizeBin = '0'+rowSizeBin
-    f.write(rowSizeBin+'\n')
+    f.write(rowSizeBin)
     maxCode = math.ceil(math.log2(maxCode))
     maxCodeBin = str(bin(maxCode)).replace('0b', '')
     while(len(maxCodeBin) < 16):
         maxCodeBin = '0'+maxCodeBin
-    f.write(maxCodeBin+'\n')
+    f.write(maxCodeBin)
     for num in rowCodes:
         numBin = str(bin(num)).replace('0b', '')
         while(len(numBin) < maxCode):
