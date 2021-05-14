@@ -5,9 +5,6 @@ integer  scan_file ;
 reg [479:0]row ;
 reg ready;
 
-reg [259:0]test_row;
-
-
 `define NULL 0    
 
 initial begin

@@ -29,14 +29,19 @@ signal currentIndex:integer:=0;
 signal data : std_logic_vector(15 DOWNTO 0);
 signal startDecompression: std_logic;
 signal rowSignal : std_logic_vector(479 DOWNTO 0);
+
 BEGIN
 
 process(clk) is
 begin
 --Now the data is ready so we can send it 16 bit by 16 bit to the io--
 if(ready='1' and currentIndex=1) then
-rowSignal<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 448 - to_integer(unsigned(row(15 DOWNTO 0)))));
+
+rowSignal<=row;
+rowSignal(31 DOWNTO 0 )<="00000000000000000000000000000000";
+rowSignal<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 416 - to_integer(unsigned(row(15 DOWNTO 0)))));
 rowSignal(479 DOWNTO 448)<= row(31 DOWNTO 0);
+
 send<='0';
 end if;
 if(rising_edge(clk)) then
