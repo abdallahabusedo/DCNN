@@ -1,0 +1,53 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/CMP 3rd Year/Second Sem/vlsi/project/VLSI/vhdl
+Esendrow
+Z1 w1620967409
+Z2 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z3 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+Z4 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z5 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z6 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z7 8sendRow.vhd
+Z8 FsendRow.vhd
+l0
+L6
+VKOf=?dQlo>:FFZ_F7cbVB2
+!s100 gLzoSf`VclV4HX0=>BPK_1
+Z9 OV;C;10.5b;63
+32
+Z10 !s110 1620967543
+!i10b 1
+Z11 !s108 1620967543.000000
+Z12 !s90 sendRow.vhd|
+Z13 !s107 sendRow.vhd|
+!i113 1
+Z14 tExplicit 1 CvgOpt 0
+Asendrow_architecture
+R2
+R3
+R4
+R5
+R6
+DEx4 work 7 sendrow 0 22 KOf=?dQlo>:FFZ_F7cbVB2
+l33
+L16
+V76eX`[=Z4PYYHTK=<g`eV3
+!s100 <ioONJQ7k>`AUM4XG7;n^0
+R9
+32
+R10
+!i10b 1
+R11
+R12
+R13
+!i113 1
+R14
