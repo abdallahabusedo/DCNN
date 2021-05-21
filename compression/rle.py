@@ -17,7 +17,7 @@ def getNewRows(img):
     for row in img:
         rowValue = ''
         for col in row:
-            bitCol = Fxp(col, n_word=16, n_frac=8)
+            bitCol = Fxp(col, n_word=16, n_frac=11)
             rowValue += bitCol.bin()
         newRows.append(rowValue)
     return newRows
