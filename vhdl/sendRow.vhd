@@ -22,17 +22,23 @@ PORT(
 	startDecompression:INOUT std_logic;
 	ready:IN std_logic;
 	stop :OUT std_logic;
-	rowSize:INOUT integer:=1
-
+	rowSize            : INOUT INTEGER := 1;
+	extraBits   : IN INTEGER;
+	initialRowSize     : IN INTEGER;
+	splitSize          : IN INTEGER
 );
 
 END COMPONENT;
 
 signal currentIndex:integer:=0;
-signal data : std_logic_vector(15 DOWNTO 0);
+signal data : std_logic_vector(15 DOWNTO 0) := (others => '1');
 signal startDecompression:std_logic:='0';
-signal rowSignal : std_logic_vector(479 DOWNTO 0);
+signal rowSignal : std_logic_vector(479 DOWNTO 0):= (others => '1');
 signal rowSize:integer;
+SIGNAL tempRowSize        : INTEGER := 100;
+SIGNAL splitSize          : INTEGER := 100;
+SIGNAL initialRowSize     : INTEGER := 100;
+SIGNAL extraBits		: INTEGER := 100;
 BEGIN
 
 process(clk) is
@@ -44,23 +50,26 @@ end if;
 if(stop='0') then
 	if(ready='1' and currentIndex=1) then
 
-	rowSignal<=row;
-	rowSignal(31 DOWNTO 0 )<="00000000000000000000000000000000";
-	rowSignal<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 416 - to_integer(unsigned(row(15 DOWNTO 0)))));
-	rowSignal(479 DOWNTO 448)<= row(31 DOWNTO 0);
-	
+	initialRowSize <= to_integer(unsigned(row(15 DOWNTO 0)));
+	tempRowSize <= to_integer(unsigned(row(15 DOWNTO 0)));
+	splitSize <= to_integer(unsigned(row(31 DOWNTO 16)));
+	extraBits <= 16 - (initialRowSize MOD 16);
+	rowSignal <= row;
+	rowSignal <= STD_LOGIC_VECTOR(shift_right(unsigned(row), 32));
 	send<='0';
 	end if;
 	if(rising_edge(clk)) then
 	if(ready='1') then
-	data <= rowSignal(479 DOWNTO 464);
-	rowSignal <= rowSignal(463 DOWNTO 0) & "0000000000000000";
+	data <= rowSignal(15 DOWNTO 0);
+	rowSignal <= STD_LOGIC_VECTOR(shift_right(unsigned(rowSignal), 16));
 	currentIndex <= currentIndex+1;
+	tempRowSize  <= tempRowSize - 16;
 	end if;
-	if(currentIndex=30) then
+	if(currentIndex=30 OR tempRowSize <= 0) then
 	startDecompression<='1';
 	currentIndex<=0;
 	send<='1';
+	tempRowSize <= 100;
 	end if;
 
 	end if;
@@ -68,6 +77,6 @@ end if;
 end process ;
 
 
-sendIO:io port map (data,clk,startDecompression,ready,stop,rowSize);
+sendIO:io port map (data,clk,startDecompression,ready,stop,rowSize, extraBits, initialRowSize, splitSize);
 
 end  sendRow_ARCHITECTURE;

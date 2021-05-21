@@ -10,7 +10,10 @@ PORT(
 	startDecompression:IN std_logic;
 	ready:IN std_logic;
 	stop :OUT std_logic;
-	rowSize:INOUT integer:=1
+	rowSize:INOUT integer:=1;
+	extraBits   : IN INTEGER;
+	initialRowSize     : IN INTEGER;
+	splitSize          : IN INTEGER
 
 );
 
@@ -29,9 +32,9 @@ PORT(
 
 END COMPONENT;
 
-signal row:std_logic_vector(479 DOWNTO 0 );
+signal row:std_logic_vector(479 DOWNTO 0 ) := (others => '0');
 signal clk2:std_logic;
-signal splitSize:std_logic_vector(15 DOWNTO 0);
+signal test:integer := 0;
 signal splittedData:std_logic_vector(8 DOWNTO 0);
 BEGIN
 clk2<=not clk;
@@ -41,49 +44,48 @@ begin
 
 if(rising_edge(clk2) and ready='1' and startDecompression='0') then
 
-
-row <= row(463 DOWNTO 16) & cpuData & "0000000000000000";
-
+	test <= test + 1;
+	row <= STD_LOGIC_VECTOR(shift_right(unsigned(row), 16));
+	row(479 DOWNTO 464) <= cpuData;
 end if;
 
 if(rising_edge(startDecompression)) then
-   splitSize<=row(479 DOWNTO 464);
-   rowSize<=to_integer(unsigned(row(463 DOWNTO 448)));
-   row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 32));
+   rowSize<=initialRowSize;
+   row <= STD_LOGIC_VECTOR(shift_left(unsigned(row), extraBits));
 end if;
 
 
 if(rising_edge(clk2) and startDecompression='1') then
  	
-   if(to_integer(unsigned(splitSize))=1) then
+   if(splitSize=1) then
 	splittedData<= "00000000"&row(479);
 	row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 1));
-   elsif(to_integer(unsigned(splitSize))=2) then
+   elsif(splitSize=2) then
 	splittedData<= "0000000"&row(479 DOWNTO 478);
 	row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 2));
-   elsif(to_integer(unsigned(splitSize))=3) then
+   elsif(splitSize=3) then
 	splittedData<= "000000"&row(479 DOWNTO 477);
 	row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 3));
-   elsif(to_integer(unsigned(splitSize))=4) then
+   elsif(splitSize=4) then
 	splittedData<= "00000"&row(479 DOWNTO 476);
 	row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 4));
-   elsif(to_integer(unsigned(splitSize))=5) then
+   elsif(splitSize=5) then
 	splittedData<= "0000"&row(479 DOWNTO 475);
 	row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 5));
-   elsif(to_integer(unsigned(splitSize))=6) then
+   elsif(splitSize=6) then
 	splittedData<= "000"&row(479 DOWNTO 474);
 	row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 6));
-   elsif(to_integer(unsigned(splitSize))=7) then
+   elsif(splitSize=7) then
 	splittedData<= "00"&row(479 DOWNTO 473);
 	row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 7));
-   elsif(to_integer(unsigned(splitSize))=8) then
+   elsif(splitSize=8) then
 	splittedData<= "0"&row(479 DOWNTO 472);
 	row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 8));
-   elsif(to_integer(unsigned(splitSize))=9) then
+   elsif(splitSize=9) then
 	splittedData<= row(479 DOWNTO 471);
 	row<=STD_LOGIC_VECTOR(shift_left(unsigned(row), 9));
    end if; 
- 	rowSize<=rowSize-to_integer(unsigned(splitSize));
+ 	rowSize<=rowSize-splitSize;
 end if;
 end process;
 DecompressorIO:decompressor port map (splittedData,clk,startDecompression,stop);
