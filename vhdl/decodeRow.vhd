@@ -1,85 +1,83 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use std.textio.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE std.textio.ALL;
 USE IEEE.std_logic_unsigned.ALL;
 ENTITY decompressor IS
 
-PORT(
-	Data : IN std_logic_vector(8 DOWNTO 0);
-	clk : IN std_logic;
-	startDecompression:IN std_logic;
-	stop:OUT std_logic:='0'
-	
-	
-);
+	PORT (
+		Data               : IN STD_LOGIC_VECTOR(8 DOWNTO 0);
+		clk                : IN STD_LOGIC;
+		startDecompression : IN STD_LOGIC;
+		stop               : OUT STD_LOGIC := '0'
+	);
 
 END decompressor;
 ARCHITECTURE decompressor_ARCHITECTURE OF decompressor IS
-COMPONENT ram_Entity IS
+	COMPONENT ram_Entity IS
 
-PORT(
-	
-		clk : IN std_logic;
-		Address:IN integer;
-		DATAIN : IN  std_logic_vector(15 DOWNTO 0);
-		ReadWriteSignals:IN std_logic_vector(1 DOWNTO 0);
-		DATAOUT : OUT  std_logic_vector(15 DOWNTO 0)
-);
+		PORT (
+			clk              : IN STD_LOGIC;
+			Address          : IN INTEGER;
+			DATAIN           : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+			ReadWriteSignals : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+			DATAOUT          : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+		);
 
-END COMPONENT;
-	Signal rowImage:std_logic_vector(447 DOWNTO 0):=(others => '1');
-	Signal ZeroOne:std_logic:='0';
-	Signal address:integer:=0;
-	Signal startStoring:std_logic:='0';
-	Signal writeRam:std_logic_vector(1 DOWNTO 0):="00";
-	Signal ramData:std_logic_vector(15 DOWNTO 0);
-	Signal ramDataOut:std_logic_vector(15 DOWNTO 0);
-	Signal wasDecompressing:std_logic:='0';
-	Signal begining:std_logic:='1';
+	END COMPONENT;
 	
+	SIGNAL rowImage         : STD_LOGIC_VECTOR(447 DOWNTO 0) := (OTHERS => '1');
+	SIGNAL ZeroOne          : STD_LOGIC                      := '0';
+	SIGNAL address          : INTEGER                        := 0;
+	SIGNAL startStoring     : STD_LOGIC                      := '0';
+	SIGNAL writeRam         : STD_LOGIC_VECTOR(1 DOWNTO 0)   := "00";
+	SIGNAL ramData          : STD_LOGIC_VECTOR(15 DOWNTO 0);
+	SIGNAL ramDataOut       : STD_LOGIC_VECTOR(15 DOWNTO 0);
+	SIGNAL wasDecompressing : STD_LOGIC := '0';
+	SIGNAL begining         : STD_LOGIC := '1';
+
 BEGIN
 
---Code/Data = Number of zeros || Number of ones --
-ramData<=rowImage(447 DOWNTO 432);
-process(clk) is
-begin
-	if(startDecompression='1') then
-		wasDecompressing<='1';
-		stop<='1';
-	end if;
-	if(rising_edge(clk) and startDecompression='1') then
-		if(ZeroOne='0') then
-			rowImage<=STD_LOGIC_VECTOR(shift_left(unsigned(rowImage), to_integer(unsigned(Data))));
-			ZeroOne<='1';
-		else
-			rowImage<=STD_LOGIC_VECTOR(rotate_left(unsigned(rowImage), to_integer(unsigned(Data))));
-			ZeroOne<='0';
-		end if;
-	end if;
+	--Code/Data = Number of zeros || Number of ones --
+	ramData <= rowImage(447 DOWNTO 432);
+	PROCESS (clk) IS
+	BEGIN
+		IF (startDecompression = '1') THEN
+			wasDecompressing <= '1';
+			stop             <= '1';
+		END IF;
+		IF (rising_edge(clk) AND startDecompression = '1') THEN
+			IF (ZeroOne = '0') THEN
+				rowImage <= STD_LOGIC_VECTOR(shift_left(unsigned(rowImage), to_integer(unsigned(Data))));
+				ZeroOne  <= '1';
+			ELSE
+				rowImage <= STD_LOGIC_VECTOR(rotate_left(unsigned(rowImage), to_integer(unsigned(Data))));
+				ZeroOne  <= '0';
+			END IF;
+		END IF;
 
-	if(startDecompression ='0' and wasDecompressing='1') then
-		startStoring<='1';
-		wasDecompressing<='0';
-		begining<='1';
-	elsif(rising_edge(clk) and startStoring='1' and begining='0' and address mod 28 =0) then
-		stop<='0';
-		writeRam<="00";
-		startStoring<='0';
-		rowImage<=(others => '1');
-		ZeroOne<='0';
-	elsif(rising_edge(clk) and startStoring='1') then
-		writeRam<="10";
-		rowImage<=STD_LOGIC_VECTOR(shift_left(unsigned(rowImage),16));
-		begining<='0';
-	end if;
-	if(falling_edge(clk) and writeRam ="10" and startStoring='1') then
-		address<=address+1;
-		
-	end if;
-	
-end process;
+		IF (startDecompression = '0' AND wasDecompressing = '1') THEN
+			startStoring     <= '1';
+			wasDecompressing <= '0';
+			begining         <= '1';
+		ELSIF (rising_edge(clk) AND startStoring = '1' AND begining = '0' AND address MOD 28 = 0) THEN
+			stop         <= '0';
+			writeRam     <= "00";
+			startStoring <= '0';
+			rowImage     <= (OTHERS => '1');
+			ZeroOne      <= '0';
+		ELSIF (rising_edge(clk) AND startStoring = '1') THEN
+			writeRam <= "10";
+			rowImage <= STD_LOGIC_VECTOR(shift_left(unsigned(rowImage), 16));
+			begining <= '0';
+		END IF;
+		IF (falling_edge(clk) AND writeRam = "10" AND startStoring = '1') THEN
+			address <= address + 1;
 
-ram:ram_Entity port map (clk,address,ramData,writeRam,ramDataOut);
+		END IF;
 
-end  decompressor_ARCHITECTURE;
+	END PROCESS;
+
+	ram : ram_Entity PORT MAP(clk, address, ramData, writeRam, ramDataOut);
+
+END decompressor_ARCHITECTURE;
