@@ -3,7 +3,7 @@ module cpu(input clk ,input rst,input interrupt,input load_process,input cnn_ima
 integer  data_file ;
 integer  scan_file ; 
 reg [479:0]row ;
-reg ready;
+
 
 `define NULL 0    
 
@@ -18,9 +18,7 @@ end
 
 always @(load_process,posedge send) begin
 if(stop==0) begin
-  ready=0;
   scan_file = $fscanf(data_file, "%b\n", row);
-  ready = 1;
  end
 end
 
@@ -28,7 +26,7 @@ end
 sendRow sr(
    row,
    clk,
-   ready,
+   load_process,
    send,
    stop
 );

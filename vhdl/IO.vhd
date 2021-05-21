@@ -39,7 +39,7 @@ clk2<=not clk;
 process(clk2) is
 begin
 
-if(rising_edge(clk2) and ready='1') then
+if(rising_edge(clk2) and ready='1' and startDecompression='0') then
 
 
 row <= row(463 DOWNTO 16) & cpuData & "0000000000000000";

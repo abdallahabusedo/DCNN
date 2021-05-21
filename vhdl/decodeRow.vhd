@@ -36,10 +36,12 @@ END COMPONENT;
 	Signal ramData:std_logic_vector(15 DOWNTO 0);
 	Signal ramDataOut:std_logic_vector(15 DOWNTO 0);
 	Signal wasDecompressing:std_logic:='0';
+	Signal begining:std_logic:='1';
 	
 BEGIN
 
 --Code/Data = Number of zeros || Number of ones --
+ramData<=rowImage(447 DOWNTO 432);
 process(clk) is
 begin
 	if(startDecompression='1') then
@@ -55,21 +57,25 @@ begin
 			ZeroOne<='0';
 		end if;
 	end if;
-	if(address > 0 and address mod 28= 0) then
-		stop<='0';
+
+	if(startDecompression ='0' and wasDecompressing='1') then
+		startStoring<='1';
 		wasDecompressing<='0';
+		begining<='1';
+	elsif(rising_edge(clk) and startStoring='1' and begining='0' and address mod 28 =0) then
+		stop<='0';
+		writeRam<="00";
 		startStoring<='0';
 		rowImage<=(others => '1');
 		ZeroOne<='0';
-	end if;
-	if(startDecompression ='0' and wasDecompressing='1') then
-		startStoring<='1';
+	elsif(rising_edge(clk) and startStoring='1') then
 		writeRam<="10";
-	end if;
-	if(rising_edge(clk) and startStoring='1') then
-		ramData<=rowImage(447 DOWNTO 432);
 		rowImage<=STD_LOGIC_VECTOR(shift_left(unsigned(rowImage),16));
+		begining<='0';
+	end if;
+	if(falling_edge(clk) and writeRam ="10" and startStoring='1') then
 		address<=address+1;
+		
 	end if;
 	
 end process;
