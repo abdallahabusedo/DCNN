@@ -11,7 +11,7 @@ ENTITY io IS
 		ready              : IN STD_LOGIC;
 		stop               : OUT STD_LOGIC;
 		rowSize            : INOUT INTEGER := 1;
-		extraBits          : IN INTEGER;
+		extraBits          : IN INTEGER; -- Extra Zeros because the row is not divisible by 16 (They should be removed from the received data)
 		initialRowSize     : IN INTEGER;
 		splitSize          : IN INTEGER
 
@@ -35,7 +35,7 @@ ARCHITECTURE ioo OF io IS
 	SIGNAL clk2         : STD_LOGIC;
 	SIGNAL test         : INTEGER := 0;
 	SIGNAL splittedData : STD_LOGIC_VECTOR(8 DOWNTO 0);
-	
+
 BEGIN
 	clk2 <= NOT clk;
 
@@ -51,7 +51,7 @@ BEGIN
 
 		IF (rising_edge(startDecompression)) THEN
 			rowSize <= initialRowSize;
-			row     <= STD_LOGIC_VECTOR(shift_left(unsigned(row), extraBits));
+			row     <= STD_LOGIC_VECTOR(shift_left(unsigned(row), extraBits)); -- Removing Extra Zeros that exists because row is not divisible by 16
 		END IF;
 		IF (rising_edge(clk2) AND startDecompression = '1') THEN
 

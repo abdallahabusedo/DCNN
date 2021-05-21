@@ -24,7 +24,7 @@ ARCHITECTURE sendRow_ARCHITECTURE OF sendRow IS
 			ready              : IN STD_LOGIC;
 			stop               : OUT STD_LOGIC;
 			rowSize            : INOUT INTEGER := 1;
-			extraBits          : IN INTEGER;
+			extraBits          : IN INTEGER; -- Extra Zeros because the row is not divisible by 16 (They should be removed from the received data)
 			initialRowSize     : IN INTEGER;
 			splitSize          : IN INTEGER
 		);
@@ -55,7 +55,7 @@ BEGIN
 				initialRowSize <= to_integer(unsigned(row(15 DOWNTO 0)));
 				tempRowSize    <= to_integer(unsigned(row(15 DOWNTO 0)));
 				splitSize      <= to_integer(unsigned(row(31 DOWNTO 16)));
-				extraBits      <= 16 - (initialRowSize MOD 16);
+				extraBits      <= 16 - (initialRowSize MOD 16); -- Extra Zeros because the row is not divisible by 16 (They should be removed from the sent data)
 				rowSignal      <= row;
 				rowSignal      <= STD_LOGIC_VECTOR(shift_right(unsigned(row), 32));
 				send           <= '0';
