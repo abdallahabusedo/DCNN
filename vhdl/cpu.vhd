@@ -45,7 +45,7 @@ BEGIN
 	PROCESS (clk,loadCNN,cnnDataCLK) IS
 	BEGIN
 		--Now the data is ready so we can send it 16 bit by 16 bit to the io--
-		IF (rowSize        <= 0) THEN
+		IF (rowSize <= 0 and stop='1') THEN
 			startDecompression <= '0';
 		END IF;
 		IF(falling_edge(cnnDataCLK) and loadCNN='1') THEN

@@ -25,7 +25,7 @@ ARCHITECTURE RAM_Memory OF ram_Entity IS
 	
 	process(ActualClk) IS
 	Begin
-		if(falling_edge(ActualClk) and ReadWriteSignals = "10") then
+		if(rising_edge(ActualClk) and ReadWriteSignals = "10") then
 			ram(Address) <= DATAIN ;
 		end if;
 	End process;

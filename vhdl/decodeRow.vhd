@@ -55,6 +55,7 @@ BEGIN
 			startStoring     <= '1';
 			wasDecompressing <= '0';
 			begining         <= '1';
+			writeRamSignal <= "10";
 		ELSIF (rising_edge(clk) AND startStoring = '1' AND begining = '0' AND addressCounter MOD 28 = 0) THEN
 			stop         <= '0';
 			writeRamSignal     <= "00";
@@ -75,7 +76,9 @@ BEGIN
 	IF (falling_edge(loadCNN)) THEN
 		writeRamSignal <= "00";
 	END IF;
-
+	IF (rising_edge(clk) AND writeRamSignal = "10" AND addressCounter>0 AND addressCounter mod 28=0) THEN
+		writeRamSignal<="00";
+	END IF;
 	IF (falling_edge(clk) AND writeRamSignal = "10" AND (startStoring = '1' or loadCNN='1')) THEN
 		addressCounter <= addressCounter + 1;
 	END IF;

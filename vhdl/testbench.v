@@ -27,8 +27,8 @@ initial begin
   load_process = 1;
   cnn_image = 0;
 
-  data_file = $fopen("/home/menna/Downloads/vlsi_project/VLSI/vhdl/data.txt", "r");
-  image_file = $fopen("/home/menna/Downloads/vlsi_project/VLSI/vhdl/out.txt", "r");
+  data_file = $fopen("data.txt", "r");
+  image_file = $fopen("out.txt", "r");
   if (data_file == 0 || image_file == 0) begin
     $display("data_file handle was NULL");
     $finish;
@@ -66,7 +66,7 @@ if(cnn_image==1) begin
 end
 end
 
-cpu chip_cpu(
+cpu tb_cpu(
    row,
    cnnData,
    cnn_image,
@@ -87,7 +87,7 @@ cpu chip_cpu(
 
 );
 
-chip DCNN(
+chip tb_chip(
         load_process,
         cnn_image,
 	clk,
