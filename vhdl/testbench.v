@@ -1,4 +1,4 @@
-module tb(input rst,input interrupt,output done,input send);
+module tb(input rst,input interrupt,output done,input send,input stop);
 
 integer  image_file ;
 integer  data_file ;
@@ -20,12 +20,13 @@ integer counter =0;
 reg load_process;
 reg cnn_image;
 reg clk;
-reg stop;
+// reg reg_stop;
+
 
 initial begin
   load_process = 1;
-  stop = 0;
   cnn_image = 0;
+
   data_file = $fopen("/home/menna/Downloads/vlsi_project/VLSI/vhdl/data.txt", "r");
   image_file = $fopen("/home/menna/Downloads/vlsi_project/VLSI/vhdl/out.txt", "r");
   if (data_file == 0 || image_file == 0) begin
@@ -35,21 +36,20 @@ initial begin
 end
 
 always begin
-    clk = 1'b1; 
-    #20; // high for 20 * timescale = 20 ns
-
     clk = 1'b0;
-    #20; // low for 20 * timescale = 20 ns
+    #50; // low for 20 * timescale = 20 ns
+
+    clk = 1'b1; 
+    #50; // high for 20 * timescale = 20 ns
 end
 
 
 always @(posedge load_process,posedge send) begin
+// reg_stop = stop;
 if(stop==0 && cnn_image==0) begin
   counter = counter + 1;
   if(counter == 29) begin
     cnn_image = 1;
-  //else
-   
   end 
  scan_file = $fscanf(image_file, "%b\n", row);
  end
@@ -76,7 +76,6 @@ cpu chip_cpu(
    send,
    stop,
 
-
    data,
    startDecompression,
 
@@ -93,9 +92,8 @@ chip DCNN(
         cnn_image,
 	clk,
 	send,
-	stop,  //io  
-
-	data, //cpu
+	stop,           //io  
+	data,           //cpu
 	startDecompression, //--cpu
 	rowSize,            // to cpu
 	extraBits,          //  --cpu

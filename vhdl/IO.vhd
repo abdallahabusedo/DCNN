@@ -9,11 +9,10 @@ ENTITY io IS
 		clk                : IN STD_LOGIC;
 		startDecompression : IN STD_LOGIC;
 		ready              : IN STD_LOGIC;
-		stop               : OUT STD_LOGIC;
 		rowSize            : OUT INTEGER;
-		extraBits          : IN INTEGER; -- Extra Zeros because the row is not divisible by 16 (They should be removed from the received data)
-		initialRowSize     : IN INTEGER;
-		splitSize          : IN INTEGER;
+		extraBits          : IN INTEGER := 100; -- Extra Zeros because the row is not divisible by 16 (They should be removed from the received data)
+		initialRowSize     : IN INTEGER := 100;
+		splitSize          : IN INTEGER := 100;
 		loadCNN		   : IN STD_LOGIC;
 		splittedData       : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
 

@@ -16,12 +16,15 @@ ENTITY cpu IS
 		data  : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
 		startDecompression : OUT STD_LOGIC := '0';
 
-		rowSize_vec                : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+		rowSize_vec                : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ;
 
-		extraBits_vec              : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) ;   --cpu
+		extraBits_vec              : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+		--:= (others => '1');   --cpu
 		initialRowSize             : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) ;
+		--:= (others => '1');
 		--:= "0000100000000000";   --cpu
-		splitSize                  : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)  --cpu
+		splitSize                  : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) 
+		--:= (others => '1') --cpu
 
 	);
 

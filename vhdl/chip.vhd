@@ -11,14 +11,14 @@ ENTITY chip IS
 		clk   : IN STD_LOGIC;                     --testbench
 		send  : IN STD_LOGIC;                     --cpu
 
-		stop  : OUT STD_LOGIC;                  --io 
+		stop  : OUT STD_LOGIC ;                  --io 
 
 		data  : IN STD_LOGIC_VECTOR(15 DOWNTO 0); --cpu
 		startDecompression : IN STD_LOGIC := '0'; --cpu
 		rowSize_vec            : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);         -- to cpu
-		extraBits_vec          : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ;   --cpu
-		initialRowSize_vec     : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ;   --cpu
-		splitSize_vec          : IN STD_LOGIC_VECTOR(15 DOWNTO 0)   --cpu
+		extraBits_vec          : IN STD_LOGIC_VECTOR(15 DOWNTO 0);  --cpu
+		initialRowSize_vec     : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ; --cpu
+		splitSize_vec          : IN STD_LOGIC_VECTOR(15 DOWNTO 0)  --cpu
 	);
 
 END chip;
@@ -32,13 +32,13 @@ ARCHITECTURE chip_ARCHITECTURE OF chip IS
             cnn_image          : IN STD_LOGIC;
 
             --memory wires
-            address              : OUT INTEGER;
+            address              : OUT INTEGER :=0;
             ramDataIn            : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
             writeRam             : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
 
             startDecompression : IN std_logic;
             ready              : IN STD_LOGIC;
-            stop               : OUT std_logic;
+            stop               : OUT std_logic ;
             rowSize            : OUT INTEGER := 1;
 
             ---
@@ -64,17 +64,19 @@ ARCHITECTURE chip_ARCHITECTURE OF chip IS
 	SIGNAL address            : INTEGER;
 	SIGNAL ramDataIn          : STD_LOGIC_VECTOR(15 DOWNTO 0) ;
 	SIGNAL writeRam           : STD_LOGIC_VECTOR(1 DOWNTO 0);
-        SIGNAL ramDataOUT         : STD_LOGIC_VECTOR(15 DOWNTO 0) ;
+    SIGNAL ramDataOUT         : STD_LOGIC_VECTOR(15 DOWNTO 0) ;
 	SIGNAL extraBits          : INTEGER;
 	SIGNAL initialRowSize     : INTEGER;
 	SIGNAL splitSize          : INTEGER;
 	SIGNAL rowSize            : INTEGER;
+  --  SIGNAL stop_signal        : STD_LOGIC;              
 	 
 BEGIN
    extraBits <= to_integer(unsigned(extraBits_vec));
    initialRowSize <= to_integer(unsigned( initialRowSize_vec));
    splitSize <= to_integer(unsigned( splitSize_vec));
    rowSize_vec <= std_logic_vector(to_unsigned(rowSize, 16));
+   -- stop <= stop_signal;
 
    sendIO : io_module PORT MAP(data,clk, loadCNN,
 	 address,ramDataIn,writeRam,

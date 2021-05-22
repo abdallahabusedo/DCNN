@@ -22,6 +22,7 @@ ARCHITECTURE RAM_Memory OF ram_Entity IS
 	SIGNAL ActualClk:std_logic;
 	BEGIN
 	ActualClk<=not clk;
+	
 	process(ActualClk) IS
 	Begin
 		if(falling_edge(ActualClk) and ReadWriteSignals = "10") then

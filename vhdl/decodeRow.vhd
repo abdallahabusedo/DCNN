@@ -11,7 +11,7 @@ ENTITY decompressor IS
 		startDecompression : IN STD_LOGIC;
 		stop               : OUT STD_LOGIC := '0';
 		loadCNN  	       : IN STD_LOGIC ;
-		address            : OUT INTEGER;
+		address            : OUT INTEGER := 0;
 		ramDataIn          : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
 		writeRam           : OUT STD_LOGIC_VECTOR(1 DOWNTO 0)
 
@@ -30,6 +30,7 @@ ARCHITECTURE decompressor_ARCHITECTURE OF decompressor IS
 
 BEGIN
 	writeRam <= writeRamSignal;
+	address <= addressCounter;
 	--Code/Data = Number of zeros || Number of ones --
 	ramDataIn <= rowImage(447 DOWNTO 432) when loadCNN='0'
 		   ELSE Data ;					
@@ -61,24 +62,22 @@ BEGIN
 			rowImage     <= (OTHERS => '1');
 			ZeroOne      <= '0';
 		ELSIF (rising_edge(clk) AND startStoring = '1') THEN
-			writeRam <= "10";
+			writeRamSignal <= "10";
 			rowImage <= STD_LOGIC_VECTOR(shift_left(unsigned(rowImage), 16));
 			begining <= '0';
 		END IF;
 
 	END IF;
 	IF (rising_edge(clk) AND loadCNN = '1') THEN
-		writeRam <= "10";
+		writeRamSignal <= "10";
 			
 	END IF;
 	IF (falling_edge(loadCNN)) THEN
-		writeRam <= "00";
+		writeRamSignal <= "00";
 	END IF;
 
 	IF (falling_edge(clk) AND writeRamSignal = "10" AND (startStoring = '1' or loadCNN='1')) THEN
 		addressCounter <= addressCounter + 1;
-		address <= addressCounter;
-
 	END IF;
 
 	END PROCESS;
