@@ -6,10 +6,11 @@ USE IEEE.std_logic_unsigned.ALL;
 ENTITY decompressor IS
 
 	PORT (
-		Data               : IN STD_LOGIC_VECTOR(8 DOWNTO 0);
+		Data               : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
 		clk                : IN STD_LOGIC;
 		startDecompression : IN STD_LOGIC;
-		stop               : OUT STD_LOGIC := '0'
+		stop               : OUT STD_LOGIC := '0';
+		loadCNN  	   : IN STD_LOGIC 
 	);
 
 END decompressor;
@@ -39,9 +40,11 @@ ARCHITECTURE decompressor_ARCHITECTURE OF decompressor IS
 BEGIN
 
 	--Code/Data = Number of zeros || Number of ones --
-	ramData <= rowImage(447 DOWNTO 432);
-	PROCESS (clk) IS
+	ramData <= rowImage(447 DOWNTO 432) when loadCNN='0'
+		   ELSE Data ;					
+	PROCESS (clk,loadCNN) IS
 	BEGIN
+	IF(loadCNN='0') THEN
 		IF (startDecompression = '1') THEN
 			wasDecompressing <= '1';
 			stop             <= '1';
@@ -71,10 +74,20 @@ BEGIN
 			rowImage <= STD_LOGIC_VECTOR(shift_left(unsigned(rowImage), 16));
 			begining <= '0';
 		END IF;
-		IF (falling_edge(clk) AND writeRam = "10" AND startStoring = '1') THEN
-			address <= address + 1;
 
-		END IF;
+	END IF;
+	IF (rising_edge(clk) AND loadCNN = '1') THEN
+		writeRam <= "10";
+			
+	END IF;
+	IF (falling_edge(loadCNN)) THEN
+		writeRam <= "00";
+	END IF;
+
+	IF (falling_edge(clk) AND writeRam = "10" AND (startStoring = '1' or loadCNN='1')) THEN
+		address <= address + 1;
+
+	END IF;
 
 	END PROCESS;
 

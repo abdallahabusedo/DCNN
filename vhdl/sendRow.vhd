@@ -7,6 +7,8 @@ ENTITY sendRow IS
 
 	PORT (
 		row   : IN STD_LOGIC_VECTOR(479 DOWNTO 0);
+		cnnData:IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+		loadCNN:IN STD_LOGIC;
 		clk   : IN STD_LOGIC;
 		ready : IN STD_LOGIC;
 		send  : OUT STD_LOGIC;
@@ -18,21 +20,23 @@ END sendRow;
 ARCHITECTURE sendRow_ARCHITECTURE OF sendRow IS
 	COMPONENT io IS
 		PORT (
-			cpuData            : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-			clk                : IN STD_LOGIC;
-			startDecompression : INOUT STD_LOGIC;
-			ready              : IN STD_LOGIC;
-			stop               : OUT STD_LOGIC;
-			rowSize            : INOUT INTEGER := 1;
-			extraBits          : IN INTEGER; -- Extra Zeros because the row is not divisible by 16 (They should be removed from the received data)
-			initialRowSize     : IN INTEGER;
-			splitSize          : IN INTEGER
+		cpuData            : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+		clk                : IN STD_LOGIC;
+		startDecompression : IN STD_LOGIC;
+		ready              : IN STD_LOGIC;
+		stop               : OUT STD_LOGIC;
+		rowSize            : INOUT INTEGER := 1;
+		extraBits          : IN INTEGER; -- Extra Zeros because the row is not divisible by 16 (They should be removed from the received data)
+		initialRowSize     : IN INTEGER;
+		splitSize          : IN INTEGER;
+		loadCNN		   : IN STD_LOGIC
+		
 		);
 
 	END COMPONENT;
 
 	SIGNAL currentIndex       : INTEGER                        := 0;
-	SIGNAL data               : STD_LOGIC_VECTOR(15 DOWNTO 0)  := (OTHERS => '1');
+	SIGNAL data               : STD_LOGIC_VECTOR(15 DOWNTO 0) ;
 	SIGNAL startDecompression : STD_LOGIC                      := '0';
 	SIGNAL rowSignal          : STD_LOGIC_VECTOR(479 DOWNTO 0) := (OTHERS => '1');
 	SIGNAL rowSize            : INTEGER;
@@ -40,16 +44,19 @@ ARCHITECTURE sendRow_ARCHITECTURE OF sendRow IS
 	SIGNAL splitSize          : INTEGER := 100;
 	SIGNAL initialRowSize     : INTEGER := 100;
 	SIGNAL extraBits          : INTEGER := 100;
-
+	SIGNAL cnnDataCLK	: std_logic;
 BEGIN
-
-	PROCESS (clk) IS
+	cnnDataCLK<=not clk;
+	PROCESS (clk,loadCNN,cnnDataCLK) IS
 	BEGIN
 		--Now the data is ready so we can send it 16 bit by 16 bit to the io--
 		IF (rowSize        <= 0) THEN
 			startDecompression <= '0';
 		END IF;
-		IF (stop = '0') THEN
+		IF(falling_edge(cnnDataCLK) and loadCNN='1') THEN
+			data<=cnnData;
+		END IF;
+		IF (stop = '0' and loadCNN='0') THEN
 			IF (ready = '1' AND currentIndex = 1) THEN
 
 				initialRowSize <= to_integer(unsigned(row(15 DOWNTO 0)));
@@ -77,6 +84,6 @@ BEGIN
 			END IF;
 		END IF;
 	END PROCESS;
-	sendIO : io PORT MAP(data, clk, startDecompression, ready, stop, rowSize, extraBits, initialRowSize, splitSize);
+	sendIO : io PORT MAP(data, clk, startDecompression, ready, stop, rowSize, extraBits, initialRowSize, splitSize,loadCNN);
 
 END sendRow_ARCHITECTURE;

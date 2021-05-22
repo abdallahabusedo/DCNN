@@ -17,7 +17,7 @@ END ram_Entity;
 
 ARCHITECTURE RAM_Memory OF ram_Entity IS
 
-	TYPE ram_type IS ARRAY(0 TO 1999) OF std_logic_vector(15 DOWNTO 0);
+	TYPE ram_type IS ARRAY(0 TO 63999) OF std_logic_vector(15 DOWNTO 0);
 	SIGNAL ram : ram_type ;
 	SIGNAL ActualClk:std_logic;
 	BEGIN
