@@ -3,33 +3,41 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 USE std.textio.ALL;
 
-ENTITY io IS
+ENTITY io_module IS
 	PORT (
-		cpuData            : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-		clk                : IN STD_LOGIC;
-		startDecompression : IN STD_LOGIC;
-		ready              : IN STD_LOGIC;
-		stop               : OUT STD_LOGIC;
-		rowSize            : OUT INTEGER;
-		extraBits          : IN INTEGER; -- Extra Zeros because the row is not divisible by 16 (They should be removed from the received data)
-		initialRowSize     : IN INTEGER;
-		splitSize          : IN INTEGER;
-		loadCNN		   : IN STD_LOGIC;
-		splittedData       : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+		DIN                : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+		DOUT               : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+		CLK                : IN STD_LOGIC;
+		Load_Process       : IN STD_LOGIC;
+		CNN_IMAGE          : IN STD_LOGIC;
+		done               : OUT STD_LOGIC;
+		RESULT_DONE        : IN STD_LOGIC;
+		RESULT             : IN STD_LOGIC_VECTOR(15 DOWNTO 0)
 
 	);
 
-END io;
+END io_module;
 
-ARCHITECTURE ioo OF io IS
+ARCHITECTURE io_module_arch OF io_module IS
+	COMPONENT decompressor IS
+
+		PORT (
+			Data               : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+			clk                : IN STD_LOGIC;
+			startDecompression : IN STD_LOGIC;
+			stop               : OUT STD_LOGIC := '0';
+			loadCNN  	   : IN STD_LOGIC 
+		);
+
+	END COMPONENT;
 
 	SIGNAL row          : STD_LOGIC_VECTOR(479 DOWNTO 0) := (OTHERS => '0');
 	SIGNAL clk2         : STD_LOGIC;
-	SIGNAL rowSizeSignal: INTEGER := 1;
-	 
+	
+	SIGNAL splittedData : STD_LOGIC_VECTOR(15 DOWNTO 0);
+
 BEGIN
 	clk2 <= NOT clk;
-	rowSize <= rowSizeSignal;
 	
 	PROCESS (clk2,clk,loadCNN) IS
 	BEGIN
@@ -37,12 +45,13 @@ BEGIN
 		splittedData<=cpuData;
 	ELSE 
 		IF (rising_edge(clk2) AND ready = '1' AND startDecompression = '0') THEN
+
 			row                 <= STD_LOGIC_VECTOR(shift_right(unsigned(row), 16));
 			row(479 DOWNTO 464) <= cpuData;
 		END IF;
 
 		IF (rising_edge(startDecompression)) THEN
-			rowSizeSignal <= initialRowSize;
+			rowSize <= initialRowSize;
 			row     <= STD_LOGIC_VECTOR(shift_left(unsigned(row), extraBits)); -- Removing Extra Zeros that exists because row is not divisible by 16
 		END IF;
 		IF (rising_edge(clk2) AND startDecompression = '1') THEN
@@ -75,9 +84,9 @@ BEGIN
 				splittedData <= "0000000" & row(479 DOWNTO 471);
 				row          <= STD_LOGIC_VECTOR(shift_left(unsigned(row), 9));
 			END IF;
-			rowSizeSignal <= rowSizeSignal - splitSize;
+			rowSize <= rowSize - splitSize;
 		END IF;
 	END IF;
 	END PROCESS;
-	
+	DecompressorIO : decompressor PORT MAP(splittedData, clk, startDecompression, stop,loadCNN);
 END ioo;

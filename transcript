@@ -1,0 +1,854 @@
+# Loading project VLSI_IO
+# Compile of cpu.v was successful.
+# Compile of decodeRow.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of sendRow.vhd was successful.
+# 5 compiles, 0 failed with no errors.
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 12:19:07 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave sim:/cpu/*
+add wave -r /*
+quit -sim
+# End time: 12:19:48 on May 22,2021, Elapsed time: 0:00:41
+# Errors: 0, Warnings: 6
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 12:20:06 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+force -freeze sim:/cpu/clk 0 0, 1 {50 ps} -r 100
+force -freeze sim:/cpu/cnn_image 1 0
+force -freeze sim:/cpu/load_process 1 0
+run
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "data.txt" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v(14)
+#    Time: 0 ps  Iteration: 0  Instance: /cpu
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "out.txt" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v(15)
+#    Time: 0 ps  Iteration: 0  Instance: /cpu
+# data_file handle was NULL
+# ** Note: $finish    : /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v(18)
+#    Time: 0 ps  Iteration: 0  Instance: /cpu
+# 1
+# Break in Module cpu at /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v line 18
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 50 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 150 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 250 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 350 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 450 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 550 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 650 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 750 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 850 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+run
+# ** Error (suppressible): (vsim-PLI-3084) $fscanf : Argument 1 is not a valid file descriptor.
+#    Time: 950 ps  Iteration: 0  Process: /cpu/#ALWAYS#28 File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v Line: 30
+force -freeze sim:/cpu/cnn_image 1 0
+quit -sim
+# End time: 12:27:02 on May 22,2021, Elapsed time: 0:06:56
+# Errors: 10, Warnings: 3
+# Compile of cpu.v was successful.
+# Compile of decodeRow.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of sendRow.vhd was successful.
+# 5 compiles, 0 failed with no errors.
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 12:33:11 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+run
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "data.txt" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v(14)
+#    Time: 0 ps  Iteration: 0  Instance: /cpu
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "out.txt" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v(15)
+#    Time: 0 ps  Iteration: 0  Instance: /cpu
+# data_file handle was NULL
+# ** Note: $finish    : /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v(18)
+#    Time: 0 ps  Iteration: 0  Instance: /cpu
+# 1
+# Break in Module cpu at /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v line 18
+quit -sim
+# End time: 12:34:51 on May 22,2021, Elapsed time: 0:01:40
+# Errors: 0, Warnings: 4
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 12:35:33 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "data.txt" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v(14)
+#    Time: 0 ps  Iteration: 0  Instance: /cpu
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "out.txt" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v(15)
+#    Time: 0 ps  Iteration: 0  Instance: /cpu
+# data_file handle was NULL
+# ** Note: $finish    : /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v(18)
+#    Time: 0 ps  Iteration: 0  Instance: /cpu
+# 1
+# Break in Module cpu at /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.v line 18
+quit -sim
+# End time: 12:37:15 on May 22,2021, Elapsed time: 0:01:42
+# Errors: 0, Warnings: 4
+# Compile of cpu.v was successful.
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 12:37:47 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+vsim work.cpu
+# End time: 12:38:49 on May 22,2021, Elapsed time: 0:01:02
+# Errors: 0, Warnings: 2
+# vsim work.cpu 
+# Start time: 12:38:49 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -position insertpoint  \
+sim:/cpu/clk \
+sim:/cpu/rst \
+sim:/cpu/interrupt \
+sim:/cpu/load_process \
+sim:/cpu/cnn_image \
+sim:/cpu/done \
+sim:/cpu/send \
+sim:/cpu/stop \
+sim:/cpu/image_file \
+sim:/cpu/data_file \
+sim:/cpu/scan_file \
+sim:/cpu/scan_file_data \
+sim:/cpu/row \
+sim:/cpu/cnnData
+force -freeze sim:/cpu/load_process 1 0
+force -freeze sim:/cpu/cnn_image 1 0
+run
+run
+run
+quit -sim
+# End time: 12:41:17 on May 22,2021, Elapsed time: 0:02:28
+# Errors: 0, Warnings: 1
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 12:43:32 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+force -freeze sim:/cpu/clk 0 0, 1 {50 ps} -r 100
+force -freeze sim:/cpu/cnn_image 1 0
+force -freeze sim:/cpu/load_process 1 0
+run
+run
+run
+quit -sim
+# End time: 12:45:09 on May 22,2021, Elapsed time: 0:01:37
+# Errors: 0, Warnings: 1
+# Compile of cpu.v was successful.
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 12:46:42 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+force -freeze sim:/cpu/clk 0 0, 1 {50 ps} -r 100
+force -freeze sim:/cpu/load_process 1 0
+force -freeze sim:/cpu/cnn_image 1 0
+run
+run
+run
+quit -sim
+# End time: 12:54:07 on May 22,2021, Elapsed time: 0:07:25
+# Errors: 0, Warnings: 2
+# Compile of sendRow.vhd was successful.
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 12:54:30 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+force -freeze sim:/cpu/clk 0 0, 1 {50 ps} -r 100
+force -freeze sim:/cpu/cnn_image 1 0
+force -freeze sim:/cpu/load_process 1 0
+run
+run
+run
+run
+# Ctrl+G  ==>  Goto
+# Ctrl+H  ==>  Replace
+# Ctrl+U  ==>  Delete Line
+# Ctrl+W  ==>  Add Selection To Wave
+quit -sim
+# End time: 12:56:36 on May 22,2021, Elapsed time: 0:02:06
+# Errors: 0, Warnings: 2
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 13:10:20 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+quit -sim
+# End time: 13:10:42 on May 22,2021, Elapsed time: 0:00:22
+# Errors: 0, Warnings: 1
+# Compile of sendRow.vhd was successful.
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 13:11:41 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+force -freeze sim:/cpu/clk 0 0, 1 {50 ps} -r 100
+force -freeze sim:/cpu/load_process 1 0
+force -freeze sim:/cpu/cnn_image 1 0
+run
+run
+run
+run
+quit -sim
+# End time: 13:18:26 on May 22,2021, Elapsed time: 0:06:45
+# Errors: 0, Warnings: 2
+# Compile of IO.vhd was successful.
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 13:18:55 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+force -freeze sim:/cpu/clk 0 0, 1 {50 ps} -r 100
+force -freeze sim:/cpu/load_process 1 0
+force -freeze sim:/cpu/cnn_image 1 0
+run
+run
+quit -sim
+# End time: 13:20:49 on May 22,2021, Elapsed time: 0:01:54
+# Errors: 0, Warnings: 2
+# Compile of IO.vhd failed with 2 errors.
+# Compile of IO.vhd was successful.
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 13:21:49 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+force -freeze sim:/cpu/clk 0 0, 1 {50 ps} -r 100
+force -freeze sim:/cpu/load_process 1 0
+force -freeze sim:/cpu/cnn_image 1 0
+run
+quit -sim
+# End time: 13:22:52 on May 22,2021, Elapsed time: 0:01:03
+# Errors: 0, Warnings: 3
+# Compile of cpu.v failed with 2 errors.
+# Compile of decodeRow.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of sendRow.vhd was successful.
+# 5 compiles, 1 failed with 2 errors.
+# Compile of cpu.v was successful.
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 13:37:05 on May 22,2021
+# Loading work.cpu
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.sendrow(sendrow_architecture)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -position insertpoint sim:/cpu/*
+add wave -r /*
+force -freeze sim:/cpu/load_process 1 0
+run
+run 1000
+run -continue
+run -continue
+run -continue
+run -continue
+run -continue
+quit -sim
+# End time: 13:56:26 on May 22,2021, Elapsed time: 0:19:21
+# Errors: 0, Warnings: 3
+# Compile of cpu.v was successful.
+# reading /home/menna/intelFPGA_pro/21.1/modelsim_ase/linuxaloem/../modelsim.ini
+# Loading project VLSI_IO2
+# reading /home/menna/intelFPGA_pro/21.1/modelsim_ase/linuxaloem/../modelsim.ini
+# Loading project VLSi_io2
+# Compile of chip.vhd failed with 7 errors.
+# Compile of cpu.vhd failed with 1 errors.
+# Compile of IO.vhd failed with 3 errors.
+# Compile of IO_MODULE.vhd failed with 3 errors.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v failed with 2 errors.
+# Compile of decodeRow.vhd failed with 6 errors.
+# 7 compiles, 6 failed with 22 errors.
+# Compile of cpu.vhd failed with 1 errors.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of decodeRow.vhd failed with 3 errors.
+# Compile of decodeRow.vhd failed with 1 errors.
+# Compile of decodeRow.vhd was successful.
+# Compile of IO_MODULE.vhd failed with 4 errors.
+# Compile of IO_MODULE.vhd failed with 1 errors.
+# Compile of IO_MODULE.vhd failed with 4 errors.
+# Compile of IO_MODULE.vhd failed with 2 errors.
+# Compile of IO_MODULE.vhd failed with 1 errors.
+# Compile of IO_MODULE.vhd failed with 1 errors.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of chip.vhd failed with 7 errors.
+# Compile of testbench.v failed with 2 errors.
+# Compile of testbench.v failed with 5 errors.
+# Compile of testbench.v was successful.
+# Compile of chip.vhd failed with 3 errors.
+# Compile of chip.vhd failed with 2 errors.
+# Compile of testbench.v was successful.
+# Compile of chip.vhd failed with 1 errors.
+# Compile of IO_MODULE.vhd failed with 1 errors.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of chip.vhd was successful.
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 17:52:19 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3364) Illegal Verilog connection (11th) for VHDL output port 'extraBits'.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd Line: 21
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 17:52:19 on May 22,2021, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 40
+# Compile of cpu.vhd was successful.
+# Compile of testbench.v was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 17:59:39 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Warning: (vsim-8437) The range of the connected VHDL signal 'extraBits' is incompatible with the range of its Verilog connection (11th connection).
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v Line: 66
+# ** Warning: (vsim-8437) The range of the connected VHDL signal 'initialRowSize' is incompatible with the range of its Verilog connection (12th connection).
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v Line: 66
+# ** Warning: (vsim-8437) The range of the connected VHDL signal 'splitSize' is incompatible with the range of its Verilog connection (13th connection).
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v Line: 66
+# ** Warning: (vsim-8437) The range of the connected VHDL signal 'rowSize' is incompatible with the range of its Verilog connection (8th connection).
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v Line: 88
+# ** Fatal: (vsim-3808) Incompatible modes for port "address".
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN/sendIO File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd Line: 73
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 17:59:39 on May 22,2021, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 7
+# Compile of chip.vhd failed with 1 errors.
+# Compile of chip.vhd failed with 3 errors.
+# Compile of chip.vhd failed with 2 errors.
+# Compile of chip.vhd failed with 1 errors.
+# Compile of chip.vhd was successful.
+# Compile of chip.vhd was successful.
+# Compile of chip.vhd failed with 1 errors.
+# Compile of cpu.vhd failed with 7 errors.
+# Compile of cpu.vhd failed with 2 errors.
+# Compile of cpu.vhd was successful.
+# Compile of chip.vhd was successful.
+# Compile of testbench.v was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 18:41:42 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3808) Incompatible modes for port "address".
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN/sendIO File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd Line: 80
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 18:41:43 on May 22,2021, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 13
+# Compile of ram.vhd was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 18:43:48 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3808) Incompatible modes for port "address".
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN/sendIO File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd Line: 80
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 18:43:48 on May 22,2021, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 2
+# Compile of ram.vhd was successful.
+# Compile of chip.vhd failed with 1 errors.
+# Compile of chip.vhd failed with 1 errors.
+# Compile of decodeRow.vhd failed with 4 errors.
+# Compile of decodeRow.vhd failed with 2 errors.
+# Compile of decodeRow.vhd failed with 1 errors.
+# Compile of decodeRow.vhd was successful.
+# Compile of chip.vhd was successful.
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd failed with 1 errors.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 1 failed with 1 error.
+# Compile of IO_MODULE.vhd was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 20:08:17 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3808) Incompatible modes for port "writeRam".
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN/sendIO File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd Line: 80
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 20:08:17 on May 22,2021, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 11
+# Compile of decodeRow.vhd failed with 1 errors.
+# Compile of decodeRow.vhd was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 20:16:48 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3808) Incompatible modes for port "writeRam".
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN/sendIO File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd Line: 80
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 20:16:48 on May 22,2021, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 3
+# Compile of IO_MODULE.vhd was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 20:19:08 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3808) Incompatible modes for port "stop".
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN/sendIO File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd Line: 81
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 20:19:08 on May 22,2021, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 2
+# Compile of cpu.vhd was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 20:23:51 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3808) Incompatible modes for port "stop".
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN/sendIO File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd Line: 81
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 20:23:52 on May 22,2021, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 2
+# Compile of cpu.vhd was successful.
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 20:30:46 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3808) Incompatible modes for port "rowSize".
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN/sendIO/io_interface File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd Line: 72
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 20:30:46 on May 22,2021, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 3
+# Compile of IO.vhd was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 20:36:04 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Warning: (vsim-8683) Uninitialized out port /tb/DCNN/sendIO/io_interface/stop has no driver.
+# This port will contribute value (U) to the signal network.
+add wave -r /*
+run 1000
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+quit -sim
+# End time: 20:42:50 on May 22,2021, Elapsed time: 0:06:46
+# Errors: 2, Warnings: 7
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 20:43:29 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Warning: (vsim-8683) Uninitialized out port /tb/DCNN/sendIO/io_interface/stop has no driver.
+# This port will contribute value (U) to the signal network.
+add wave -r /*
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+quit -sim
+# End time: 20:47:34 on May 22,2021, Elapsed time: 0:04:05
+# Errors: 2, Warnings: 7
+# Compile of testbench.v was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 20:48:05 on May 22,2021
+# Loading work.tb
+add wave -r /*
+add wave -r /*
+run
+quit -sim
+# End time: 20:50:18 on May 22,2021, Elapsed time: 0:02:13
+# Errors: 0, Warnings: 2
+# Compile of testbench.v was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 20:54:39 on May 22,2021
+# Loading work.tb
+add wave -r /*
+run
+run
+force -freeze sim:/tb/load_process 0 0
+run
+force -freeze sim:/tb/load_process 1 0
+run
+force -freeze sim:/tb/cnn_image 0 0
+run
+force -freeze sim:/tb/load_process 0 0
+run
+force -freeze sim:/tb/load_process 1 0
+run
+quit -sim
+# End time: 21:02:30 on May 22,2021, Elapsed time: 0:07:51
+# Errors: 0, Warnings: 2
+# Compile of testbench.v was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 21:02:59 on May 22,2021
+# Loading work.tb
+add wave -r /*
+run
+run
+quit -sim
+# End time: 21:03:48 on May 22,2021, Elapsed time: 0:00:49
+# Errors: 0, Warnings: 2
+# Compile of testbench.v was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 21:04:24 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3364) Illegal Verilog connection (5th) for VHDL output port 'stop'.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd Line: 14
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 21:04:25 on May 22,2021, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 2

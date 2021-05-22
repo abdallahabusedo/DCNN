@@ -1,0 +1,352 @@
+m255
+K4
+z2
+!s11e MIXED_VERSIONS
+!s11f vlog 2021.1 2021.02, Feb  2 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+d/home/menna/intelFPGA_pro/21.1/modelsim_ase/linuxaloem
+Echip
+Z0 w1621708957
+Z1 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z2 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+Z3 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z4 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z5 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 100
+Z6 d/home/menna/Downloads/vlsi_project/VLSI
+Z7 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd
+Z8 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd
+l0
+L6 1
+VDC:_HCRbOQ:FUJXMA@gmS3
+!s100 IJe^^>6ZLJ]2YVjmMn8Lg1
+Z9 OV;C;2021.1;73
+32
+Z10 !s110 1621708977
+!i10b 1
+Z11 !s108 1621708977.000000
+Z12 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd|
+Z13 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd|
+!i113 1
+Z14 o-work work -2002 -explicit
+Z15 tExplicit 1 CvgOpt 0
+Achip_architecture
+R1
+R2
+R3
+R4
+R5
+DEx4 work 4 chip 0 22 DC:_HCRbOQ:FUJXMA@gmS3
+!i122 100
+l73
+L26 62
+V01Q@4odmPSlTQ?]O;kH790
+!s100 L:k>NZ_Wm<@2jm^VnzPg83
+R9
+32
+R10
+!i10b 1
+R11
+R12
+R13
+!i113 1
+R14
+R15
+Ecpu
+Z16 w1621708927
+R1
+R2
+R3
+R4
+R5
+!i122 101
+R6
+Z17 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd
+Z18 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd
+l0
+L6 1
+VI<jCKBcF4`?hB<_c2;FSa1
+!s100 GMJ[??fIQ=:8BAYWoQQRN2
+R9
+32
+Z19 !s110 1621708978
+!i10b 1
+R11
+Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd|
+Z21 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd|
+!i113 1
+R14
+R15
+Acpu_architecture
+R1
+R2
+R3
+R4
+R5
+DEx4 work 3 cpu 0 22 I<jCKBcF4`?hB<_c2;FSa1
+!i122 101
+l39
+L30 52
+V[BQ4i3;EC4`]_Hc_U6gg32
+!s100 mFiZOKa[W?PV80k6]_?`=2
+R9
+32
+R19
+!i10b 1
+R11
+R20
+R21
+!i113 1
+R14
+R15
+Edecompressor
+Z22 w1621708179
+R1
+R2
+R3
+R4
+R5
+!i122 106
+R6
+Z23 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd
+Z24 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd
+l0
+L6 1
+VV_?gK[F=VhJ8V`F6ZZ8D;3
+!s100 IGZ5_8TcGG[]ZjG2cS8303
+R9
+32
+R19
+!i10b 1
+Z25 !s108 1621708978.000000
+Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd|
+Z27 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd|
+!i113 1
+R14
+R15
+Adecompressor_architecture
+R1
+R2
+R3
+R4
+R5
+DEx4 work 12 decompressor 0 22 V_?gK[F=VhJ8V`F6ZZ8D;3
+!i122 106
+l31
+L21 66
+Vf6jL;_LDa]0:n``D7n>AL1
+!s100 Q1oE^IdOQ@Si_S?37[=R?3
+R9
+32
+R19
+!i10b 1
+R25
+R26
+R27
+!i113 1
+R14
+R15
+Eio
+Z28 w1621708521
+R3
+R4
+R5
+!i122 102
+R6
+Z29 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd
+Z30 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd
+l0
+L6 1
+V4@D>Y=d1;U^e>1JcXDbS40
+!s100 UO70V7RJAc<GLFXBD;7N:1
+R9
+32
+R19
+!i10b 1
+R25
+Z31 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd|
+Z32 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd|
+!i113 1
+R14
+R15
+Aioo
+R3
+R4
+R5
+DEx4 work 2 io 0 22 4@D>Y=d1;U^e>1JcXDbS40
+!i122 102
+l30
+L24 60
+VjNK6DLGC?:3?4X=<HK77F2
+!s100 <>g3]_]b][d;9HQ?;Ine61
+R9
+32
+R19
+!i10b 1
+R25
+R31
+R32
+!i113 1
+R14
+R15
+Eio_module
+Z33 w1621707469
+R3
+R4
+R5
+!i122 103
+R6
+Z34 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd
+Z35 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd
+l0
+L7 1
+V5dDSN>57EkRT9CdO?A66M1
+!s100 igZzXoo_[M9[ePnO<eXG_3
+R9
+32
+R19
+!i10b 1
+R25
+Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd|
+Z37 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd|
+!i113 1
+R14
+R15
+Aio_module_arch
+R3
+R4
+R5
+DEx4 work 9 io_module 0 22 5dDSN>57EkRT9CdO?A66M1
+!i122 103
+l70
+L37 39
+Vj^1d`8WCPionURD[:GVH91
+!s100 7Vn0gZL?jiQ5QonGM5g:83
+R9
+32
+R19
+!i10b 1
+R25
+R36
+R37
+!i113 1
+R14
+R15
+Eram_entity
+Z38 w1621706768
+R3
+R4
+R5
+!i122 104
+R6
+Z39 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd
+Z40 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd
+l0
+L5 1
+VTb]IWH_zYWf1^F186n0MM1
+!s100 jA8<fdPlR9@Uh;g9RIM4S1
+R9
+32
+R19
+!i10b 1
+R25
+Z41 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd|
+Z42 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd|
+!i113 1
+R14
+R15
+Aram_memory
+R3
+R4
+R5
+DEx4 work 10 ram_entity 0 22 Tb]IWH_zYWf1^F186n0MM1
+!i122 104
+l23
+L18 17
+V8V>83_BhzCafz10`jcf=43
+!s100 h7Ak4=KSf=bX`YSkF;AVT1
+R9
+32
+R19
+!i10b 1
+R25
+R41
+R42
+!i113 1
+R14
+R15
+Esendrow
+w1621680959
+R1
+R2
+R3
+R4
+R5
+!i122 20
+R6
+Z43 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/sendRow.vhd
+Z44 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/sendRow.vhd
+l0
+L6 1
+VP0DB=YV:nS5I`:36N24M]3
+!s100 BzY1CO1:]<OG`N8i3hn[j1
+R9
+32
+Z45 !s110 1621683354
+!i10b 1
+Z46 !s108 1621683354.000000
+Z47 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/sendRow.vhd|
+Z48 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/sendRow.vhd|
+!i113 1
+R14
+R15
+Asendrow_architecture
+w0
+R1
+R2
+R3
+R4
+R5
+DEx4 work 7 sendrow 0 22 P0DB=YV:nS5I`:36N24M]3
+!i122 20
+l48
+L20 70
+V0=:@DL960dZDN;X0E8mP>1
+!s100 F@DzmUaOZ70WShE@2;T7J3
+R9
+32
+R45
+!i10b 1
+R46
+R47
+R48
+!i113 1
+R14
+R15
+vtb
+!s110 1621710239
+!i10b 1
+!s100 LJMD6E@eWo7Q:NoU^1]Be1
+Ijo`L_Ge@mRJ`hCnXhf;Sz0
+R6
+w1621710217
+8/home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v
+F/home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v
+!i122 110
+L0 1 106
+VDg1SIo80bB@j0V0VzS_@n1
+OV;L;2021.1;73
+r1
+!s85 0
+31
+!s108 1621710239.000000
+!s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v|
+!i113 1
+o-work work
+tCvgOpt 0

@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 USE std.textio.ALL;
 USE IEEE.std_logic_unsigned.ALL;
-ENTITY sendRow IS
+ENTITY cpu IS
 
 	PORT (
 		row   : IN STD_LOGIC_VECTOR(479 DOWNTO 0);
@@ -12,40 +12,33 @@ ENTITY sendRow IS
 		clk   : IN STD_LOGIC;
 		ready : IN STD_LOGIC;
 		send  : OUT STD_LOGIC;
-		stop  : INOUT STD_LOGIC
+		stop  : IN STD_LOGIC;
+		data  : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+		startDecompression : OUT STD_LOGIC := '0';
+
+		rowSize_vec                : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+
+		extraBits_vec              : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) ;   --cpu
+		initialRowSize             : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) ;
+		--:= "0000100000000000";   --cpu
+		splitSize                  : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)  --cpu
+
 	);
 
-END sendRow;
+END cpu;
 
-ARCHITECTURE sendRow_ARCHITECTURE OF sendRow IS
-	COMPONENT io IS
-		PORT (
-		cpuData            : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-		clk                : IN STD_LOGIC;
-		startDecompression : IN STD_LOGIC;
-		ready              : IN STD_LOGIC;
-		stop               : OUT STD_LOGIC;
-		rowSize            : INOUT INTEGER := 1;
-		extraBits          : IN INTEGER; -- Extra Zeros because the row is not divisible by 16 (They should be removed from the received data)
-		initialRowSize     : IN INTEGER;
-		splitSize          : IN INTEGER;
-		loadCNN		   : IN STD_LOGIC
-		
-		);
-
-	END COMPONENT;
+ARCHITECTURE cpu_ARCHITECTURE OF cpu IS
 
 	SIGNAL currentIndex       : INTEGER                        := 0;
-	SIGNAL data               : STD_LOGIC_VECTOR(15 DOWNTO 0) ;
-	SIGNAL startDecompression : STD_LOGIC                      := '0';
 	SIGNAL rowSignal          : STD_LOGIC_VECTOR(479 DOWNTO 0) := (OTHERS => '1');
-	SIGNAL rowSize            : INTEGER;
 	SIGNAL tempRowSize        : INTEGER := 100;
-	SIGNAL splitSize          : INTEGER := 100;
-	SIGNAL initialRowSize     : INTEGER := 100;
-	SIGNAL extraBits          : INTEGER := 100;
-	SIGNAL cnnDataCLK	: std_logic;
+	SIGNAL cnnDataCLK	      : std_logic;
+	SIGNAL DOUT               : STD_LOGIC_VECTOR( 3 DOWNTO 0);
+	SIGNAL rowSize            : INTEGER;
+	SIGNAL extraBits            : INTEGER;
 BEGIN
+        rowSize <= to_integer(unsigned( rowSize_vec));
+        extraBits_vec <=std_logic_vector(to_unsigned(extraBits, 16));
 	cnnDataCLK<=not clk;
 	PROCESS (clk,loadCNN,cnnDataCLK) IS
 	BEGIN
@@ -59,10 +52,10 @@ BEGIN
 		IF (stop = '0' and loadCNN='0') THEN
 			IF (ready = '1' AND currentIndex = 1) THEN
 
-				initialRowSize <= to_integer(unsigned(row(15 DOWNTO 0)));
+				initialRowSize <= row(15 DOWNTO 0);
 				tempRowSize    <= to_integer(unsigned(row(15 DOWNTO 0)));
-				splitSize      <= to_integer(unsigned(row(31 DOWNTO 16)));
-				extraBits      <= 16 - (initialRowSize MOD 16); -- Extra Zeros because the row is not divisible by 16 (They should be removed from the sent data)
+				splitSize      <= row(31 DOWNTO 16);
+				extraBits      <= 16 - (tempRowSize MOD 16); -- Extra Zeros because the row is not divisible by 16 (They should be removed from the sent data)
 				rowSignal      <= row;
 				rowSignal      <= STD_LOGIC_VECTOR(shift_right(unsigned(row), 32));
 				send           <= '0';
@@ -84,6 +77,5 @@ BEGIN
 			END IF;
 		END IF;
 	END PROCESS;
-	sendIO : io PORT MAP(data, clk, startDecompression, ready, stop, rowSize, extraBits, initialRowSize, splitSize,loadCNN);
 
-END sendRow_ARCHITECTURE;
+END cpu_ARCHITECTURE;

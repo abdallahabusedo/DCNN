@@ -10,37 +10,28 @@ ENTITY decompressor IS
 		clk                : IN STD_LOGIC;
 		startDecompression : IN STD_LOGIC;
 		stop               : OUT STD_LOGIC := '0';
-		loadCNN  	   : IN STD_LOGIC 
+		loadCNN  	       : IN STD_LOGIC ;
+		address            : OUT INTEGER;
+		ramDataIn          : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+		writeRam           : OUT STD_LOGIC_VECTOR(1 DOWNTO 0)
+
 	);
 
 END decompressor;
 ARCHITECTURE decompressor_ARCHITECTURE OF decompressor IS
-	COMPONENT ram_Entity IS
-
-		PORT (
-			clk              : IN STD_LOGIC;
-			Address          : IN INTEGER;
-			DATAIN           : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-			ReadWriteSignals : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-			DATAOUT          : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
-		);
-
-	END COMPONENT;
 	
 	SIGNAL rowImage         : STD_LOGIC_VECTOR(447 DOWNTO 0) := (OTHERS => '1');
 	SIGNAL ZeroOne          : STD_LOGIC                      := '0';
-	SIGNAL address          : INTEGER                        := 0;
 	SIGNAL startStoring     : STD_LOGIC                      := '0';
-	SIGNAL writeRam         : STD_LOGIC_VECTOR(1 DOWNTO 0)   := "00";
-	SIGNAL ramData          : STD_LOGIC_VECTOR(15 DOWNTO 0);
-	SIGNAL ramDataOut       : STD_LOGIC_VECTOR(15 DOWNTO 0);
 	SIGNAL wasDecompressing : STD_LOGIC := '0';
 	SIGNAL begining         : STD_LOGIC := '1';
+	SIGNAL addressCounter   : INTEGER := 0;
+	SIGNAL writeRamSignal   : STD_LOGIC_VECTOR(1 DOWNTO 0)   := "00";
 
 BEGIN
-
+	writeRam <= writeRamSignal;
 	--Code/Data = Number of zeros || Number of ones --
-	ramData <= rowImage(447 DOWNTO 432) when loadCNN='0'
+	ramDataIn <= rowImage(447 DOWNTO 432) when loadCNN='0'
 		   ELSE Data ;					
 	PROCESS (clk,loadCNN) IS
 	BEGIN
@@ -63,9 +54,9 @@ BEGIN
 			startStoring     <= '1';
 			wasDecompressing <= '0';
 			begining         <= '1';
-		ELSIF (rising_edge(clk) AND startStoring = '1' AND begining = '0' AND address MOD 28 = 0) THEN
+		ELSIF (rising_edge(clk) AND startStoring = '1' AND begining = '0' AND addressCounter MOD 28 = 0) THEN
 			stop         <= '0';
-			writeRam     <= "00";
+			writeRamSignal     <= "00";
 			startStoring <= '0';
 			rowImage     <= (OTHERS => '1');
 			ZeroOne      <= '0';
@@ -84,13 +75,12 @@ BEGIN
 		writeRam <= "00";
 	END IF;
 
-	IF (falling_edge(clk) AND writeRam = "10" AND (startStoring = '1' or loadCNN='1')) THEN
-		address <= address + 1;
+	IF (falling_edge(clk) AND writeRamSignal = "10" AND (startStoring = '1' or loadCNN='1')) THEN
+		addressCounter <= addressCounter + 1;
+		address <= addressCounter;
 
 	END IF;
 
 	END PROCESS;
-
-	ram : ram_Entity PORT MAP(clk, address, ramData, writeRam, ramDataOut);
 
 END decompressor_ARCHITECTURE;
