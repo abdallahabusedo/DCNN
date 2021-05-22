@@ -2,7 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 USE std.textio.ALL;
-USE IEEE.std_logic_unsigned.ALL;
+--USE IEEE.std_logic_unsigned.ALL;
 ENTITY cpu IS
 
 	PORT (
@@ -16,11 +16,10 @@ ENTITY cpu IS
 		data  : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
 		startDecompression : OUT STD_LOGIC := '0';
 
-		rowSize_vec                : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ;
+		rowSize_vec                : IN STD_LOGIC_VECTOR(15 DOWNTO 0) := (others => '1');   --cpu;
 
-		extraBits_vec              : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-		--:= (others => '1');   --cpu
-		initialRowSize             : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) ;
+		extraBits_vec              : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) := (others => '1');   --cpu
+		initialRowSize             : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) := (others => '1');
 		--:= (others => '1');
 		--:= "0000100000000000";   --cpu
 		splitSize                  : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) 
@@ -38,7 +37,7 @@ ARCHITECTURE cpu_ARCHITECTURE OF cpu IS
 	SIGNAL cnnDataCLK	      : std_logic;
 	SIGNAL DOUT               : STD_LOGIC_VECTOR( 3 DOWNTO 0);
 	SIGNAL rowSize            : INTEGER;
-	SIGNAL extraBits            : INTEGER;
+	SIGNAL extraBits          : INTEGER :=100;
 BEGIN
         rowSize <= to_integer(unsigned( rowSize_vec));
         extraBits_vec <=std_logic_vector(to_unsigned(extraBits, 16));

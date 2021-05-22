@@ -1993,3 +1993,593 @@ run
 # Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
 # Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
 # Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+quit -sim
+# End time: 23:48:55 on May 22,2021, Elapsed time: 0:33:28
+# Errors: 2, Warnings: 6
+vsim work.tb
+# vsim work.tb 
+# Start time: 23:49:19 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+run
+run
+run
+run
+run
+run
+quit -sim
+# End time: 23:53:31 on May 22,2021, Elapsed time: 0:04:12
+# Errors: 2, Warnings: 5
+# Compile of testbench.v was successful.
+vsim work.tb
+# vsim work.tb 
+# Start time: 23:54:13 on May 22,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+# ** Fatal: (vsim-3364) Illegal Verilog connection (8th) for VHDL output port 'rowSize_vec'.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN File: /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd Line: 18
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 23:54:13 on May 22,2021, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 2
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 00:00:47 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+run
+run
+run
+run
+run
+run
+quit -sim
+# End time: 00:08:56 on May 23,2021, Elapsed time: 0:08:09
+# Errors: 1, Warnings: 6
+vsim work.tb
+# vsim work.tb 
+# Start time: 00:09:18 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+run
+run
+run
+run 1500
+run 1500
+# Compile of chip.vhd failed with 3 errors.
+# Compile of cpu.vhd failed with 3 errors.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 2 failed with 6 errors.
+# Compile of chip.vhd failed with 2 errors.
+# Compile of cpu.vhd failed with 2 errors.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 2 failed with 4 errors.
+# Compile of testbench.v was successful.
+# Compile of chip.vhd failed with 1 errors.
+# Compile of cpu.vhd failed with 2 errors.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 2 failed with 3 errors.
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+quit -sim
+# End time: 00:41:47 on May 23,2021, Elapsed time: 0:32:29
+# Errors: 1, Warnings: 10
+vsim work.tb
+# vsim work.tb 
+# Start time: 00:42:08 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+run
+run
+run
+run
+quit -sim
+# End time: 00:49:53 on May 23,2021, Elapsed time: 0:07:45
+# Errors: 1, Warnings: 5
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 00:50:31 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+quit -sim
+# End time: 00:51:50 on May 23,2021, Elapsed time: 0:01:19
+# Errors: 2, Warnings: 6
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 00:52:17 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+quit -sim
+# End time: 00:56:17 on May 23,2021, Elapsed time: 0:04:00
+# Errors: 2, Warnings: 6
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 00:57:02 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+quit -sim
+# End time: 01:06:54 on May 23,2021, Elapsed time: 0:09:52
+# Errors: 1, Warnings: 6
+vsim work.tb
+# vsim work.tb 
+# Start time: 01:07:13 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+quit -sim
+# End time: 01:07:24 on May 23,2021, Elapsed time: 0:00:11
+# Errors: 0, Warnings: 1
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 01:07:57 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+run
+run
+quit -sim
+# End time: 01:09:58 on May 23,2021, Elapsed time: 0:02:01
+# Errors: 1, Warnings: 6
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 01:10:35 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+quit -sim
+# End time: 01:11:41 on May 23,2021, Elapsed time: 0:01:06
+# Errors: 0, Warnings: 6
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 01:12:24 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+add wave -r /*
+run
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run 1000
+run 10000
+quit -sim
+# End time: 01:15:00 on May 23,2021, Elapsed time: 0:02:36
+# Errors: 0, Warnings: 6
+# Compile of chip.vhd was successful.
+# Compile of cpu.vhd was successful.
+# Compile of IO.vhd was successful.
+# Compile of IO_MODULE.vhd was successful.
+# Compile of ram.vhd was successful.
+# Compile of testbench.v was successful.
+# Compile of decodeRow.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.tb
+# vsim work.tb 
+# Start time: 01:15:28 on May 23,2021
+# Loading work.tb
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.cpu(cpu_architecture)
+# Loading work.chip(chip_architecture)
+# Loading work.io_module(io_module_arch)
+# Loading work.io(ioo)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.decompressor(decompressor_architecture)
+# Loading work.ram_entity(ram_memory)
+run
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run 3000
+add wave -r /*
+run 3000
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+run 3000
+# ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DCNN
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /tb/chip_cpu

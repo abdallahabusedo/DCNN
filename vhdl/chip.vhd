@@ -2,7 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 USE std.textio.ALL;
-USE IEEE.std_logic_unsigned.ALL;
+--USE IEEE.std_logic_unsigned.ALL;
 ENTITY chip IS
 
 	PORT (
@@ -15,9 +15,9 @@ ENTITY chip IS
 
 		data  : IN STD_LOGIC_VECTOR(15 DOWNTO 0); --cpu
 		startDecompression : IN STD_LOGIC := '0'; --cpu
-		rowSize_vec            : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);         -- to cpu
-		extraBits_vec          : IN STD_LOGIC_VECTOR(15 DOWNTO 0);  --cpu
-		initialRowSize_vec     : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ; --cpu
+		rowSize_vec            : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) ;         -- to cpu
+		extraBits_vec          : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ;  --cpu
+		initialRowSize_vec     : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ;  --cpu
 		splitSize_vec          : IN STD_LOGIC_VECTOR(15 DOWNTO 0)  --cpu
 	);
 
@@ -68,7 +68,7 @@ ARCHITECTURE chip_ARCHITECTURE OF chip IS
 	SIGNAL extraBits          : INTEGER;
 	SIGNAL initialRowSize     : INTEGER;
 	SIGNAL splitSize          : INTEGER;
-	SIGNAL rowSize            : INTEGER;
+	SIGNAL rowSize            : INTEGER :=1;
   --  SIGNAL stop_signal        : STD_LOGIC;              
 	 
 BEGIN
