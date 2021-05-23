@@ -10,8 +10,8 @@ use work.c_pkg.all;
 ENTITY pool_window IS
 generic (FILTER_SIZE : integer := 2;IMG_SIZE : integer := 4);
 	PORT(
-		IMG : IN bus_array2;
-		pool_img : OUT bus_array2;
+		IMG : IN img_array;
+		pool_img : OUT img_array;
 		clk:IN std_logic
 	);
 END ENTITY;
@@ -19,17 +19,18 @@ END ENTITY;
 ARCHITECTURE pool_image_arch OF pool_window IS
 
 component extract_window IS
+	generic (FILTER_SIZE : integer ;IMG_SIZE : integer);
 	PORT(
-		IMG : IN bus_array2;
+		IMG : IN img_array;
 		OFFSET:IN integer;
-		LAYER : OUT bus_array4
+		LAYER : OUT filter_array
 	);
 END component;
 
 component Pool IS
 	generic (WINDOW_SIZE : integer := 2);
 	PORT(
-		WINDOW : IN bus_array4;
+		WINDOW : IN filter_array;
 		AVR : OUT sfixed (4 downto -11);
 		clk:IN std_logic 
 	);
@@ -38,8 +39,8 @@ END component;
 --donot forget to change sizes
 TYPE pixel_type IS array(0 TO 24)OF sfixed (4 downto -11);
 SIGNAL item_out : pixel_type ;
-SIGNAL OUT_LAYER:bus_array2;
-TYPE conv_type IS array(0 TO 63)OF bus_array4;
+SIGNAL OUT_LAYER:img_array;
+TYPE conv_type IS array(0 TO 63)OF filter_array;
 SIGNAL WINDOW : conv_type;
 TYPE OFFSSET_type IS array(0 TO 63) OF unsigned(9 DOWNTO 0);
 SIGNAL OFFSSET : OFFSSET_type := (

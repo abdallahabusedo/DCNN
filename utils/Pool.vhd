@@ -3,14 +3,13 @@ USE ieee.fixed_float_types.ALL;
 USE ieee.fixed_pkg.ALL;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
-USE IEEE.std_logic_unsigned.ALL;
 use ieee.float_pkg.all;
 use work.c_pkg.all;
 
 ENTITY Pool IS
 generic (WINDOW_SIZE : integer := 2);
 	PORT(
-		WINDOW : IN bus_array4;
+		WINDOW : IN filter_array;
 		AVR : OUT sfixed (4 downto -11);
 		clk:IN std_logic 
 	);

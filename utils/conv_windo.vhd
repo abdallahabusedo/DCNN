@@ -4,7 +4,6 @@ use ieee.fixed_float_types.all;
 use ieee.fixed_pkg.all;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-USE IEEE.std_logic_unsigned.all;
 use work.c_pkg.all;
 
 ENTITY conv_wimdow_1 IS
@@ -12,35 +11,41 @@ generic (FILTER_SIZE : integer := 3);
 	PORT(
 		WINDOW : IN filter_array;
 		FILTER : IN filter_array;
-		PIXEL_OUT : OUT signed(31 DOWNTO 0);
+		PIXEL_OUT : OUT sfixed (4 downto -11);
 		clk:IN std_logic
 	);
 END ENTITY;
 ARCHITECTURE conv_window_arch OF conv_wimdow_1 IS
-component flop IS  
+component sflop IS  
   PORT(CLK: IN std_logic;
-	D : in signed(31 DOWNTO 0);  
-      Q :OUT signed(31 DOWNTO 0));  
+	D : in sfixed (4 downto -11);  
+    Q :OUT sfixed (4 downto -11)
+	);	
 end component;  
 	component MUL_WIN_FLT IS
 	PORT(
 		WINDOW : IN filter_array;
 		FILTER : IN filter_array;
-		PIXEL : OUT MUL_array
+		PIXEL : OUT filter_array
 	);
 	END component;
-	SIGNAL MUL_PIX_FIT:MUL_array;
-	SIGNAL D: signed(31 DOWNTO 0):="00000000000000000000000000000000";
-	SIGNAL Q: signed(31 DOWNTO 0);
+	SIGNAL MUL_PIX_FIT:filter_array;
+	SIGNAL D: sfixed (4 downto -11):=(others => '0');
+	SIGNAL Q: sfixed (4 downto -11);
 	BEGIN
 		MUL_WIN_FLT1:MUL_WIN_FLT GENERIC MAP (FILTER_SIZE) PORT MAP(WINDOW,FILTER,MUL_PIX_FIT);
-		SUM_Reg:flop PORT MAP(clk,D,Q);
+		SUM_Reg:sflop PORT MAP(clk,D,Q);
 		process(clk)
 			variable i:integer :=0 ;
     			begin
 			  if (CLK'event and CLK = '1') then  
 				if(i<FILTER_SIZE*FILTER_SIZE)then 
-					D<=Q+MUL_PIX_FIT(i);
+				
+					D <= resize (arg => Q+MUL_PIX_FIT(i) , 
+						left_index => D'high ,
+						right_index => D'low ,
+						round_style => fixed_round, 
+						overflow_style => fixed_saturate); 
 					i:=i+1;
 				end if;
         		end if;  

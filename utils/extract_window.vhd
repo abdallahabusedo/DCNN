@@ -1,8 +1,9 @@
 library ieee;
 library work;
+USE ieee.fixed_float_types.ALL;
+USE ieee.fixed_pkg.ALL;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-USE IEEE.std_logic_unsigned.all;
 use work.c_pkg.all;
 ------------------------------------------------------------------------
 ENTITY extract_window IS
@@ -15,10 +16,7 @@ generic (FILTER_SIZE : integer ;IMG_SIZE : integer);
 END ENTITY;
 ------------------------------------------------------------------------
 ARCHITECTURE extract_window_arch OF extract_window IS
-SIGNAL item_out : signed(31 DOWNTO 0);
-SIGNAL item_trim : signed(15 DOWNTO 0);
 SIGNAL arr:filter_array;
-SIGNAL count_layer : integer:=0 ;
 	BEGIN
 		process(IMG,OFFSET)--,FILTER1)
         		variable k_filter : integer := 0;
