@@ -18,10 +18,12 @@ USE IEEE.std_logic_unsigned.all;
 use work.pool_pkg.all;
 
 ENTITY Pool IS
+generic (FILTER_SIZE : integer := 2);
 	PORT(
 		WINDOW : IN bus_array;
-		AVR : OUT sfixed (4 downto -11)
+		AVR : OUT sfixed (4 downto -11);
 		
+		clk:IN std_logic 
 	);
 END ENTITY;
 ARCHITECTURE arch_Pool OF Pool IS
