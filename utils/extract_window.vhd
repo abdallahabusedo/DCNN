@@ -8,16 +8,16 @@ use work.c_pkg.all;
 ENTITY extract_window IS
 generic (FILTER_SIZE : integer ;IMG_SIZE : integer);
 	PORT(
-		IMG : IN bus_array2;
+		IMG : IN img_array;
 		OFFSET:IN integer;
-		LAYER : OUT bus_array4
+		LAYER : OUT filter_array
 	);
 END ENTITY;
 ------------------------------------------------------------------------
 ARCHITECTURE extract_window_arch OF extract_window IS
 SIGNAL item_out : signed(31 DOWNTO 0);
 SIGNAL item_trim : signed(15 DOWNTO 0);
-SIGNAL arr:bus_array4;
+SIGNAL arr:filter_array;
 SIGNAL count_layer : integer:=0 ;
 	BEGIN
 		process(IMG,OFFSET)--,FILTER1)

@@ -8,9 +8,9 @@ use work.c_pkg.all;
 ENTITY MUL_WIN_FLT IS
 	generic (FILTER_SIZE : integer := 3);
 	PORT(
-		WINDOW : IN bus_array4;
-		FILTER : IN bus_array4;
-		PIXEL : OUT bus_array5
+		WINDOW : IN filter_array;
+		FILTER : IN filter_array;
+		PIXEL : OUT MUL_array
 	);
 END ENTITY;
 ARCHITECTURE MUL_WIN_FLT_arch OF MUL_WIN_FLT IS
