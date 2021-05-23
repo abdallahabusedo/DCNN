@@ -8,10 +8,9 @@ USE IEEE.std_logic_unsigned.all;
 use work.c_pkg.all;
 
 ENTITY pool_window IS
-generic (FILTER_SIZE : integer := 2;IMG_SIZE : integer := 5);
+generic (FILTER_SIZE : integer := 2;IMG_SIZE : integer := 4);
 	PORT(
 		IMG : IN bus_array2;
-		FILTER1 : IN bus_array4;
 		pool_img : OUT bus_array2;
 		clk:IN std_logic
 	);
@@ -28,16 +27,15 @@ component extract_window IS
 END component;
 
 component Pool IS
-	-- donot forget to update the port with generic statment.
-	generic (FILTER_SIZE : integer := 2);
+	generic (WINDOW_SIZE : integer := 2);
 	PORT(
 		WINDOW : IN bus_array4;
 		AVR : OUT sfixed (4 downto -11);
-		
 		clk:IN std_logic 
 	);
 END component;
 
+--donot forget to change sizes
 TYPE pixel_type IS array(0 TO 24)OF sfixed (4 downto -11);
 SIGNAL item_out : pixel_type ;
 SIGNAL OUT_LAYER:bus_array2;

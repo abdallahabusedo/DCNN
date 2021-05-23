@@ -6,7 +6,7 @@ USE IEEE.std_logic_unsigned.all;
 use work.c_pkg.all;
 ------------------------------------------------------------------------
 ENTITY extract_window IS
-generic (FILTER_SIZE : integer := 3;IMG_SIZE : integer := 5);
+generic (FILTER_SIZE : integer ;IMG_SIZE : integer);
 	PORT(
 		IMG : IN bus_array2;
 		OFFSET:IN integer;

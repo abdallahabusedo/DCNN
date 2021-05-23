@@ -1,14 +1,3 @@
-LIBRARY IEEE;
-USE ieee.fixed_float_types.ALL;
-USE ieee.fixed_pkg.ALL;
-USE IEEE.STD_LOGIC_1164.ALL;
-USE IEEE.numeric_std.ALL;
-USE IEEE.std_logic_unsigned.ALL;
-
-package pool_pkg is
-        type bus_array is array(3 DOWNTO 0) of sfixed (4 downto -11);
-END package;
-
 LIBRARY ieee;
 USE ieee.fixed_float_types.ALL;
 USE ieee.fixed_pkg.ALL;
@@ -16,12 +5,12 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 USE IEEE.std_logic_unsigned.ALL;
 use ieee.float_pkg.all;
-USE work.pool_pkg.ALL;
+use work.c_pkg.all;
 
 ENTITY Pool IS
 generic (WINDOW_SIZE : integer := 2);
 	PORT(
-		WINDOW : IN bus_array;
+		WINDOW : IN bus_array4;
 		AVR : OUT sfixed (4 downto -11);
 		clk:IN std_logic 
 	);
