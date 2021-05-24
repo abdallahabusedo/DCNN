@@ -14,7 +14,7 @@ ENTITY cpu IS
 		send  : OUT STD_LOGIC;
 		stop  : IN STD_LOGIC;
 		data  : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-		startDecompression : OUT STD_LOGIC := '0';
+		startDecompression : OUT STD_LOGIC;
 
 		rowSize_vec                : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ;   --cpu;
 
@@ -28,13 +28,13 @@ END cpu;
 
 ARCHITECTURE cpu_ARCHITECTURE OF cpu IS
 
-	SIGNAL currentIndex       : INTEGER                        := 0;
-	SIGNAL rowSignal          : STD_LOGIC_VECTOR(479 DOWNTO 0) := (OTHERS => '1');
-	SIGNAL tempRowSize        : INTEGER := 100;
+	SIGNAL currentIndex       : INTEGER;
+	SIGNAL rowSignal          : STD_LOGIC_VECTOR(479 DOWNTO 0);
+	SIGNAL tempRowSize        : INTEGER;
 	SIGNAL cnnDataCLK	      : std_logic;
 	SIGNAL DOUT               : STD_LOGIC_VECTOR( 3 DOWNTO 0);
 	SIGNAL rowSize            : INTEGER;
-	SIGNAL extraBits          : INTEGER :=100;
+	SIGNAL extraBits          : INTEGER;
 BEGIN
     rowSize <= to_integer(unsigned( rowSize_vec));
     extraBits_vec <=std_logic_vector(to_unsigned(extraBits, 16));
@@ -44,9 +44,15 @@ BEGIN
 	BEGIN
 		--Now the data is ready so we can send it 16 bit by 16 bit to the io--
 		IF (rst = '1') THEN
-
+			startDecompression <= '0';
+			currentIndex <= 0;
+			rowSignal <= (OTHERS => '1');
+			splitSize <= (OTHERS => '1');
+			initialRowSize <= "0000100000000000";
+			tempRowSize <= 100;
+			extraBits <= 100;
 		ELSE
-			IF (rowSize <= 0 and stop='1') THEN
+			IF (rowSize = 0 and stop='1') THEN
 				startDecompression <= '0';
 			END IF;
 			IF(falling_edge(cnnDataCLK) and loadCNN='1') THEN

@@ -26,6 +26,9 @@ reg rst;
 
 
 initial begin
+  rst = 1;
+  #50
+  rst = 0;
   load_process = 1;
   cnn_image = 0;
   data_file = $fopen("/home/menna/Downloads/vlsi_project/VLSI/vhdl/data.txt", "r");
@@ -34,9 +37,6 @@ initial begin
     $display("data_file handle was NULL");
     $finish;
   end
-  rst = 1;
-  #100
-  rst = 0;
 end
 
 always begin
@@ -52,10 +52,10 @@ always @(posedge load_process,posedge send) begin
 // reg_stop = stop;
 if(stop==0 && cnn_image==0 && rst == 0) begin
   counter = counter + 1;
-  if(counter == 29) begin
+  if(counter == 30) begin
     cnn_image = 1;
   end 
- scan_file = $fscanf(image_file, "%b\n", row);
+  scan_file = $fscanf(image_file, "%b\n", row);
  end
 end
 
@@ -92,7 +92,7 @@ cpu tb_cpu(
 );
 
 chip tb_chip(
-        load_process,
+  load_process,
         cnn_image,
 	clk,
   rst,

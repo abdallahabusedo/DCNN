@@ -15,7 +15,7 @@ ENTITY chip IS
 		stop  : OUT STD_LOGIC ;                  --io 
 
 		data  : IN STD_LOGIC_VECTOR(15 DOWNTO 0); --cpu
-		startDecompression : IN STD_LOGIC := '0'; --cpu
+		startDecompression : IN STD_LOGIC; --cpu
 		rowSize_vec            : OUT STD_LOGIC_VECTOR(15 DOWNTO 0) ;         -- to cpu
 		extraBits_vec          : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ;  --cpu
 		initialRowSize_vec     : IN STD_LOGIC_VECTOR(15 DOWNTO 0) ;  --cpu
@@ -30,6 +30,7 @@ ARCHITECTURE chip_ARCHITECTURE OF chip IS
         PORT (
             DIN                : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
             clk                : IN STD_LOGIC;
+            rst                : IN STD_LOGIC;
             cnn_image          : IN STD_LOGIC;
 
             --memory wires
@@ -40,7 +41,7 @@ ARCHITECTURE chip_ARCHITECTURE OF chip IS
             startDecompression : IN std_logic;
             ready              : IN STD_LOGIC;
             stop               : OUT std_logic ;
-            rowSize            : OUT INTEGER := 1;
+            rowSize            : OUT INTEGER;
 
             ---
             extrabits          : IN Integer;
@@ -69,7 +70,7 @@ ARCHITECTURE chip_ARCHITECTURE OF chip IS
 	SIGNAL extraBits          : INTEGER;
 	SIGNAL initialRowSize     : INTEGER;
 	SIGNAL splitSize          : INTEGER;
-	SIGNAL rowSize            : INTEGER :=1;
+	SIGNAL rowSize            : INTEGER;
   --  SIGNAL stop_signal        : STD_LOGIC;              
 	 
 BEGIN
@@ -78,8 +79,8 @@ BEGIN
    splitSize <= to_integer(unsigned( splitSize_vec));
    rowSize_vec <= std_logic_vector(to_unsigned(rowSize, 16));
    -- stop <= stop_signal;
-
-   sendIO : io_module PORT MAP(data,clk, loadCNN,
+ 
+   sendIO : io_module PORT MAP(data,clk,rst, loadCNN,
 	 address,ramDataIn,writeRam,
 	 startDecompression,load_process, stop, rowSize,extraBits,initialRowSize,splitSize);
 
