@@ -9,6 +9,7 @@ ENTITY chip IS
 		load_process  : IN STD_LOGIC;                     --cpu
 		loadCNN:IN STD_LOGIC;                     --testbench
 		clk   : IN STD_LOGIC;                     --testbench
+        rst   : IN STD_LOGIC;
 		send  : IN STD_LOGIC;                     --cpu
 
 		stop  : OUT STD_LOGIC ;                  --io 

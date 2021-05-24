@@ -1,4 +1,4 @@
-module tb(input rst,input interrupt,output done,input send,input stop);
+module tb(input interrupt,output done,input send,input stop);
 
 integer  image_file ;
 integer  data_file ;
@@ -20,19 +20,23 @@ integer counter =0;
 reg load_process;
 reg cnn_image;
 reg clk;
+reg rst;
+
 // reg reg_stop;
 
 
 initial begin
   load_process = 1;
   cnn_image = 0;
-
-  data_file = $fopen("data.txt", "r");
-  image_file = $fopen("out.txt", "r");
+  data_file = $fopen("/home/menna/Downloads/vlsi_project/VLSI/vhdl/data.txt", "r");
+  image_file = $fopen("/home/menna/Downloads/vlsi_project/VLSI/vhdl/out.txt", "r");
   if (data_file == 0 || image_file == 0) begin
     $display("data_file handle was NULL");
     $finish;
   end
+  rst = 1;
+  #100
+  rst = 0;
 end
 
 always begin
@@ -46,7 +50,7 @@ end
 
 always @(posedge load_process,posedge send) begin
 // reg_stop = stop;
-if(stop==0 && cnn_image==0) begin
+if(stop==0 && cnn_image==0 && rst == 0) begin
   counter = counter + 1;
   if(counter == 29) begin
     cnn_image = 1;
@@ -56,11 +60,10 @@ if(stop==0 && cnn_image==0) begin
 end
 
 always @(posedge clk) begin
-if(cnn_image==1) begin
+if(cnn_image==1 && rst == 0) begin
   scan_file_data = $fscanf(data_file, "%b\n", cnnData);
   if(scan_file_data == -1) begin
     load_process = 0 ;
-
   end
 
 end
@@ -71,6 +74,7 @@ cpu tb_cpu(
    cnnData,
    cnn_image,
    clk,
+   rst,
 
    load_process,
    send,
@@ -91,6 +95,7 @@ chip tb_chip(
         load_process,
         cnn_image,
 	clk,
+  rst,
 	send,
 	stop,           //io  
 	data,           //cpu
