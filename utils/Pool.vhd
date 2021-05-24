@@ -11,6 +11,7 @@ generic (WINDOW_SIZE : integer := 2);
 	PORT(
 		WINDOW : IN filter_array;
 		AVR : OUT sfixed (4 downto -11);
+		Done : OUT std_logic := '0';
 		clk:IN std_logic 
 	);
 END ENTITY;
@@ -48,6 +49,8 @@ ARCHITECTURE arch_Pool OF Pool IS
 							round_style => fixed_round, 
 							overflow_style => fixed_saturate); 
 						i:=i+1;
+					else
+						Done <= '1';
 					end if;
 					
 				end if;
