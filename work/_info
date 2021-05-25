@@ -1,0 +1,344 @@
+m255
+K4
+z2
+!s11e MIXED_VERSIONS
+!s11f vlog 2021.1 2021.02, Feb  2 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+d/home/menna/intelFPGA_pro/21.1/modelsim_ase/linuxaloem
+Echip
+Z0 w1621725290
+Z1 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 270
+Z4 d/home/menna/Downloads/vlsi_project/VLSI
+Z5 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd
+Z6 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd
+l0
+L6 1
+VM?oXdIke?4=]De;Mj>leP3
+!s100 >`BjMGl2XeeHKT1Kd3LnX0
+Z7 OV;C;2021.1;73
+32
+Z8 !s110 1621725306
+!i10b 1
+Z9 !s108 1621725306.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd|
+Z11 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/chip.vhd|
+!i113 1
+Z12 o-work work -2002 -explicit
+Z13 tExplicit 1 CvgOpt 0
+Achip_architecture
+R1
+R2
+R3
+DEx4 work 4 chip 0 22 M?oXdIke?4=]De;Mj>leP3
+!i122 270
+l74
+L26 64
+VgOogn<[P<dW0BhIm@@`]>3
+!s100 0GnGMG;WK_RLbz`EHAPzL0
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Ecpu
+Z14 w1621725088
+R1
+R2
+R3
+!i122 271
+R4
+Z15 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd
+Z16 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd
+l0
+L6 1
+V1a11D<ge>WB8zn<]F6kTB3
+!s100 Jh@?:M1@VcWj??CWN:B1o0
+R7
+32
+R8
+!i10b 1
+R9
+Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd|
+Z18 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd|
+!i113 1
+R12
+R13
+Acpu_architecture
+R1
+R2
+R3
+DEx4 work 3 cpu 0 22 1a11D<ge>WB8zn<]F6kTB3
+!i122 271
+l41
+L32 52
+VVzFRzje9XZ>9i8N0iBcV33
+!s100 QoE:KC8P4O9azeiM9eZ2P1
+R7
+32
+R8
+!i10b 1
+R9
+R17
+R18
+!i113 1
+R12
+R13
+Edecompressor
+Z19 w1621716945
+Z20 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z21 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+R1
+R2
+R3
+!i122 276
+R4
+Z22 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd
+Z23 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd
+l0
+L6 1
+V>i6E0<mkN;3VEHO^6ck;92
+!s100 HUlKn74oD<]CZB83Wc>4o0
+R7
+32
+Z24 !s110 1621725307
+!i10b 1
+Z25 !s108 1621725307.000000
+Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd|
+Z27 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd|
+!i113 1
+R12
+R13
+Adecompressor_architecture
+R20
+R21
+R1
+R2
+R3
+Z28 DEx4 work 12 decompressor 0 22 >i6E0<mkN;3VEHO^6ck;92
+!i122 276
+l31
+Z29 L21 65
+Z30 ViNXXQzIAiDD74o8]o=_W43
+Z31 !s100 B;m=K4T@I15T<nJhazaA^3
+R7
+32
+R24
+!i10b 1
+R25
+R26
+R27
+!i113 1
+R12
+R13
+Eio
+Z32 w1621715758
+R1
+R2
+R3
+!i122 272
+R4
+Z33 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd
+Z34 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd
+l0
+L6 1
+V=l16ejJiIG4FJMQm6c`>>2
+!s100 PB1[N5FV0__]3QESJ1jd72
+R7
+32
+R8
+!i10b 1
+R9
+Z35 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd|
+Z36 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd|
+!i113 1
+R12
+R13
+Aioo
+R1
+R2
+R3
+DEx4 work 2 io 0 22 =l16ejJiIG4FJMQm6c`>>2
+!i122 272
+l29
+L23 60
+V1ITl6c]N<g<5>:L^hJ;6H3
+!s100 IE7bIH24_43T42ZOzz>@10
+R7
+32
+R8
+!i10b 1
+R9
+R35
+R36
+!i113 1
+R12
+R13
+Eio_module
+Z37 w1621715842
+R1
+R2
+R3
+!i122 273
+R4
+Z38 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd
+Z39 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd
+l0
+L6 1
+VW7m^jP<iAOLjb<>7^72Y`3
+!s100 `3J91zP6D]XDO^emc]>331
+R7
+32
+R8
+!i10b 1
+R9
+Z40 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd|
+Z41 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd|
+!i113 1
+R12
+R13
+Aio_module_arch
+R1
+R2
+R3
+DEx4 work 9 io_module 0 22 W7m^jP<iAOLjb<>7^72Y`3
+!i122 273
+l68
+L36 38
+V0`i64hiHXRc9GEE]M[@301
+!s100 MH>0BlmSLWQaEhMfXJ<bI3
+R7
+32
+R8
+!i10b 1
+R9
+R40
+R41
+!i113 1
+R12
+R13
+Eram_entity
+Z42 w1621717988
+R1
+R2
+R3
+!i122 274
+R4
+Z43 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd
+Z44 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd
+l0
+L5 1
+VTb]IWH_zYWf1^F186n0MM1
+!s100 jA8<fdPlR9@Uh;g9RIM4S1
+R7
+32
+R24
+!i10b 1
+R9
+Z45 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd|
+Z46 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd|
+!i113 1
+R12
+R13
+Aram_memory
+R1
+R2
+R3
+DEx4 work 10 ram_entity 0 22 Tb]IWH_zYWf1^F186n0MM1
+!i122 274
+l23
+L18 18
+V1KmXQ6Eb=N?SoN5oZWB]30
+!s100 nXAllL1Xdcz4izUVZN=JC1
+R7
+32
+R24
+!i10b 1
+R9
+R45
+R46
+!i113 1
+R12
+R13
+Esendrow
+w1621680959
+R20
+R21
+R1
+R2
+R3
+!i122 20
+R4
+Z47 8/home/menna/Downloads/vlsi_project/VLSI/vhdl/sendRow.vhd
+Z48 F/home/menna/Downloads/vlsi_project/VLSI/vhdl/sendRow.vhd
+l0
+L6 1
+VP0DB=YV:nS5I`:36N24M]3
+!s100 BzY1CO1:]<OG`N8i3hn[j1
+R7
+32
+Z49 !s110 1621683354
+!i10b 1
+Z50 !s108 1621683354.000000
+Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/sendRow.vhd|
+Z52 !s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/sendRow.vhd|
+!i113 1
+R12
+R13
+Asendrow_architecture
+w0
+R20
+R21
+R1
+R2
+R3
+DEx4 work 7 sendrow 0 22 P0DB=YV:nS5I`:36N24M]3
+!i122 20
+l48
+L20 70
+V0=:@DL960dZDN;X0E8mP>1
+!s100 F@DzmUaOZ70WShE@2;T7J3
+R7
+32
+R49
+!i10b 1
+R50
+R51
+R52
+!i113 1
+R12
+R13
+vtb
+R24
+!i10b 1
+!s100 [BX?TT?4FYJDBh5eoYZQ`0
+I_6ND9dCLUWNW[ljh>f9YW1
+R4
+w1621720785
+8/home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v
+F/home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v
+!i122 275
+L0 1 104
+VDg1SIo80bB@j0V0VzS_@n1
+OV;L;2021.1;73
+r1
+!s85 0
+31
+R25
+!s107 /home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v|
+!i113 1
+o-work work
+tCvgOpt 0
