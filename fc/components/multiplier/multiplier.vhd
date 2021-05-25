@@ -12,7 +12,7 @@ entity multiplier is
     port (
         weights: in std_logic_vector(last_layer_values_count*n - 1 downto 0);
         values: in std_logic_vector(last_layer_values_count*n - 1 downto 0);
-        i: in integer;
+        index: in std_logic_vector(7 downto 0);
         result: out std_logic_vector(n-1 downto 0)
     );
 end multiplier;
@@ -20,10 +20,13 @@ end multiplier;
 architecture multiplier_booth of multiplier is
     signal m, r: std_logic_vector(n-1 downto 0);
     signal msf, rsf, ressf: sfixed(4 downto -11);
+    signal ii: integer := 0;
     begin
+        ii <= to_integer(unsigned(index)) * 16;
+
         -- Get values[index], weights[index]
-        m <= weights(n-1+i downto i) WHEN (i < n*last_layer_values_count) ELSE (others => '0');
-        r <= values(n-1+i downto i) WHEN (i < n*last_layer_values_count) ELSE (others => '0');
+        m <= weights(n-1+ii downto ii) WHEN (ii < n*last_layer_values_count) ELSE (others => '0');
+        r <= values(n-1+ii downto ii) WHEN (ii < n*last_layer_values_count) ELSE (others => '0');
 
         msf <= to_sfixed(m, 4, -11);
         rsf <= to_sfixed(r, 4, -11);
