@@ -1,1 +1,55 @@
+/home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd {1 {vcom -work work -2002 -explicit -stats=none /home/menna/Downloads/vlsi_project/VLSI/vhdl/cpu.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2021.1 Compiler 2021.02 Feb  2 2021
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity cpu
+-- Compiling architecture cpu_ARCHITECTURE of cpu
 
+} {} {}} /home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v {1 {vlog -work work -stats=none /home/menna/Downloads/vlsi_project/VLSI/vhdl/testbench.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  2 2021
+-- Compiling module tb
+
+Top level modules:
+	tb
+
+} {} {}} /home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd {1 {vcom -work work -2002 -explicit -stats=none /home/menna/Downloads/vlsi_project/VLSI/vhdl/ram.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2021.1 Compiler 2021.02 Feb  2 2021
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity ram_Entity
+-- Compiling architecture RAM_Memory of ram_Entity
+
+} {} {}} /home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd {1 {vcom -work work -2002 -explicit -stats=none /home/menna/Downloads/vlsi_project/VLSI/vhdl/decodeRow.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2021.1 Compiler 2021.02 Feb  2 2021
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity decompressor
+-- Compiling architecture decompressor_ARCHITECTURE of decompressor
+
+} {} {}} /home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd {1 {vcom -work work -2002 -explicit -stats=none /home/menna/Downloads/vlsi_project/VLSI/vhdl/IO.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2021.1 Compiler 2021.02 Feb  2 2021
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity io
+-- Compiling architecture ioo of io
+
+} {} {}} /home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd {1 {vcom -work work -2002 -explicit -stats=none /home/menna/Downloads/vlsi_project/VLSI/vhdl/IO_MODULE.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2021.1 Compiler 2021.02 Feb  2 2021
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity io_module
+-- Compiling architecture io_module_arch of io_module
+
+} {} {}}
