@@ -13,7 +13,7 @@ entity layer is
         biases: in std_logic_vector(neurons_count*16 - 1 downto 0);
         enable: in std_ulogic;
 
-        layer_out: out std_logic_vector(neurons_count * 16 downto 0);
+        layer_out: out std_logic_vector(neurons_count * 16 - 1 downto 0);
         enable_next: out std_ulogic
     ) ;
 end layer;
@@ -21,8 +21,8 @@ end layer;
 architecture layer_arch of layer is
 
     signal clk : std_ulogic := '1';
-    signal acc_out : std_logic_vector(neurons_count * 16 downto 0) := (others => '0');
-    signal neu_out : std_logic_vector(neurons_count * 16 downto 0) := (others => '0');
+    signal acc_out : std_logic_vector(neurons_count * 16 - 1 downto 0) := (others => '0');
+    signal neu_out : std_logic_vector(neurons_count * 16 - 1 downto 0) := (others => '0');
     signal cur_index : std_logic_vector (7 downto 0) := (others => '0');
     signal ii: integer := 0;
 begin
