@@ -14,7 +14,7 @@ wire [15:0] rowSize;
 wire [15:0] extraBits;
 wire [15:0] initialRowSize;
 wire [15:0] splitSize ;
-
+wire [3:0] result ;
 integer counter =0;
 
 reg load_process;
@@ -31,8 +31,8 @@ initial begin
   rst = 0;
   load_process = 1;
   cnn_image = 0;
-  data_file = $fopen("/home/menna/Downloads/vlsi_project/VLSI/vhdl/data.txt", "r");
-  image_file = $fopen("/home/menna/Downloads/vlsi_project/VLSI/vhdl/out.txt", "r");
+  data_file = $fopen("data.txt", "r");
+  image_file = $fopen("out.txt", "r");
   if (data_file == 0 || image_file == 0) begin
     $display("data_file handle was NULL");
     $finish;
@@ -75,16 +75,12 @@ cpu tb_cpu(
    cnn_image,
    clk,
    rst,
-
    load_process,
    send,
    stop,
-
    data,
    startDecompression,
-
    rowSize,
-
    extraBits,
    initialRowSize,
    splitSize
@@ -95,9 +91,10 @@ chip tb_chip(
   load_process,
         cnn_image,
 	clk,
-  rst,
+        rst,
 	send,
 	stop,           //io  
+	result,
 	data,           //cpu
 	startDecompression, //--cpu
 	rowSize,            // to cpu
