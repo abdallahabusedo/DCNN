@@ -1,17 +1,17 @@
-library ieee;  
-use ieee.std_logic_1164.all;  
- USE IEEE.numeric_std.all;
+LIBRARY IEEE;  
+USE IEEE.std_logic_1164.ALL;  
+ USE IEEE.numeric_std.ALL;
 entity flop is  
-  port(CLK: IN std_logic;
-	D : in signed(31 DOWNTO 0);  
+  PORT(CLK: IN STD_LOGIC;
+	D : IN signed(31 DOWNTO 0);  
       Q :OUT signed(31 DOWNTO 0));  
-end flop;  
+END flop;  
 architecture archi of flop is  
-  begin  
-    process (CLK)  
-      begin  
-        if (CLK'event and CLK = '0') then  
+  BEGIN  
+    PROCESS (CLK)  
+      BEGIN  
+        IF (CLK'event AND CLK = '0') THEN  
           Q <= D;  
-        end if;  
-    end process;  
-end archi;
+        END IF;  
+    END PROCESS;  
+END archi;

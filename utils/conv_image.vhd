@@ -1,64 +1,61 @@
-library ieee;
-library work;
-USE ieee.fixed_float_types.ALL;
-USE ieee.fixed_pkg.ALL;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-USE IEEE.std_logic_unsigned.all;
-use work.c_pkg.all;
+LIBRARY IEEE;
+LIBRARY work;
+USE IEEE.fixed_float_types.ALL;
+USE IEEE.fixed_pkg.ALL;
+USE IEEE.std_logic_1164.ALL;
+USE IEEE.numeric_std.ALL;
+USE IEEE.std_logic_unsigned.ALL;
 
 ENTITY convolut_image IS
-generic (FILTER_SIZE : integer := 3;IMG_SIZE : integer := 5);
+GENERIC (FILTER_SIZE : INTEGER := 3;IMG_SIZE : INTEGER := 5);
 	PORT(
-		IMG : IN img_array;
-		FILTER1 : IN filter_array;
-		convoluted_img : OUT img_array;
-		end_conv :OUT std_logic;
-		clk,strat_signal:IN std_logic
+		IMG : IN  STD_LOGIC_VECTOR(IMG_SIZE*IMG_SIZE*16-1 DOWNTO 0);
+		FILTER1 : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+		convoluted_img : OUT STD_LOGIC_VECTOR((IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16-1 DOWNTO 0);
+		end_conv :OUT STD_LOGIC;
+		clk,strat_signal,REST:IN STD_LOGIC
 	);
 END ENTITY;
 ARCHITECTURE conv_image_arch OF convolut_image IS
-component conv_wimdow_1 IS 
-	generic (FILTER_SIZE : integer);
+COMPONENT conv_wimdow_1 IS 
+	GENERIC (FILTER_SIZE : INTEGER);
 	PORT(
-		WINDOW : IN filter_array;
-		FILTER : IN filter_array;
-		PIXEL_OUT : OUT sfixed (4 downto -11);
-		end_conv :OUT std_logic;
-		clk,strat_signal:IN std_logic
+		WINDOW : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+		FILTER : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+		PIXEL_OUT : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+		end_conv :OUT STD_LOGIC;
+		clk,strat_signal,REST:IN STD_LOGIC
 	);
-END component;
+END COMPONENT;
 ----------------------------------------------------
-component extract_window IS
-	generic (FILTER_SIZE : integer ;IMG_SIZE : integer);
+COMPONENT extract_window IS
 	PORT(
-		IMG : IN img_array;
-		OFFSET:IN integer;
-		LAYER : OUT filter_array
+		IMG : IN STD_LOGIC_VECTOR(IMG_SIZE*IMG_SIZE*16-1 DOWNTO 0);
+		IMG_SIZE_in:IN INTEGER;
+		FILTER_SIZE_in:IN INTEGER;
+		REST:IN STD_LOGIC;
+		OFFSET:IN INTEGER;
+		LAYER : OUT STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0)
 	);
-END component;
+END COMPONENT;
 
-TYPE pixel_type IS array(0 TO 24)OF sfixed (4 downto -11);
-SIGNAL item_out : pixel_type ;
-SIGNAL OUT_LAYER:img_array;
-TYPE conv_type IS array(0 TO 28*28)OF filter_array;
+TYPE conv_type IS ARRAY(0 TO (IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)-1)OF STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
 SIGNAL WINDOW : conv_type;
-TYPE OFFSSET_type IS array(0 TO 28*28) OF unsigned(9 DOWNTO 0);
-	SIGNAL OFFSSET : OFFSSET_type := (
-	0 => "0000000000",
-	OTHERS => "0000000000");
+SIGNAL y: STD_LOGIC_VECTOR((IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16-1 DOWNTO 0);
+
+TYPE OFFSSET_type IS ARRAY(0 TO (IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)-1) OF unsigned(9 DOWNTO 0);
+	SIGNAL OFFSSET : OFFSSET_type ;
 	BEGIN
-loop0: FOR i IN 1 TO (IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)-1 GENERATE 			
-				OFFSSET(i) <= OFFSSET(i-1)+to_unsigned(FILTER_SIZE,10) when ( (to_integer(OFFSSET(i-1))+FILTER_SIZE )mod  IMG_SIZE)=0 else
+		OFFSSET(0)<=(OTHERS =>'0');	
+		loop0: FOR i IN 1 TO (IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)-1 GENERATE 		
+				OFFSSET(i) <= OFFSSET(i-1)+to_unsigned(FILTER_SIZE,10) WHEN ( (to_integer(OFFSSET(i-1))+FILTER_SIZE )mod  IMG_SIZE)=0 else
        				OFFSSET(i-1)+"0000000001" ;
-END GENERATE;
-loop1: FOR i IN 0 TO (IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)-1  GENERATE 		
-				fx0:extract_window GENERIC MAP (FILTER_SIZE,IMG_SIZE)PORT MAP(IMG,to_integer(OFFSSET(i)),WINDOW(i));
+		END GENERATE;
+		loop1: FOR i IN 0 TO (IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)-1   GENERATE 		
+				fx0:extract_window GENERIC MAP (FILTER_SIZE,IMG_SIZE)PORT MAP(IMG,IMG_SIZE,FILTER_SIZE,REST,to_integer(OFFSSET(i)),WINDOW(i));
 				fx1:conv_wimdow_1 GENERIC MAP (FILTER_SIZE)  PORT MAP(WINDOW(i),
-					FILTER1,item_out(i),end_conv,clk,strat_signal);
-				OUT_LAYER(i)<=item_out(i);
+					FILTER1,convoluted_img(i*16+15 DOWNTO i*16),end_conv,clk,strat_signal,REST);
    	
-END GENERATE;
-convoluted_img<=OUT_LAYER;
+		END GENERATE;
 END conv_image_arch;
 

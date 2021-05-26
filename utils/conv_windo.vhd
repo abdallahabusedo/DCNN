@@ -1,63 +1,65 @@
-library ieee;
-library work;
-use ieee.fixed_float_types.all;
-use ieee.fixed_pkg.all;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use work.c_pkg.all;
+LIBRARY IEEE;
+LIBRARY work;
+USE IEEE.fixed_float_types.ALL;
+USE IEEE.fixed_pkg.ALL;
+USE IEEE.std_logic_1164.ALL;
+USE IEEE.numeric_std.ALL;
 
 ENTITY conv_wimdow_1 IS
-generic (FILTER_SIZE : integer := 3);
+GENERIC (FILTER_SIZE : INTEGER := 3);
 	PORT(
-		WINDOW : IN filter_array;
-		FILTER : IN filter_array;
-		PIXEL_OUT : OUT sfixed (4 downto -11);
-		end_conv :OUT std_logic;
-		clk,strat_signal:IN std_logic
+		WINDOW : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+		FILTER : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+		PIXEL_OUT : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+		end_conv :OUT STD_LOGIC;
+		clk,strat_signal,REST:IN STD_LOGIC
 	);
 END ENTITY;
 ARCHITECTURE conv_window_arch OF conv_wimdow_1 IS
-component sflop IS  
-  PORT(CLK: IN std_logic;
-	D : in sfixed (4 downto -11);  
-    Q :OUT sfixed (4 downto -11)
+COMPONENT sflop IS  
+  PORT(CLK: IN STD_LOGIC;
+	D : IN sfixed (4 DOWNTO -11);  
+    Q :OUT sfixed (4 DOWNTO -11)
 	);	
-end component;  
-	component MUL_WIN_FLT IS
+END COMPONENT;  
+	COMPONENT MUL_WIN_FLT IS
 	PORT(
-		WINDOW : IN filter_array;
-		FILTER : IN filter_array;
-		PIXEL : OUT filter_array
+		WINDOW : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+		FILTER : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+		PIXEL : OUT STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0)
 	);
-	END component;
-	SIGNAL MUL_PIX_FIT:filter_array;
-	SIGNAL D: sfixed (4 downto -11):=(others => '0');
-	SIGNAL Q: sfixed (4 downto -11);
+	END COMPONENT;
+	SIGNAL MUL_PIX_FIT:STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+	SIGNAL D: sfixed (4 DOWNTO -11):=(others => '0');
+	SIGNAL Q: sfixed (4 DOWNTO -11);
 	BEGIN
 		MUL_WIN_FLT1:MUL_WIN_FLT GENERIC MAP (FILTER_SIZE) PORT MAP(WINDOW,FILTER,MUL_PIX_FIT);
 		SUM_Reg:sflop PORT MAP(clk,D,Q);
-		process(clk,strat_signal)
-			variable i:integer :=0 ;
-    			begin
+		PROCESS(clk,strat_signal)
+			VARIABLE i:INTEGER :=0 ;
+    			BEGIN
 			  
-			  if (CLK'event and CLK = '1' and strat_signal='1') then  
-				if(i<FILTER_SIZE*FILTER_SIZE)then 
-				
-					D <= resize (arg => Q+MUL_PIX_FIT(i) , 
-						left_index => D'high ,
-						right_index => D'low ,
+			  IF (CLK'event AND CLK = '1' AND strat_signal='1') THEN  
+				IF(i<FILTER_SIZE*FILTER_SIZE)THEN 
+					D <= resize (arg => Q+to_sfixed(MUL_PIX_FIT( i*16+15 DOWNTO i*16 ),4,-11) , 
+						left_index => D'HIGH ,
+						right_index => D'LOW ,
 						round_style => fixed_round, 
 						overflow_style => fixed_saturate); 
 					i:=i+1;
-				end if;
-			if(i>=FILTER_SIZE*FILTER_SIZE) then
-				end_conv<='1';
-			else 
 				end_conv<='0';
-			end if;
-        		end if;
+				elsif(i>FILTER_SIZE*FILTER_SIZE) THEN
+					end_conv<='1';
+				else 
+					end_conv<='0';
+					i:=i+1;
+				END IF;
+			elsif(strat_signal='0'or REST='1')THEN
+				D<=(others => '0');
+				i:=0;
+        		END IF;
 			
-			PIXEL_OUT<=Q; 
-		end process;
+			PIXEL_OUT<=to_slv (Q); 
+		END PROCESS;
 			
 END conv_window_arch;

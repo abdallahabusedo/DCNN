@@ -1,45 +1,45 @@
 
-library ieee;
-library work;
-USE ieee.fixed_float_types.ALL;
-USE ieee.fixed_pkg.ALL;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-USE IEEE.std_logic_unsigned.all;
-use work.c_pkg.all;
+LIBRARY IEEE;
+LIBRARY work;
+USE IEEE.fixed_float_types.ALL;
+USE IEEE.fixed_pkg.ALL;
+USE IEEE.std_logic_1164.ALL;
+USE IEEE.numeric_std.ALL;
+USE IEEE.std_logic_unsigned.ALL;
+USE work.c_pkg.ALL;
 
 ENTITY convolute_images IS
-generic (FILTER_SIZE : integer := 3;IMG_SIZE : integer := 5;images_count: integer:=3;filters_count: integer:=1);
+GENERIC (FILTER_SIZE : INTEGER := 3;IMG_SIZE : INTEGER := 5;images_count: INTEGER:=3;filters_count: INTEGER:=1);
 	PORT(
 		IMGs : IN convolution_imags_type;
 		FILTERs : IN convolution_filtters_type;
 		avg_imgs : OUT convolution_imags_type;
-		end_conv :OUT std_logic;
-		clk,strat_signal:IN std_logic
+		end_conv :OUT STD_LOGIC;
+		clk,strat_signal:IN STD_LOGIC
 	);
 END ENTITY;
 ARCHITECTURE convolute_images_arch OF convolute_images IS
-component convolut_image IS
-generic (FILTER_SIZE : integer := 3;IMG_SIZE : integer := 5);
+COMPONENT convolut_image IS
+GENERIC (FILTER_SIZE : INTEGER := 3;IMG_SIZE : INTEGER := 5);
 	PORT(
 		IMG : IN img_array;
 		FILTER1 : IN filter_array;
 		convoluted_img : OUT img_array;
-		end_conv :OUT std_logic;
-		clk,strat_signal:IN std_logic
+		end_conv :OUT STD_LOGIC;
+		clk,strat_signal:IN STD_LOGIC
 	);
-END component;
-component conv_avg IS
-generic (IMG_number : integer := 3;IMG_SIZE : integer := 5);
+END COMPONENT;
+COMPONENT conv_avg IS
+GENERIC (IMG_number : INTEGER := 3;IMG_SIZE : INTEGER := 5);
 	PORT(
 		img_arr :IN convolution_imags_type; -- for one block of images 
-		start:IN integer;
+		start:IN INTEGER;
 		avg_img : OUT img_array;
-		end_conv :OUT std_logic;
-		clk,strat_signal:IN std_logic
+		end_conv :OUT STD_LOGIC;
+		clk,strat_signal:IN STD_LOGIC
 	);
-END component;
-signal strat_avg:std_logic:='0';
+END COMPONENT;
+signal strat_avg:STD_LOGIC:='0';
 signal convoluted_imgs : convolution_imags_type;
 BEGIN
 loop0: FOR i IN 0 TO filters_count-1 GENERATE 	

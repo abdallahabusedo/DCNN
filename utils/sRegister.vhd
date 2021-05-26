@@ -1,21 +1,21 @@
-library ieee;  
-USE ieee.fixed_float_types.ALL;
-USE ieee.fixed_pkg.ALL;
-use ieee.std_logic_1164.ALL;  
+LIBRARY IEEE;  
+USE IEEE.fixed_float_types.ALL;
+USE IEEE.fixed_pkg.ALL;
+USE IEEE.std_logic_1164.ALL;  
 USE IEEE.numeric_std.ALL;
 
 entity sflop is  
-  port(CLK: IN std_logic;
-	D : in sfixed (4 downto -11); 
-    Q :OUT sfixed (4 downto -11)  
+  PORT(CLK: IN STD_LOGIC;
+	D : IN sfixed (4 DOWNTO -11); 
+    Q :OUT sfixed (4 DOWNTO -11)  
 	);
-end sflop;  
+END sflop;  
 architecture sarchi of sflop is  
-  begin  
-    process (CLK)  
-      begin  
-        if (CLK'event and CLK = '0') then  
+  BEGIN  
+    PROCESS (CLK)  
+      BEGIN  
+        IF (CLK'event AND CLK = '0') THEN  
           Q <= D;  
-        end if;  
-    end process;  
-end sarchi;
+        END IF;  
+    END PROCESS;  
+END sarchi;
