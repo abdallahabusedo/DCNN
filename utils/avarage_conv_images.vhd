@@ -34,21 +34,24 @@ end component;
 				SUM_Reg:sflop PORT MAP(clk,D(i),Q(i));
 		END GENERATE;
 		process(clk,signal_str)
-			variable i:integer :=0 ;
+			variable i,k:integer :=0 ;
 			 
     			begin
-			  if (CLK'event and CLK = '1' and signal_str='1' and i<IMG_number) then
+			  if (CLK'event and CLK = '1' and signal_str='1' ) then
+				if( i>10 and k< IMG_number) then  
 				for p in 0 to IMG_SIZE*IMG_SIZE-1 loop
-         					D(p) <= resize (arg => Q(i)+img_arr(start+i)(p) , 
-						left_index => D(i)'high ,
-						right_index => D(i)'low ,
+         					D(p) <= resize (arg => Q(k)+img_arr(start+k)(p) , 
+						left_index => D(k)'high ,
+						right_index => D(k)'low ,
 						round_style => fixed_round, 
 						overflow_style => fixed_saturate); 
 				end loop;
+				k:=k+1;
+				end if;
 				i:=i+1; 
         		end if;
 			for p in 0 to IMG_SIZE*IMG_SIZE-1 loop
-         				avg_img(p) <= resize (arg => Q(i)/IMG_Snumber , 
+         				avg_img(p) <= resize (arg => Q(p)/IMG_Snumber , 
 						left_index => avg_img(p)'high ,
 						right_index => avg_img(p)'low ,
 						round_style => fixed_round, 
