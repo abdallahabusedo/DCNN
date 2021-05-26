@@ -10,6 +10,7 @@ ENTITY Pool IS
 generic (WINDOW_SIZE : integer := 2);
 	PORT(
 		WINDOW : IN filter_array;
+		START : IN std_logic;
 		AVR : OUT sfixed (4 downto -11);
 		Done : OUT std_logic := '0';
 		clk:IN std_logic 
@@ -38,10 +39,10 @@ ARCHITECTURE arch_Pool OF Pool IS
 						overflow_style => fixed_saturate); 
 						
 		SUM_Reg:sflop PORT MAP(clk,sumD,sumQ);
-		process(clk)
+		process(clk,START)
 			variable i:integer :=0 ;
 			begin
-				if (CLK'event and CLK = '1') then  
+				if (clk'event and CLK = '1' and START ='1') then  
 					if(i<WINDOW_SIZE*WINDOW_SIZE)then
 						sumD <= resize (arg => sumQ+WINDOW(i), 
 							left_index => sumD'high ,

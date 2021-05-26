@@ -9,10 +9,10 @@ use work.c_pkg.all;
 ENTITY pooling_layer IS
 	generic (WINDOW_SIZE : integer := 2 ; Maps_Count : integer := 6 ;IMG_SIZE : integer := 4);
 	PORT(
-		InFeatureMaps : IN feature_map_pooling;                      
-		OutFeatureMaps : OUT feature_map_pooling;	
+		InFeatureMaps : IN convolution_imags_type;                      
+		OutFeatureMaps : OUT convolution_imags_type;	
 		Done : OUT std_logic := '0';
-		clk:IN std_logic
+		clk,START:IN std_logic
 	);
 END ENTITY;
 
@@ -21,18 +21,18 @@ ARCHITECTURE arch_pooling_layer OF pooling_layer IS
 	generic (FILTER_SIZE : integer := 2;IMG_SIZE : integer := 4);
 		PORT(
 			IMG : IN img_array;
-			clk :IN std_logic;
+			clk,START :IN std_logic;
 			Done : OUT std_logic;
 			pool_img : OUT img_array
 		);
 	END component;
 	
 	SIGNAL MiniPoolDone,temp1 : std_logic_vector(0 TO Maps_Count-1);
-	SIGNAL tempPoolOut : feature_map_pooling;
+	SIGNAL tempPoolOut : convolution_imags_type;
 	
 	BEGIN
 		loop1: FOR i IN 0 TO Maps_Count-1 GENERATE 		
-				fx0:pool_window GENERIC MAP (WINDOW_SIZE,IMG_SIZE)PORT MAP(InFeatureMaps(i),clk,MiniPoolDone(i),tempPoolOut(i));
+				fx0:pool_window GENERIC MAP (WINDOW_SIZE,IMG_SIZE)PORT MAP(InFeatureMaps(i),clk,START,MiniPoolDone(i),tempPoolOut(i));
 				OutFeatureMaps(i) <= tempPoolOut(i);
 		END GENERATE;
 		
