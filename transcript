@@ -1,9 +1,0 @@
-# Loading project VLSi_io2
-# Compile of chip.vhd was successful.
-# Compile of cpu.vhd was successful.
-# Compile of IO.vhd was successful.
-# Compile of IO_MODULE.vhd was successful.
-# Compile of ram.vhd was successful.
-# Compile of testbench.v was successful.
-# Compile of decodeRow.vhd was successful.
-# 7 compiles, 0 failed with no errors.
