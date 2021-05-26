@@ -21,6 +21,7 @@ architecture multiplier_booth of multiplier is
     signal m, r: std_logic_vector(n-1 downto 0);
     signal msf, rsf, ressf: sfixed(4 downto -11);
     signal ii: integer := 0;
+    signal res_sig: std_logic_vector(n-1 downto 0) := (others => '0');
     begin
         ii <= to_integer(unsigned(index)) * 16;
 
@@ -30,7 +31,8 @@ architecture multiplier_booth of multiplier is
 
         msf <= to_sfixed(m, 4, -11);
         rsf <= to_sfixed(r, 4, -11);
-        ressf <= to_sfixed(result, 4, -11);
+        ressf <= to_sfixed(res_sig, 4, -11);
+        result <= res_sig;
 
         multiplication_loop : process( m, r )
             variable A : std_logic_vector (2*n downto 0) := (others => '0');
@@ -57,7 +59,7 @@ architecture multiplier_booth of multiplier is
                 P(2*n DOWNTO 0) := P(2*n) & P(2*n DOWNTO 1);
                 -- report to_bstring(P);
             end loop ;
-            result <= std_logic_vector(signed(P(2*n-5 downto 2*n-20)));
+            res_sig <= std_logic_vector(signed(P(2*n-5 downto 2*n-20)));
         end process ; -- multiplication_loop
     
 end multiplier_booth ; -- multiplier_booth
