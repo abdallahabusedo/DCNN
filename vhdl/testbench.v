@@ -75,16 +75,12 @@ cpu tb_cpu(
    cnn_image,
    clk,
    rst,
-
    load_process,
    send,
    stop,
-
    data,
    startDecompression,
-
    rowSize,
-
    extraBits,
    initialRowSize,
    splitSize
@@ -92,10 +88,10 @@ cpu tb_cpu(
 );
 
 chip tb_chip(
-  load_process,
-        cnn_image,
-	clk,
-  rst,
+  	load_process,
+  	cnn_image,
+  	clk,
+  	rst,
 	send,
 	stop,           //io  
 	data,           //cpu

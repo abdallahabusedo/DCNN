@@ -66,7 +66,7 @@ ARCHITECTURE chip_ARCHITECTURE OF chip IS
 	SIGNAL address            : INTEGER;
 	SIGNAL ramDataIn          : STD_LOGIC_VECTOR(15 DOWNTO 0) ;
 	SIGNAL writeRam           : STD_LOGIC_VECTOR(1 DOWNTO 0);
-    SIGNAL ramDataOUT         : STD_LOGIC_VECTOR(15 DOWNTO 0) ;
+    	SIGNAL ramDataOUT         : STD_LOGIC_VECTOR(15 DOWNTO 0) ;
 	SIGNAL extraBits          : INTEGER;
 	SIGNAL initialRowSize     : INTEGER;
 	SIGNAL splitSize          : INTEGER;
@@ -79,6 +79,7 @@ BEGIN
    splitSize <= to_integer(unsigned( splitSize_vec));
    rowSize_vec <= std_logic_vector(to_unsigned(rowSize, 16));
    -- stop <= stop_signal;
+
  
    sendIO : io_module PORT MAP(data,clk,rst, loadCNN,
 	 address,ramDataIn,writeRam,
