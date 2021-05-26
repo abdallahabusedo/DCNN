@@ -14,7 +14,8 @@ generic (FILTER_SIZE : integer := 3;IMG_SIZE : integer := 5;images_count: intege
 		IMGs : IN convolution_imags_type;
 		FILTERs : IN convolution_filtters_type;
 		avg_imgs : OUT convolution_imags_type;
-		clk:IN std_logic
+		end_conv :OUT std_logic;
+		clk,strat_signal:IN std_logic
 	);
 END ENTITY;
 ARCHITECTURE convolute_images_arch OF convolute_images IS
@@ -24,7 +25,8 @@ generic (FILTER_SIZE : integer := 3;IMG_SIZE : integer := 5);
 		IMG : IN img_array;
 		FILTER1 : IN filter_array;
 		convoluted_img : OUT img_array;
-		clk:IN std_logic
+		end_conv :OUT std_logic;
+		clk,strat_signal:IN std_logic
 	);
 END component;
 component conv_avg IS
@@ -33,17 +35,21 @@ generic (IMG_number : integer := 3;IMG_SIZE : integer := 5);
 		img_arr :IN convolution_imags_type; -- for one block of images 
 		start:IN integer;
 		avg_img : OUT img_array;
-		signal_str,clk:IN std_logic
+		end_conv :OUT std_logic;
+		clk,strat_signal:IN std_logic
 	);
 END component;
+signal strat_avg:std_logic:='0';
 signal convoluted_imgs : convolution_imags_type;
 BEGIN
 loop0: FOR i IN 0 TO filters_count-1 GENERATE 	
 	loop1: FOR k IN 0 TO images_count-1 GENERATE 			
-				fx0:convolut_image GENERIC MAP (FILTER_SIZE,IMG_SIZE)PORT MAP(IMGs(k),FILTERs(i*images_count+k),convoluted_imgs(i*images_count+k) ,clk);   	
+				fx0:convolut_image GENERIC MAP (FILTER_SIZE,IMG_SIZE)PORT MAP
+				(IMGs(k),FILTERs(i*images_count+k),convoluted_imgs(i*images_count+k),
+					strat_avg ,clk,strat_signal);   	
 	END GENERATE;
-	CA0:conv_avg GENERIC MAP (images_count,IMG_SIZE-FILTER_SIZE+1)PORT MAP(convoluted_imgs ,i*images_count
-		,avg_imgs(i),'1' ,clk);
+	CA0:conv_avg GENERIC MAP (images_count,IMG_SIZE-FILTER_SIZE+1)PORT MAP(convoluted_imgs 
+	,i*images_count,avg_imgs(i),end_conv ,clk,strat_avg);
 
 END GENERATE;
 

@@ -12,7 +12,8 @@ generic (FILTER_SIZE : integer := 3);
 		WINDOW : IN filter_array;
 		FILTER : IN filter_array;
 		PIXEL_OUT : OUT sfixed (4 downto -11);
-		clk:IN std_logic
+		end_conv :OUT std_logic;
+		clk,strat_signal:IN std_logic
 	);
 END ENTITY;
 ARCHITECTURE conv_window_arch OF conv_wimdow_1 IS
@@ -35,10 +36,11 @@ end component;
 	BEGIN
 		MUL_WIN_FLT1:MUL_WIN_FLT GENERIC MAP (FILTER_SIZE) PORT MAP(WINDOW,FILTER,MUL_PIX_FIT);
 		SUM_Reg:sflop PORT MAP(clk,D,Q);
-		process(clk)
+		process(clk,strat_signal)
 			variable i:integer :=0 ;
     			begin
-			  if (CLK'event and CLK = '1') then  
+			  
+			  if (CLK'event and CLK = '1' and strat_signal='1') then  
 				if(i<FILTER_SIZE*FILTER_SIZE)then 
 				
 					D <= resize (arg => Q+MUL_PIX_FIT(i) , 
@@ -48,7 +50,13 @@ end component;
 						overflow_style => fixed_saturate); 
 					i:=i+1;
 				end if;
-        		end if;  
+			if(i>=FILTER_SIZE*FILTER_SIZE) then
+				end_conv<='1';
+			else 
+				end_conv<='0';
+			end if;
+        		end if;
+			
 			PIXEL_OUT<=Q; 
 		end process;
 			

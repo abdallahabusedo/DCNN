@@ -8,10 +8,6 @@ sim:/convolute_images/IMGs \
 sim:/convolute_images/FILTERs \
 sim:/convolute_images/convoluted_imgs \
 
-
-add wave -position insertpoint  \
-sim:/convolute_images/avg_imgs
-sim:/convolute_images/clk
 force -freeze sim:/convolute_images/clk 0 0, 1 {50 ps} -r 100
 
 force -freeze sim:/convolute_images/IMGs(0)(1)  0000100000000000 0
@@ -127,3 +123,26 @@ force -freeze sim:/convolute_images/FILTERs(2)(6) 0000000000000000 0
 force -freeze sim:/convolute_images/FILTERs(2)(7) 0000000000000000 0
 force -freeze sim:/convolute_images/FILTERs(2)(8) 0000000000000000 0
 
+
+add wave -position insertpoint  \
+sim:/convolute_images/end_conv \
+sim:/convolute_images/strat_signal \
+sim:/convolute_images/strat_avg
+force -freeze sim:/convolute_images/strat_signal 0 0
+
+force -freeze sim:/convolute_images/strat_signal 1 0
+add wave -position 8  sim:/convolute_images/clk
+force -freeze sim:/convolute_images/clk 0 0, 1 {50 ps} -r 100
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
