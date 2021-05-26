@@ -13,7 +13,7 @@ generic (FILTER_SIZE : integer := 3;IMG_SIZE : integer := 5);
 		FILTER1 : IN std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
 		convoluted_img : OUT std_logic_vector((IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16-1 Downto 0);
 		end_conv :OUT std_logic;
-		clk,strat_signal,REST:IN std_logic
+		clk,strat_signal,rst:IN std_logic
 	);
 END ENTITY;
 ARCHITECTURE conv_image_arch OF convolut_image IS
@@ -24,7 +24,7 @@ component conv_wimdow_1 IS
 		FILTER : IN std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
 		PIXEL_OUT : OUT std_logic_vector(15 downto 0);
 		end_conv :OUT std_logic;
-		clk,strat_signal,REST:IN std_logic
+		clk,strat_signal,rst:IN std_logic
 	);
 END component;
 ----------------------------------------------------
@@ -34,7 +34,7 @@ component extract_window IS
 		IMG : IN std_logic_vector(IMG_SIZE*IMG_SIZE*16-1 Downto 0);
 		IMG_SIZE_in:IN integer;
 		FILTER_SIZE_in:IN integer;
-		REST:IN std_logic;
+		rst:IN std_logic;
 		OFFSET:IN integer;
 		LAYER : OUT std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0)
 	);
@@ -53,9 +53,9 @@ TYPE OFFSSET_type IS array(0 TO (IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1
        				OFFSSET(i-1)+"0000000001" ;
 		END GENERATE;
 		loop1: FOR i IN 0 TO (IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)-1   GENERATE 		
-				fx0:extract_window GENERIC MAP (FILTER_SIZE,IMG_SIZE)PORT MAP(IMG,IMG_SIZE,FILTER_SIZE,REST,to_integer(OFFSSET(i)),WINDOW(i));
+				fx0:extract_window GENERIC MAP (FILTER_SIZE,IMG_SIZE)PORT MAP(IMG,IMG_SIZE,FILTER_SIZE,rst,to_integer(OFFSSET(i)),WINDOW(i));
 				fx1:conv_wimdow_1 GENERIC MAP (FILTER_SIZE)  PORT MAP(WINDOW(i),
-					FILTER1,convoluted_img(i*16+15 downto i*16),end_conv,clk,strat_signal,REST);
+					FILTER1,convoluted_img(i*16+15 downto i*16),end_conv,clk,strat_signal,rst);
    	
 		END GENERATE;
 END conv_image_arch;

@@ -9,7 +9,7 @@ generic (FILTER_SIZE : integer:=3 ;IMG_SIZE : integer:=5);
 		IMG : IN std_logic_vector(IMG_SIZE*IMG_SIZE*16-1 Downto 0);
 		IMG_SIZE_in:IN integer;
 		FILTER_SIZE_in:IN integer;
-		REST:IN std_logic;
+		rst:IN std_logic;
 		OFFSET:IN integer;
 		LAYER : OUT std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0)
 	);
@@ -17,11 +17,11 @@ END ENTITY;
 ------------------------------------------------------------------------
 ARCHITECTURE extract_window_arch OF extract_window IS
 	BEGIN
-		process(IMG,OFFSET,REST)
+		process(IMG,OFFSET,rst)
         		variable k_filter,add_filter,k_img,add_img : integer ;
         		variable i,j,l_img,l_filter,fi,im : integer;
     			begin
-				if(REST='1')then
+				if(rst='1')then
 					k_filter:=0;
 					add_filter:=0;
 					k_img:=0;

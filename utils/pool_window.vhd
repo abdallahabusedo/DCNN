@@ -10,11 +10,10 @@ use work.c_pkg.all;
 ENTITY pool_window IS
 	generic (FILTER_SIZE : integer := 2;IMG_SIZE : integer := 4);
 	PORT(
-		IMG : IN img_array;
-		START : IN std_logic;
-		clk :IN std_logic;
+		IMG :  IN std_logic_vector((IMG_SIZE*IMG_SIZE*16)-1 DOWNTO 0);
+		clk , START , rst :IN std_logic;
 		Done : OUT std_logic;
-		pool_img : OUT img_array
+		pool_img : OUT std_logic_vector((IMG_SIZE/2)*(IMG_SIZE/2)*16-1 Downto 0)
 	);
 END ENTITY;
 
@@ -23,55 +22,48 @@ ARCHITECTURE pool_image_arch OF pool_window IS
 	component extract_window IS
 		generic (FILTER_SIZE : integer ;IMG_SIZE : integer);
 		PORT(
-			IMG : IN img_array;
+			IMG : IN std_logic_vector(IMG_SIZE*IMG_SIZE*16-1 Downto 0);
+			IMG_SIZE_in:IN integer;
+			FILTER_SIZE_in:IN integer;
+			rst:IN std_logic;
 			OFFSET:IN integer;
-			LAYER : OUT filter_array
+			LAYER : OUT std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0)
 		);
 	END component;
 
 	component Pool IS
 		generic (WINDOW_SIZE : integer := 2);
 		PORT(
-			WINDOW : IN filter_array;
-			START : IN std_logic;
-			AVR : OUT sfixed (4 downto -11);
-			Done : OUT std_logic := '0';
-			clk:IN std_logic 
+			WINDOW : IN std_logic_vector((WINDOW_SIZE*WINDOW_SIZE*16)-1 DOWNTO 0);
+			START,rst,clk : IN std_logic;
+			AVR : OUT std_logic_vector(15 downto 0);
+			Done : OUT std_logic := '0'
 		);
 	END component;
 
-	--donot forget to change sizes
-	TYPE pixel_type IS array(0 TO 24)OF sfixed (4 downto -11);
-	SIGNAL item_out : pixel_type ;
-	SIGNAL OUT_LAYER:img_array;
-	TYPE conv_type IS array(0 TO 63)OF filter_array;
+	TYPE conv_type IS array(0 TO ((IMG_SIZE/2)*(IMG_SIZE/2) -1))OF std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
+	TYPE OFFSSET_type IS array(0 TO ((IMG_SIZE/2)*(IMG_SIZE/2) -1)) OF unsigned(9 DOWNTO 0);
+
 	SIGNAL WINDOW : conv_type;
-	TYPE OFFSSET_type IS array(0 TO 63) OF unsigned(9 DOWNTO 0);
-	SIGNAL OFFSSET : OFFSSET_type := (
-		0 => "0000000000",
-		OTHERS => "0000000000");
-		
+	SIGNAL OFFSSET : OFFSSET_type ;
 	SIGNAL MiniPoolDone,temp1 : std_logic_vector(0 TO (IMG_SIZE/2)*(IMG_SIZE/2)-1);
 		
 	BEGIN
+		OFFSSET(0)<=(OTHERS =>'0');	
 		loop0: FOR i IN 1 TO (IMG_SIZE/2)*(IMG_SIZE/2)-1 GENERATE 
 			OFFSSET(i) <= OFFSSET(i-1)+"0000000010"+IMG_SIZE when( (to_integer(OFFSSET(i-1))+FILTER_SIZE )mod  IMG_SIZE)=0 else
 			OFFSSET(i-1)+"0000000010" ;
 		END GENERATE;
 
 		loop1: FOR i IN 0 TO (IMG_SIZE/2)*(IMG_SIZE/2)-1  GENERATE 
-			fx0:extract_window GENERIC MAP (FILTER_SIZE,IMG_SIZE)PORT MAP(IMG,to_integer(OFFSSET(i)),WINDOW(i));
-			fx1:Pool GENERIC MAP (FILTER_SIZE) PORT MAP(WINDOW(i),START,item_out(i),MiniPoolDone(i),clk);
-			OUT_LAYER(i)<=item_out(i);
+			fx0:extract_window GENERIC MAP (FILTER_SIZE,IMG_SIZE)PORT MAP(IMG,IMG_SIZE,FILTER_SIZE,rst,to_integer(OFFSSET(i)),WINDOW(i));
+
+			fx1:Pool GENERIC MAP (FILTER_SIZE) PORT MAP(WINDOW(i),START,rst,clk,pool_img(i*16+15 DOWNTO i*16),MiniPoolDone(i));
+
 		END GENERATE;
 
-		pool_img<=OUT_LAYER;
 		temp1 <= (OTHERS => '1');
 		Done <= '1' WHEN MiniPoolDone = temp1
 				  ELSE '0';
 
 	END pool_image_arch;
-	
-	
-	
-	

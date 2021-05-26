@@ -14,7 +14,7 @@ generic (FILTER_SIZE : integer := 3;IMG_SIZE : integer := 5;images_count: intege
 		FILTERs : IN std_logic_vector(images_count*filters_count*FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
 		avg_imgs : OUT std_logic_vector(filters_count*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16-1 Downto 0);
 		end_conv :OUT std_logic;
-		clk,strat_signal,REST:IN std_logic
+		clk,strat_signal,rst:IN std_logic
 	);
 END ENTITY;
 ARCHITECTURE convolute_images_arch OF convolute_images IS
@@ -25,7 +25,7 @@ generic (FILTER_SIZE : integer := 3;IMG_SIZE : integer := 5);
 		FILTER1 : IN std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
 		convoluted_img : OUT std_logic_vector((IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16-1 Downto 0);
 		end_conv :OUT std_logic;
-		clk,strat_signal,REST:IN std_logic
+		clk,strat_signal,rst:IN std_logic
 	);
 END component;
 component conv_avg IS
@@ -35,7 +35,7 @@ generic (IMG_number : integer := 3;IMG_SIZE : integer := 5);
 		start:IN integer;
 		avg_img : OUT std_logic_vector(IMG_SIZE*IMG_SIZE*16-1 Downto 0);
 		end_conv :OUT std_logic;
-		clk,strat_signal,REST:IN std_logic
+		clk,strat_signal,rst:IN std_logic
 	);
 END component;
 signal strat_avg:std_logic:='0';
@@ -47,11 +47,11 @@ loop0: FOR i IN 0 TO filters_count-1 GENERATE
 				(IMGs((K*IMG_SIZE*IMG_SIZE*16)+(IMG_SIZE*IMG_SIZE*16)-1 downto (K*IMG_SIZE*IMG_SIZE*16) ),
 				FILTERs(((i*images_count+k)*FILTER_SIZE*FILTER_SIZE*16)+(FILTER_SIZE*FILTER_SIZE*16) -1 downto ((i*images_count+k)*FILTER_SIZE*FILTER_SIZE*16)),
 				convoluted_imgs(((i*images_count+k)*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16)+((IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16)-1 downto ((i*images_count+k)*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16)),
-					strat_avg ,clk,strat_signal,REST); 	
+					strat_avg ,clk,strat_signal,rst); 	
 	END GENERATE;
 	CA0:conv_avg GENERIC MAP (images_count,IMG_SIZE-FILTER_SIZE+1)PORT MAP(
 	convoluted_imgs (((i+1)*images_count*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16) -1 downto (i*images_count)*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16),0
-	,avg_imgs(((i+1)*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16) -1 downto i*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16),end_conv ,clk,strat_avg,REST);
+	,avg_imgs(((i+1)*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16) -1 downto i*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16),end_conv ,clk,strat_avg,rst);
 
 END GENERATE;
 

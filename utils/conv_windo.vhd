@@ -12,7 +12,7 @@ generic (FILTER_SIZE : integer := 3);
 		FILTER : IN std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
 		PIXEL_OUT : OUT std_logic_vector(15 downto 0);
 		end_conv :OUT std_logic;
-		clk,strat_signal,REST:IN std_logic
+		clk,strat_signal,rst:IN std_logic
 	);
 END ENTITY;
 ARCHITECTURE conv_window_arch OF conv_wimdow_1 IS
@@ -54,7 +54,7 @@ end component;
 					end_conv<='0';
 					i:=i+1;
 				end if;
-			elsif(strat_signal='0'or REST='1')then
+			elsif(strat_signal='0'or rst='1')then
 				D<=(others => '0');
 				i:=0;
         		end if;
