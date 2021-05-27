@@ -1,6 +1,7 @@
 vsim work.pooling_layer
 add wave -position insertpoint  \
 sim:/pooling_layer/Done \
+sim:/pooling_layer/START \
 sim:/pooling_layer/IMG_SIZE \
 sim:/pooling_layer/InFeatureMaps \
 sim:/pooling_layer/Maps_Count \
@@ -11,7 +12,8 @@ sim:/pooling_layer/clk \
 sim:/pooling_layer/temp1 \
 sim:/pooling_layer/tempPoolOut
 
-force -freeze sim:/pooling_layer/clk 0 0, 1 {50 ps} -r 100
+force -freeze sim:/pooling_layer/clk 1 0, 0 {50 ps} -r 100
+force -freeze sim:/pooling_layer/START 0 0
 
 force -freeze sim:/pooling_layer/InFeatureMaps(0)(0) 0001100000000000 0
 force -freeze sim:/pooling_layer/InFeatureMaps(0)(1) 0000100000000000 0
@@ -50,7 +52,7 @@ force -freeze sim:/pooling_layer/InFeatureMaps(1)(15) 0000100000000000 0
 
 run
 run
-run
+force -freeze sim:/pooling_layer/START 1 0
 run
 run
 run

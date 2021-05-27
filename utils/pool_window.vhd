@@ -11,6 +11,7 @@ ENTITY pool_window IS
 	generic (FILTER_SIZE : integer := 2;IMG_SIZE : integer := 4);
 	PORT(
 		IMG : IN img_array;
+		START : IN std_logic;
 		clk :IN std_logic;
 		Done : OUT std_logic;
 		pool_img : OUT img_array
@@ -32,6 +33,7 @@ ARCHITECTURE pool_image_arch OF pool_window IS
 		generic (WINDOW_SIZE : integer := 2);
 		PORT(
 			WINDOW : IN filter_array;
+			START : IN std_logic;
 			AVR : OUT sfixed (4 downto -11);
 			Done : OUT std_logic := '0';
 			clk:IN std_logic 
@@ -59,7 +61,7 @@ ARCHITECTURE pool_image_arch OF pool_window IS
 
 		loop1: FOR i IN 0 TO (IMG_SIZE/2)*(IMG_SIZE/2)-1  GENERATE 
 			fx0:extract_window GENERIC MAP (FILTER_SIZE,IMG_SIZE)PORT MAP(IMG,to_integer(OFFSSET(i)),WINDOW(i));
-			fx1:Pool GENERIC MAP (FILTER_SIZE) PORT MAP(WINDOW(i),item_out(i),MiniPoolDone(i),clk);
+			fx1:Pool GENERIC MAP (FILTER_SIZE) PORT MAP(WINDOW(i),START,item_out(i),MiniPoolDone(i),clk);
 			OUT_LAYER(i)<=item_out(i);
 		END GENERATE;
 
