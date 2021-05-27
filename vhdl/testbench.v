@@ -1,11 +1,11 @@
-module tb(input interrupt,output done,input send,input stop);
+module tb(output done,input send,input stop);
 
-integer  image_file ;
-integer  data_file ;
-integer  scan_file ; 
-integer scan_file_data;
-reg [479:0]row ;
-reg [15:0] cnnData;
+integer  image_file =0;
+integer  data_file =0;
+integer  scan_file =0; 
+integer scan_file_data=0;
+reg [479:0]row =0;
+reg [15:0] cnnData=0;
 
 wire [15:0] data;
 wire startDecompression;
@@ -17,14 +17,14 @@ wire [15:0] splitSize ;
 wire [3:0] result ;
 integer counter =0;
 
-reg load_process;
-reg cnn_image;
+reg load_process=0;
+reg cnn_image=0;
 reg clk;
 reg rst;
 
 // reg reg_stop;
 
-
+assign done=! load_process;
 initial begin
   rst = 1;
   #50
@@ -64,6 +64,7 @@ if(cnn_image==1 && rst == 0) begin
   scan_file_data = $fscanf(data_file, "%b\n", cnnData);
   if(scan_file_data == -1) begin
     load_process = 0 ;
+
   end
 
 end

@@ -16,7 +16,7 @@ ENTITY chip IS
         result : OUT STD_LOGIC_VECTOR(3 DOWNTO 0):="0000";
         data : IN STD_LOGIC_VECTOR(15 DOWNTO 0); --cpu
         startDecompression : IN STD_LOGIC; --cpu
-        rowSize_vec : OUT STD_LOGIC_VECTOR(15 DOWNTO 0); -- to cpu
+        rowSize_vec : OUT STD_LOGIC_VECTOR(15 DOWNTO 0):=(others=>'0'); -- to cpu
         extraBits_vec : IN STD_LOGIC_VECTOR(15 DOWNTO 0); --cpu
         initialRowSize_vec : IN STD_LOGIC_VECTOR(15 DOWNTO 0); --cpu
         splitSize_vec : IN STD_LOGIC_VECTOR(15 DOWNTO 0) --cpu
@@ -70,7 +70,7 @@ ARCHITECTURE chip_ARCHITECTURE OF chip IS
     SIGNAL extraBits : INTEGER;
     SIGNAL initialRowSize : INTEGER;
     SIGNAL splitSize : INTEGER;
-    SIGNAL rowSize : INTEGER;
+    SIGNAL rowSize : INTEGER:=0;
     SIGNAL ioCLK : std_logic;
     --  SIGNAL stop_signal        : STD_LOGIC;              
 

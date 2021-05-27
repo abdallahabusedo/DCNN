@@ -10,7 +10,7 @@ ENTITY io IS
 		rst : IN STD_LOGIC;
 		startDecompression : IN STD_LOGIC;
 		load_process : IN STD_LOGIC;
-		rowSize : OUT INTEGER;
+		rowSize : OUT INTEGER:=0;
 		extraBits : IN INTEGER; -- Extra Zeros because the row is not divisible by 16 (They should be removed from the received data)
 		initialRowSize : IN INTEGER;
 		splitSize : IN INTEGER;
@@ -25,7 +25,7 @@ ARCHITECTURE ioo OF io IS
 
 	SIGNAL row : STD_LOGIC_VECTOR(479 DOWNTO 0);
 	SIGNAL clk2 : STD_LOGIC;
-	SIGNAL rowSizeSignal : INTEGER;
+	SIGNAL rowSizeSignal : INTEGER:=0;
 
 BEGIN
 	clk2 <= NOT clk;
