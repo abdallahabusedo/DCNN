@@ -80,11 +80,11 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 
 	---------------------pooling signals-------------------                     
 	SIGNAL pool0_OutFeatureMaps : std_logic_vector(CONV_LAYER1_SIZE*(((IMG_SIZE-FILTER_SIZE+1)/2)**2)*16-1 DOWNTO 0);	
-	SIGNAL pool0_done : STD_LOGIC := '0';
+	SIGNAL pool0_done : STD_LOGIC ;
 	SIGNAL pool0_start: STD_LOGIC;
 	-------------------------------------------------------                     
 	--SIGNAL pool1_OutFeatureMaps : std_logic_vector(CONV_LAYER2_SIZE*((conv1_out_image_size/2)**2)*16-1 DOWNTO 0);
-	--SIGNAL pool1_done : STD_LOGIC := '0';
+	--SIGNAL pool1_done : STD_LOGIC ;
 	--SIGNAL pool1_start: STD_LOGIC;
 	---------------------read ram images------------------
 	SIGNAL read_img_enable : STD_LOGIC;
@@ -252,7 +252,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 			END IF; 
 			
 			IF(read_fil_done = '1' AND step_counter = 6) THEN
-				read_fil_done <= '0';
+				--read_fil_done <= '0';
 				WR <= "00";
 				read_fil_enable <= '0';
 				conv0_start_signal <= '1';
@@ -263,16 +263,16 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				step_counter <= step_counter+1;
 			END IF; 
 
-			--IF (conv0_end_conv = '1' AND step_counter = 9) THEN
+			IF (conv0_end_conv = '1' AND step_counter = 9) THEN
 			--	conv0_end_conv <= '0';
-			--	conv0_start_signal <= '0';
-			--	pool0_start <= '1';
-			--	step_counter <= 10;
-			--END IF;
+				conv0_start_signal <= '0';
+				pool0_start <= '1';
+				step_counter <= 10;
+			END IF;
 --
-			--IF(pool0_done = '1' AND step_counter < 12) THEN
-			--	step_counter <= step_counter+1;
-			--END IF; 
+			IF(pool0_done = '1' AND step_counter < 12) THEN
+				step_counter <= step_counter+1;
+			END IF; 
 --
 			--IF (pool0_done = '1' AND step_counter = 12) THEN
 			--	pool0_start <= '0';
