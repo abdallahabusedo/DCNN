@@ -3,16 +3,16 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.numeric_std.ALL;
 
 ENTITY read_ram IS
-GENERIC (count : INTEGER :=5);
+GENERIC (size : INTEGER :=5);
 PORT(
 		clk : IN STD_LOGIC; 
 		enable : IN STD_LOGIC;
 		init_address : IN INTEGER;
-		--count : IN INTEGER ;
+		count : IN INTEGER ;
 		data_in : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
         done : OUT STD_LOGIC;
 		read_address : OUT INTEGER;
-		dataout : OUT  STD_LOGIC_VECTOR((16*count)-1 DOWNTO 0)
+		dataout : OUT  STD_LOGIC_VECTOR((16*size)-1 DOWNTO 0)
 );
 
 END read_ram;
