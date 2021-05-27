@@ -31,15 +31,15 @@ vsim -gui work.conv_avg(conv_avg_arch)
 # vsim -gui work.conv_avg(conv_avg_arch) 
 # Start time: 09:54:18 on May 27,2021
 # Loading std.standard
-# Loading ieee.fixed_float_types
+# Loading IEEE.fixed_float_types
 # Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
-# Loading ieee.numeric_std(body)
-# Loading ieee.math_real(body)
-# Loading ieee.fixed_generic_pkg(body)
-# Loading ieee.fixed_pkg
-# Loading ieee.std_logic_arith(body)
-# Loading ieee.std_logic_unsigned(body)
+# Loading IEEE.std_logic_1164(body)
+# Loading IEEE.numeric_std(body)
+# Loading IEEE.math_real(body)
+# Loading IEEE.fixed_generic_pkg(body)
+# Loading IEEE.fixed_pkg
+# Loading IEEE.std_logic_arith(body)
+# Loading IEEE.std_logic_unsigned(body)
 # Loading work.conv_avg(conv_avg_arch)
 # Loading work.sflop(sarchi)
 # WARNING: No extended dataflow license exists
@@ -57,9 +57,9 @@ sim:/conv_avg/D \
 sim:/conv_avg/Q \
 sim:/conv_avg/IMG_Snumber \
 sim:/conv_avg/avg_img_out
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: Aya  Hostname: AYA-PC  ProcessID: 2816
-#           Attempting to use alternate WLF file "./wlftvt8yaj".
+# ** Warning: (vsim-WLF-5000) WLF file currently in USE: vsim.wlf
+#           File in USE by: Aya  Hostname: AYA-PC  ProcessID: 2816
+#           Attempting to USE alternate WLF file "./wlftvt8yaj".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
 #           Using alternate file: ./wlftvt8yaj
 force -freeze sim:/conv_avg/start 0 0

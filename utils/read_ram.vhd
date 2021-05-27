@@ -19,10 +19,9 @@ END read_ram;
 
 ARCHITECTURE arch_read_ram OF read_ram IS
 	BEGIN
-
 	PROCESS(clk,enable,rst) IS
 		VARIABLE i:INTEGER :=0;
-	Begin
+	BEGIN
 		IF (rst = '1') THEN
 			i := 0;
 		END IF;
@@ -33,9 +32,9 @@ ARCHITECTURE arch_read_ram OF read_ram IS
 				dataout(i*16+15 DOWNTO i*16)  <= data_in;
 				i := i +1;
 			END IF;
-			if (i = count) then
+			IF (i = count) THEN
 				done <= '1';
-			end if;
+			END IF;
 			
 		END IF;	
 	END PROCESS;

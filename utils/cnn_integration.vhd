@@ -21,20 +21,20 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 	COMPONENT convolute_images IS
 		GENERIC (FILTER_SIZE : INTEGER := 3;IMG_SIZE : INTEGER := 5;images_count: INTEGER:=3;filters_count: INTEGER:=1);
 		PORT(
-			IMGs : IN std_logic_vector(images_count*IMG_SIZE*IMG_SIZE*16-1 Downto 0);
-			FILTERs : IN std_logic_vector(images_count*filters_count*FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
-			avg_imgs : OUT std_logic_vector(filters_count*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16-1 Downto 0);
-			end_conv :OUT std_logic;
-			clk,strat_signal,rst:IN std_logic
+			IMGs : IN STD_LOGIC_VECTOR(images_count*IMG_SIZE*IMG_SIZE*16-1 DOWNTO 0);
+			FILTERs : IN STD_LOGIC_VECTOR(images_count*filters_count*FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+			avg_imgs : OUT STD_LOGIC_VECTOR(filters_count*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16-1 DOWNTO 0);
+			end_conv :OUT STD_LOGIC;
+			clk,strat_signal,rst:IN STD_LOGIC
 		);
 	END COMPONENT;
 	COMPONENT Pooling_layer IS
-		generic (WINDOW_SIZE : integer := 2 ; Maps_Count : integer := 2 ;IMG_SIZE : integer := 4);
+		GENERIC (WINDOW_SIZE : INTEGER := 2 ; Maps_Count : INTEGER := 2 ;IMG_SIZE : INTEGER := 4);
 		PORT(
-			InFeatureMaps : IN  std_logic_vector((Maps_Count*IMG_SIZE*IMG_SIZE*16)-1 DOWNTO 0);                     
-			rst , START , clk:IN std_logic;
-			OutFeatureMaps : OUT std_logic_vector((Maps_Count*(IMG_SIZE/2)*(IMG_SIZE/2)*16)-1 DOWNTO 0);	
-			Done : OUT std_logic
+			InFeatureMaps : IN  STD_LOGIC_VECTOR((Maps_Count*IMG_SIZE*IMG_SIZE*16)-1 DOWNTO 0);                     
+			rst , START , clk:IN STD_LOGIC;
+			OutFeatureMaps : OUT STD_LOGIC_VECTOR((Maps_Count*(IMG_SIZE/2)*(IMG_SIZE/2)*16)-1 DOWNTO 0);	
+			Done : OUT STD_LOGIC
 		); 
 	END COMPONENT;
 	COMPONENT read_ram IS
@@ -54,7 +54,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 	COMPONENT write_ram IS
 		GENERIC (size : INTEGER :=5);
 		PORT(
-			clk : IN STD_LOGIC; 
+			clk,rst : IN STD_LOGIC; 
 			enable : IN STD_LOGIC;
 			init_address : IN INTEGER;
 			count : IN INTEGER;
@@ -65,23 +65,23 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 		);
 	END COMPONENT;
 	----------------conv signals---------------------------
-	SIGNAL conv0_avg_imgs : std_logic_vector(CONV_LAYER1_SIZE*((IMG_SIZE-FILTER_SIZE+1)**2)*16-1 Downto 0);
+	SIGNAL conv0_avg_imgs : STD_LOGIC_VECTOR(CONV_LAYER1_SIZE*((IMG_SIZE-FILTER_SIZE+1)**2)*16-1 DOWNTO 0);
 	SIGNAL conv0_END_conv,conv0_start_signal : STD_LOGIC;
 	-------------------------------------------------------
-	SIGNAL conv1_avg_imgs : std_logic_vector(CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))**2)*16-1 Downto 0);
+	SIGNAL conv1_avg_imgs : STD_LOGIC_VECTOR(CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))**2)*16-1 DOWNTO 0);
 	SIGNAL conv1_END_conv,conv1_start_signal : STD_LOGIC;
 	-------------------------------------------------------
-	SIGNAL conv2_avg_imgs : std_logic_vector((CONV_LAYER3_SIZE*(((((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))/2)-FILTER_SIZE+1)**2)*16)-1 Downto 0);
+	SIGNAL conv2_avg_imgs : STD_LOGIC_VECTOR((CONV_LAYER3_SIZE*(((((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))/2)-FILTER_SIZE+1)**2)*16)-1 DOWNTO 0);
 	SIGNAL conv2_END_conv,conv2_start_signal : STD_LOGIC;
 	-------------------------------------------------------
 
 
 	---------------------pooling signals-------------------                     
-	SIGNAL pool0_OutFeatureMaps : std_logic_vector(CONV_LAYER1_SIZE*(((IMG_SIZE-FILTER_SIZE+1)/2)**2)*16-1 DOWNTO 0);	
+	SIGNAL pool0_OutFeatureMaps : STD_LOGIC_VECTOR(CONV_LAYER1_SIZE*(((IMG_SIZE-FILTER_SIZE+1)/2)**2)*16-1 DOWNTO 0);	
 	SIGNAL pool0_done : STD_LOGIC ;
 	SIGNAL pool0_start: STD_LOGIC;
 	-------------------------------------------------------                     
-	SIGNAL pool1_OutFeatureMaps : std_logic_vector(CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1)/2)**2)*16-1 DOWNTO 0);
+	SIGNAL pool1_OutFeatureMaps : STD_LOGIC_VECTOR(CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1)/2)**2)*16-1 DOWNTO 0);
 	SIGNAL pool1_done : STD_LOGIC ;
 	SIGNAL pool1_start: STD_LOGIC;
 	---------------------read ram images------------------
@@ -92,7 +92,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
     SIGNAL read_img_data_in : STD_LOGIC_VECTOR(15 DOWNTO 0);
     SIGNAL read_img_done : STD_LOGIC;
     SIGNAL read_img_read_address : INTEGER;
-    SIGNAL read_img_dataout : STD_LOGIC_VECTOR((IMG_SIZE*IMG_SIZE*16)-1 DOWNTO 0);
+    SIGNAL read_img_dataout : STD_LOGIC_VECTOR((IMG_SIZE*IMG_SIZE*CONV_LAYER1_SIZE*CONV_LAYER2_SIZE*CONV_LAYER3_SIZE*16)-1 DOWNTO 0);
 
 	---------------------read ram filters------------------ 
 	SIGNAL read_fil_enable : STD_LOGIC;
@@ -107,18 +107,17 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 	SIGNAL write_enable : STD_LOGIC;
 	SIGNAL write_init_address : INTEGER;
 	SIGNAL write_count : INTEGER;
-	SIGNAL write_data_in : STD_LOGIC_VECTOR((CONV_LAYER3_SIZE*16)-1 DOWNTO 0); --take care it is IN the updated form not the old one
+	SIGNAL write_data_in : STD_LOGIC_VECTOR((CONV_LAYER3_SIZE*16)-1 DOWNTO 0); --take care it IS IN the updated form not the old one
 	SIGNAL write_done : STD_LOGIC;
 	SIGNAL write_address : INTEGER;
 	SIGNAL write_dataout : STD_LOGIC_VECTOR(15 DOWNTO 0);
-	
-	
+	SIGNAL write_arr : STD_LOGIC_VECTOR(CONV_LAYER3_SIZE*CONV_LAYER2_SIZE*CONV_LAYER1_SIZE*((IMG_SIZE-FILTER_SIZE+1)**2)*16-1 DOWNTO 0);
+	SIGNAL write_rst : STD_LOGIC;
 	----------------------temp signals---------------------
 	SIGNAL step_counter : INTEGER;
 
-	
 	BEGIN
-	R0:read_ram GENERIC MAP (IMG_SIZE*IMG_SIZE) PORT MAP(
+	R0:read_ram GENERIC MAP (IMG_SIZE*IMG_SIZE*CONV_LAYER1_SIZE*CONV_LAYER2_SIZE*CONV_LAYER3_SIZE) PORT MAP(
 		clk,
 		read_img_rst,
 		read_img_enable,
@@ -142,19 +141,20 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 		read_fil_dataout
 	);
 
-	W0:write_ram GENERIC MAP(CONV_LAYER3_SIZE*(((((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))/2)-FILTER_SIZE+1)**2)) PORT MAP(
-		clk, 
+	W0:write_ram GENERIC MAP(CONV_LAYER3_SIZE*CONV_LAYER2_SIZE*CONV_LAYER1_SIZE*((IMG_SIZE-FILTER_SIZE+1)**2)) PORT MAP(
+		clk,
+		rst, 
 		write_enable,
 		write_init_address,
 		write_count,
-		conv2_avg_imgs,
+		write_arr,
 		write_done,
 		write_address,
 		write_dataout
 	);
 	
 	CONV0:convolute_images GENERIC MAP (FILTER_SIZE,IMG_SIZE,1,CONV_LAYER1_SIZE) PORT MAP(
-		read_img_dataout,
+		read_img_dataout(IMG_SIZE*IMG_SIZE*16-1 DOWNTO 0),
 		read_fil_dataout((FILTER_SIZE*FILTER_SIZE*CONV_LAYER1_SIZE*16)-1 DOWNTO 0),
 		conv0_avg_imgs,
 		conv0_END_conv,
@@ -164,7 +164,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 		);
 	
 	P0:Pooling_layer GENERIC MAP (POOLING_FILTER_SIZE,CONV_LAYER1_SIZE,IMG_SIZE-FILTER_SIZE+1)PORT MAP(
-		conv0_avg_imgs,
+		read_img_dataout((IMG_SIZE-FILTER_SIZE+1)**2*CONV_LAYER1_SIZE*16-1 DOWNTO 0),
 		rst,
 		pool0_start,
 		clk,
@@ -173,7 +173,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 		);
 	
 	CONV1:convolute_images GENERIC MAP (FILTER_SIZE,(IMG_SIZE-FILTER_SIZE+1)/2,CONV_LAYER1_SIZE,CONV_LAYER2_SIZE) PORT MAP(
-		pool0_OutFeatureMaps,
+		read_img_dataout(((IMG_SIZE-FILTER_SIZE+1)/2)**2*CONV_LAYER1_SIZE*16-1 DOWNTO 0),
 		read_fil_dataout((FILTER_SIZE*FILTER_SIZE*CONV_LAYER2_SIZE*CONV_LAYER1_SIZE*16)-1 DOWNTO 0),
 		conv1_avg_imgs,
 		conv1_END_conv,
@@ -183,7 +183,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 		);
 
 	P1:Pooling_layer GENERIC MAP (POOLING_FILTER_SIZE,CONV_LAYER2_SIZE,(((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))PORT MAP(
-		conv1_avg_imgs,
+		read_img_dataout((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1)**2*CONV_LAYER2_SIZE*16-1 DOWNTO 0),
 		rst,
 		pool1_start,
 		clk,
@@ -192,7 +192,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 	);
 
     CONV2:convolute_images GENERIC MAP (FILTER_SIZE,(((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1)/2,CONV_LAYER2_SIZE,CONV_LAYER3_SIZE) PORT MAP(
-		pool1_OutFeatureMaps,
+		read_img_dataout(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1)/2)**2*CONV_LAYER2_SIZE*16-1 DOWNTO 0),
 		read_fil_dataout((FILTER_SIZE*FILTER_SIZE*CONV_LAYER2_SIZE*CONV_LAYER3_SIZE*16)-1 DOWNTO 0),
 		conv2_avg_imgs,
 		conv2_END_conv,
@@ -267,89 +267,211 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 
 			IF (conv0_end_conv = '1' AND step_counter = 9) THEN
 				conv0_start_signal <= '0';
-				pool0_start <= '1';
+				WR <= "10";
+				write_arr((((IMG_SIZE-FILTER_SIZE+1)**2)*CONV_LAYER1_SIZE)*16-1 DOWNTO 0) <= conv0_avg_imgs;
+				write_enable <= '1';
+				write_count <= ((IMG_SIZE-FILTER_SIZE+1)**2)*CONV_LAYER1_SIZE;
+				write_init_address <= 300;  --- we need to correct it with correct address of filter
 				step_counter <= 10;
 			END IF;
 
-			IF(pool0_done = '1' AND step_counter < 12) THEN
-				step_counter <= step_counter+1; 
-				read_fil_rst <= '1';
+			IF(write_done = '1' AND step_counter < 12 AND step_counter > 9) THEN
+				step_counter <= step_counter+1;
+				read_img_rst <= '1';
 			END IF; 
 
-			IF (pool0_done = '1' AND step_counter = 12) THEN
-				read_fil_rst <= '0';
-				pool0_start <= '0';
-				WR <= "01"; --read image
-				read_fil_count <= FILTER_SIZE*FILTER_SIZE*CONV_LAYER2_SIZE*CONV_LAYER1_SIZE;
-				read_fil_enable <= '1';
-				read_fil_init_address <= 300;
+			IF (write_done = '1' AND step_counter = 12) THEN
+				write_enable <= '0';
+				read_img_rst <= '0';
+				WR <= "01"; --read from ram to start pooling0
+				read_img_enable <= '1';
+				read_img_count <= ((IMG_SIZE-FILTER_SIZE+1)**2)*CONV_LAYER1_SIZE;
+				read_img_init_address <= 300;    --- we need to correct it with correct address of image
 				step_counter <= 13;
 			END IF;
 
-			IF(read_fil_done = '1' AND step_counter < 15 AND step_counter > 12) THEN
+			IF(read_img_done = '1' AND step_counter < 15 AND step_counter > 12) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
-			IF(read_fil_done = '1' AND step_counter = 15) THEN
-				read_fil_enable <= '0';
+			IF (read_img_done = '1' AND step_counter = 15) THEN
+				read_img_enable <= '0';
 				WR <= "00";
-				conv1_start_signal <= '1';
+				pool0_start <= '1';
 				step_counter <= 16;
 			END IF;
 
-			IF(conv1_end_conv = '1' AND step_counter < 18 AND step_counter > 15) THEN
-				step_counter <= step_counter+1;
+			IF(pool0_done = '1' AND step_counter < 18 AND step_counter > 15) THEN
+				step_counter <= step_counter+1; 
+				write_rst <= '1';
 			END IF; 
-			
-			IF(conv1_end_conv = '1' AND step_counter = 18) THEN
-				conv1_start_signal <= '0';
+
+			IF (pool0_done = '1' AND step_counter = 18) THEN
+				pool0_start <= '0';
+				write_rst <= '0';
+				WR <= "10";
+				write_arr(((IMG_SIZE-FILTER_SIZE+1)/2)**2*CONV_LAYER1_SIZE*16-1 DOWNTO 0) <= pool0_OutFeatureMaps;
+				write_enable <= '1';
+				write_count <= ((IMG_SIZE-FILTER_SIZE+1)/2)**2*CONV_LAYER1_SIZE;
+				write_init_address <= 400;  --- we need to correct it with correct address of filter
 				step_counter <= 19;
-				if(pool1_done = '1')THEN
-					pool1_start <= '0';
-				else
-					pool1_start <= '1';
-				end if ;
 			END IF;
 
-			IF(pool1_done = '1' AND step_counter < 21 AND step_counter > 18) THEN
+			IF(write_done = '1' AND step_counter < 21 AND step_counter > 18) THEN
 				step_counter <= step_counter+1;
-				pool1_start <= '0';
-			    read_fil_rst <= '1';
+				read_img_rst <= '1';
 			END IF; 
 
-			IF (pool1_done = '1' AND step_counter = 21) THEN
-			   read_fil_rst <= '0';
-				WR <= "01"; --read image
-				read_fil_count <= FILTER_SIZE*FILTER_SIZE*CONV_LAYER3_SIZE*CONV_LAYER2_SIZE;
-				read_fil_enable <= '1';
-				read_fil_init_address <= 400;  --- we need to correct it with correct address of image
+			IF (write_done = '1' AND step_counter = 21) THEN
+				write_enable <= '0';
+				read_img_rst <= '0';
+				WR <= "01"; --read from ram to start pooling0
+				read_img_enable <= '1';
+				read_img_count <= ((IMG_SIZE-FILTER_SIZE+1)/2)**2*CONV_LAYER1_SIZE;
+				read_img_init_address <= 400;    --- we need to correct it with correct address of image
 				step_counter <= 22;
 			END IF;
 
-			IF(read_fil_done = '1' AND step_counter < 24 AND step_counter > 21) THEN
+			IF(read_img_done = '1' AND step_counter < 24 AND step_counter > 21) THEN
 				step_counter <= step_counter+1;
+				read_img_rst <= '1';
 			END IF; 
 
-			IF(read_fil_done = '1' AND step_counter = 24) THEN
-				read_fil_enable <= '0';
-				WR <= "00";
-				conv2_start_signal <= '1';
+			IF (read_img_done = '1' AND step_counter = 24) THEN
+				read_img_enable <= '0';
+				read_img_rst <= '0';
+				WR <= "01"; --read image
+				read_fil_count <= FILTER_SIZE*FILTER_SIZE*CONV_LAYER2_SIZE*CONV_LAYER1_SIZE;
+				read_fil_enable <= '1';
+				read_fil_init_address <= 500;
 				step_counter <= 25;
 			END IF;
 
-			IF(conv2_end_conv = '1' AND step_counter < 27 AND step_counter > 24) THEN
+			IF(read_fil_done = '1' AND step_counter < 27 AND step_counter > 24) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
-			IF(conv2_end_conv = '1' AND step_counter = 27) THEN
-			conv2_start_signal <= '0';
-			WR <= "10"; --write image
-			write_count <= CONV_LAYER3_SIZE;
-			write_enable <= '1';
-			write_init_address <= 500;  --- we need to correct it with correct address of filter
-			Done <= '1';
-			step_counter <= 28;
+			IF(read_fil_done = '1' AND step_counter = 27) THEN
+				read_fil_enable <= '0';
+				WR <= "00";
+				conv1_start_signal <= '1';
+				step_counter <= 28;
 			END IF;
+		
+			IF(conv1_end_conv = '1' AND step_counter < 30 AND step_counter > 27) THEN
+				step_counter <= step_counter+1;
+			END IF; 
+
+			IF (conv1_end_conv = '1' AND step_counter = 30) THEN
+				conv1_start_signal <= '0';
+				WR <= "10";
+				write_arr(CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))**2)*16-1 DOWNTO 0) <= conv1_avg_imgs;
+				write_enable <= '1';
+				write_count <= CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))**2);
+				write_init_address <= 600;  --- we need to correct it with correct address of filter
+				step_counter <= 31;
+			END IF;
+
+			IF(write_done = '1' AND step_counter < 33 AND step_counter > 30) THEN
+				step_counter <= step_counter+1;
+				read_img_rst <= '1';
+			END IF; 
+
+			IF (write_done = '1' AND step_counter = 33) THEN
+				write_enable <= '0';
+				read_img_rst <= '0';
+				WR <= "01"; --read from ram to start pooling0
+				read_img_enable <= '1';
+				read_img_count <= CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))**2);
+				read_img_init_address <= 600;    --- we need to correct it with correct address of image
+				step_counter <= 34;
+			END IF;
+
+			IF(read_img_done = '1' AND step_counter < 36 AND step_counter > 33) THEN
+				step_counter <= step_counter+1;
+			END IF; 
+
+			IF (read_img_done = '1' AND step_counter = 36) THEN
+				read_img_enable <= '0';
+				WR <= "00";
+				pool1_start <= '1';
+				step_counter <= 37;
+			END IF;
+
+			IF(pool1_done = '1' AND step_counter < 39 AND step_counter > 36) THEN
+			step_counter <= step_counter+1; 
+			write_rst <= '1';
+			END IF; 
+
+			IF (pool1_done = '1' AND step_counter = 39) THEN
+				pool1_start <= '0';
+				write_rst <= '0';
+				WR <= "10";
+				write_arr(CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1)/2)**2)*16-1 DOWNTO 0) <= pool1_OutFeatureMaps;
+				write_enable <= '1';
+				write_count <= CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1)/2)**2);
+				write_init_address <= 700;  --- we need to correct it with correct address of filter
+				step_counter <= 40;
+			END IF;
+
+			IF(write_done = '1' AND step_counter < 42 AND step_counter > 39) THEN
+				step_counter <= step_counter+1;
+				read_img_rst <= '1';
+			END IF; 
+
+			IF (write_done = '1' AND step_counter = 42) THEN
+				write_enable <= '0';
+				read_img_rst <= '0';
+				WR <= "01"; --read from ram to start pooling0
+				read_img_enable <= '1';
+				read_img_count <= CONV_LAYER2_SIZE*(((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1)/2)**2);
+				read_img_init_address <= 700;    --- we need to correct it with correct address of image
+				step_counter <= 43;
+			END IF;
+
+			IF(read_img_done = '1' AND step_counter < 45 AND step_counter > 42) THEN
+				step_counter <= step_counter+1;
+				read_img_rst <= '1';
+			END IF; 
+
+			IF (read_img_done = '1' AND step_counter = 45) THEN
+				read_img_enable <= '0';
+				read_img_rst <= '0';
+				WR <= "01"; --read image
+				read_fil_count <= FILTER_SIZE*FILTER_SIZE*CONV_LAYER2_SIZE*CONV_LAYER3_SIZE;
+				read_fil_enable <= '1';
+				read_fil_init_address <= 800;
+				step_counter <= 46;
+			END IF;
+
+			IF(read_fil_done = '1' AND step_counter < 48 AND step_counter > 45) THEN
+				step_counter <= step_counter+1;
+			END IF; 
+
+			IF(read_fil_done = '1' AND step_counter = 48) THEN
+				read_fil_enable <= '0';
+				WR <= "00";
+				conv2_start_signal <= '1';
+				step_counter <= 49;
+			END IF;
+
+			IF(conv2_end_conv = '1' AND step_counter < 51 AND step_counter > 48) THEN
+				step_counter <= step_counter+1;
+			END IF; 
+
+			IF (conv2_end_conv = '1' AND step_counter = 51) THEN
+				conv2_start_signal <= '0';
+				WR <= "10";
+				write_arr((CONV_LAYER3_SIZE*(((((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))/2)-FILTER_SIZE+1)**2)*16)-1 DOWNTO 0) <= conv2_avg_imgs;
+				write_enable <= '1';
+				write_count <= CONV_LAYER3_SIZE*(((((((IMG_SIZE-FILTER_SIZE+1)/2)-FILTER_SIZE+1))/2)-FILTER_SIZE+1)**2);
+				write_init_address <= 900;  --- we need to correct it with correct address of filter
+				step_counter <= 52;
+			END IF;
+
+			IF(write_done = '1' AND step_counter < 54 AND step_counter > 51) THEN
+				Done <= '1';
+			END IF; 
 		END IF;
 	END PROCESS;
 

@@ -42,6 +42,16 @@ sim:/cnn_integration/conv2_start_signal \
 sim:/cnn_integration/pool1_OutFeatureMaps \
 sim:/cnn_integration/pool1_done \
 sim:/cnn_integration/pool1_start \
+sim:/cnn_integration/write_enable
+add wave -position insertpoint  \
+sim:/cnn_integration/write_enable \
+sim:/cnn_integration/write_data_in \
+sim:/cnn_integration/write_done \
+sim:/cnn_integration/write_dataout \
+sim:/cnn_integration/write_arr \
+sim:/cnn_integration/write_rst
+add wave -position insertpoint  \
+sim:/cnn_integration/write_address \
 sim:/cnn_integration/step_counter 
 force -freeze sim:/cnn_integration/clk 0 0, 1 {50 ps} -r 100
 force -freeze sim:/cnn_integration/rst 1 0
@@ -61,6 +71,7 @@ force -freeze sim:/cnn_integration/data_in 0001000000000000 0
 run
 force -freeze sim:/cnn_integration/data_in 0000000000000000 0
 force -freeze sim:/cnn_integration/data_in 0000000000000000 0
+
 run
 run
 run
@@ -83,35 +94,16 @@ run
 run
 run
 run
+
 run
 run
 run
 run
 run
 run
-run
-run
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
-run
-run
-run
-run
-run
-run
+run 40000ps
 force -freeze sim:/cnn_integration/data_in 0000100000000000 0
-run
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
-run
-run
-run
-run
-run
-run
-run
-run
-force -freeze sim:/cnn_integration/data_in 0000100000000000 0
-run
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
+run 39000ps
 run
 run
 run
@@ -120,107 +112,10 @@ run
 run
 run
 run
+run
+run 40000ps
 force -freeze sim:/cnn_integration/data_in 0001000000000000 0
-run
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
-run
-run
-run
-run
-run
-run
-run
-run
-force -freeze sim:/cnn_integration/data_in 0001000000000000 0
-run
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-force -freeze sim:/cnn_integration/data_in 0000100000000000 0
-run
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
-run
-run
-run
-run
-run
-run
-run
-run
-force -freeze sim:/cnn_integration/data_in 0000100000000000 0
-force -freeze sim:/cnn_integration/data_in 0000100000000000 0
-run
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
-run
-run
-run
-run
-run
-run
-run
-run
-force -freeze sim:/cnn_integration/data_in 0000100000000000 0
-run
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
-run
-run
-run
-run
-run
-run
-run
-run
-force -freeze sim:/cnn_integration/data_in 0000100000000000 0
-run
-force -freeze sim:/cnn_integration/data_in 0000000000000000 0
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
+run 40000ps
 run
 run
 run

@@ -8,50 +8,50 @@ USE IEEE.std_logic_unsigned.ALL;
 USE work.c_pkg.ALL;
 
 ENTITY pool_window IS
-	generic (FILTER_SIZE : INTEGER := 2;IMG_SIZE : INTEGER := 4);
+	GENERIC (FILTER_SIZE : INTEGER := 2;IMG_SIZE : INTEGER := 4);
 	PORT(
-		IMG :  IN std_logic_vector((IMG_SIZE*IMG_SIZE*16)-1 DOWNTO 0);
-		clk , START , rst :IN std_logic;
-		Done : OUT std_logic;
-		pool_img : OUT std_logic_vector((IMG_SIZE/2)*(IMG_SIZE/2)*16-1 Downto 0)
+		IMG :  IN STD_LOGIC_VECTOR((IMG_SIZE*IMG_SIZE*16)-1 DOWNTO 0);
+		clk , START , rst :IN STD_LOGIC;
+		Done : OUT STD_LOGIC;
+		pool_img : OUT STD_LOGIC_VECTOR((IMG_SIZE/2)*(IMG_SIZE/2)*16-1 DOWNTO 0)
 	);
 END ENTITY;
 
 ARCHITECTURE pool_image_arch OF pool_window IS
 
-	component extract_window IS
-		generic (FILTER_SIZE : INTEGER ;IMG_SIZE : INTEGER);
+	COMPONENT extract_window IS
+		GENERIC (FILTER_SIZE : INTEGER ;IMG_SIZE : INTEGER);
 		PORT(
-			IMG : IN std_logic_vector(IMG_SIZE*IMG_SIZE*16-1 Downto 0);
-			IMG_SIZE_in:IN integer;
-			FILTER_SIZE_in:IN integer;
-			rst:IN std_logic;
-			OFFSET:IN integer;
-			LAYER : OUT std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0)
+			IMG : IN STD_LOGIC_VECTOR(IMG_SIZE*IMG_SIZE*16-1 DOWNTO 0);
+			IMG_SIZE_in:IN INTEGER;
+			FILTER_SIZE_in:IN INTEGER;
+			rst:IN STD_LOGIC;
+			OFFSET:IN INTEGER;
+			LAYER : OUT STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0)
 		);
-	END component;
+	END COMPONENT;
 
-	component Pool IS
-		generic (WINDOW_SIZE : INTEGER := 2);
+	COMPONENT Pool IS
+		GENERIC (WINDOW_SIZE : INTEGER := 2);
 		PORT(
-			WINDOW : IN std_logic_vector((WINDOW_SIZE*WINDOW_SIZE*16)-1 DOWNTO 0);
-			START,rst,clk : IN std_logic;
-			AVR : OUT std_logic_vector(15 downto 0);
-			Done : OUT std_logic
+			WINDOW : IN STD_LOGIC_VECTOR((WINDOW_SIZE*WINDOW_SIZE*16)-1 DOWNTO 0);
+			START,rst,clk : IN STD_LOGIC;
+			AVR : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+			Done : OUT STD_LOGIC
 		);
-	END component;
+	END COMPONENT;
 
-	TYPE conv_type IS array(0 TO ((IMG_SIZE/2)*(IMG_SIZE/2) -1))OF std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
-	TYPE OFFSSET_type IS array(0 TO ((IMG_SIZE/2)*(IMG_SIZE/2) -1)) OF unsigned(9 DOWNTO 0);
+	TYPE conv_type IS ARRAY(0 TO ((IMG_SIZE/2)*(IMG_SIZE/2) -1))OF STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
+	TYPE OFFSSET_type IS ARRAY(0 TO ((IMG_SIZE/2)*(IMG_SIZE/2) -1)) OF unsigned(9 DOWNTO 0);
 
 	SIGNAL WINDOW : conv_type;
 	SIGNAL OFFSSET : OFFSSET_type ;
-	SIGNAL MiniPoolDone,temp1 : std_logic_vector(0 TO (IMG_SIZE/2)*(IMG_SIZE/2)-1);
+	SIGNAL MiniPoolDone,temp1 : STD_LOGIC_VECTOR(0 TO (IMG_SIZE/2)*(IMG_SIZE/2)-1);
 		
 	BEGIN
 		OFFSSET(0)<=(OTHERS =>'0');	
 		loop0: FOR i IN 1 TO (IMG_SIZE/2)*(IMG_SIZE/2)-1 GENERATE 
-			OFFSSET(i) <= OFFSSET(i-1)+"0000000010"+IMG_SIZE when( (to_integer(OFFSSET(i-1))+FILTER_SIZE )mod  IMG_SIZE)=0 else
+			OFFSSET(i) <= OFFSSET(i-1)+"0000000010"+IMG_SIZE when( (to_integer(OFFSSET(i-1))+FILTER_SIZE )mod  IMG_SIZE)=0 ELSE
 			OFFSSET(i-1)+"0000000010" ;
 		END GENERATE;
 
