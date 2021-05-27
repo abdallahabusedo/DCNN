@@ -303,8 +303,12 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 			
 			IF(conv1_end_conv = '1' AND step_counter = 18) THEN
 				conv1_start_signal <= '0';
-				pool1_start <= '1';
 				step_counter <= 19;
+				if(pool1_done = '1')THEN
+					pool1_start <= '0';
+				else
+					pool1_start <= '1';
+				end if ;
 			END IF;
 
 			IF(pool1_done = '1' AND step_counter < 21 AND step_counter > 18) THEN

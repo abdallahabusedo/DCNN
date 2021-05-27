@@ -8,7 +8,7 @@ USE IEEE.std_logic_unsigned.all;
 
 
 ENTITY conv_avg IS
-generic (IMG_number : integer := 3;IMG_SIZE : integer := 5);
+generic (IMG_number : integer := 2;IMG_SIZE : integer := 4);
 	PORT(
 		img_arr :IN std_logic_vector(IMG_number*IMG_SIZE*IMG_SIZE*16-1 Downto 0);
 		start:IN integer;
@@ -43,7 +43,7 @@ end component;
         		end if;
 			  if (CLK'event and CLK = '1' and strat_signal='1' ) then  
 				if( k < IMG_number) then
-					if(IMG_SIZE > 2) then
+					if(IMG_SIZE >= 2) then
 						for p in 0 to IMG_SIZE*IMG_SIZE-1 loop
 							D(p) <= resize (arg => Q(k)+to_sfixed(img_arr( ((k+start)*IMG_SIZE*IMG_SIZE+p)*16+15 Downto ((k+start)*IMG_SIZE*IMG_SIZE+p)*16),4,-11) , 
 								left_index => D(p)'high ,
@@ -68,7 +68,7 @@ end component;
 			end if;
 			end if;
 			
-			IF (IMG_SIZE > 2) THEN
+			IF (IMG_SIZE >= 2) THEN
 				for p in 0 to IMG_SIZE*IMG_SIZE-1 loop
 					avg_img_out(p) <= resize (arg => Q(p)/IMG_Snumber , 
 						left_index => avg_img_out(p)'high ,
