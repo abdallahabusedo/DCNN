@@ -35,6 +35,13 @@ sim:/cnn_integration/conv1_avg_imgs \
 sim:/cnn_integration/conv1_END_conv \
 sim:/cnn_integration/conv1_start_signal \
 sim:/cnn_integration/pool0_start \
+sim:/cnn_integration/START \
+sim:/cnn_integration/conv2_avg_imgs \
+sim:/cnn_integration/conv2_END_conv \
+sim:/cnn_integration/conv2_start_signal \
+sim:/cnn_integration/pool1_OutFeatureMaps \
+sim:/cnn_integration/pool1_done \
+sim:/cnn_integration/pool1_start \
 sim:/cnn_integration/step_counter 
 force -freeze sim:/cnn_integration/clk 0 0, 1 {50 ps} -r 100
 force -freeze sim:/cnn_integration/rst 1 0
@@ -43,7 +50,7 @@ run
 force -freeze sim:/cnn_integration/rst 0 0
 force -freeze sim:/cnn_integration/START 1 0
 force -freeze sim:/cnn_integration/data_in 0000100000000000 0
-run 6500ps
+run 48500ps
 force -freeze sim:/cnn_integration/data_in 0000000000000000 0
 run 700ps
 force -freeze sim:/cnn_integration/data_in 0000100000000000 0
@@ -127,6 +134,100 @@ run
 force -freeze sim:/cnn_integration/data_in 0001100000000000 0
 run
 force -freeze sim:/cnn_integration/data_in 0000000000000000 0
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+force -freeze sim:/cnn_integration/data_in 0000100000000000 0
+run
+force -freeze sim:/cnn_integration/data_in 0000000000000000 0
+force -freeze sim:/cnn_integration/data_in 0000000000000000 0
+run
+run
+run
+run
+run
+run
+run
+run
+force -freeze sim:/cnn_integration/data_in 0000100000000000 0
+force -freeze sim:/cnn_integration/data_in 0000100000000000 0
+run
+force -freeze sim:/cnn_integration/data_in 0000000000000000 0
+run
+run
+run
+run
+run
+run
+run
+run
+force -freeze sim:/cnn_integration/data_in 0000100000000000 0
+run
+force -freeze sim:/cnn_integration/data_in 0000000000000000 0
+run
+run
+run
+run
+run
+run
+run
+run
+force -freeze sim:/cnn_integration/data_in 0000100000000000 0
+run
+force -freeze sim:/cnn_integration/data_in 0000000000000000 0
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
 run
 run
 run
