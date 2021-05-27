@@ -18,9 +18,9 @@ ENTITY cpu IS
 
 		rowSize_vec : IN STD_LOGIC_VECTOR(15 DOWNTO 0); --cpu;
 
-		extraBits_vec : OUT STD_LOGIC_VECTOR(15 DOWNTO 0); --cpu
-		initialRowSize : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-		splitSize : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+		extraBits_vec : OUT STD_LOGIC_VECTOR(15 DOWNTO 0):=(others=>'0'); --cpu
+		initialRowSize : OUT STD_LOGIC_VECTOR(15 DOWNTO 0):=(others=>'0');
+		splitSize : OUT STD_LOGIC_VECTOR(15 DOWNTO 0):=(others=>'0')
 
 	);
 
@@ -34,7 +34,7 @@ ARCHITECTURE cpu_ARCHITECTURE OF cpu IS
 	SIGNAL cnnDataCLK : STD_LOGIC;
 	SIGNAL DOUT : STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL rowSize : INTEGER;
-	SIGNAL extraBits : INTEGER;
+	SIGNAL extraBits : INTEGER:=0;
 BEGIN
 	rowSize <= to_integer(unsigned(rowSize_vec));
 	extraBits_vec <= STD_LOGIC_VECTOR(to_unsigned(extraBits, 16));
