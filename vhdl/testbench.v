@@ -89,19 +89,19 @@ cpu tb_cpu(
 );
 
 chip tb_chip(
-  load_process,
-        cnn_image,
-	clk,
-        rst,
-	send,
-	stop,           //io  
-	result,
-	data,           //cpu
-	startDecompression, //--cpu
-	rowSize,            // to cpu
-	extraBits,          //  --cpu
-	initialRowSize,     // --cpu
-	splitSize           //--cpu
+  	load_process,
+  	cnn_image,
+  	clk,
+  	rst,
+    send,
+    stop,           //io  
+    result,
+    data,           //cpu
+    startDecompression, //--cpu
+    rowSize,            // to cpu
+    extraBits,          //  --cpu
+    initialRowSize,     // --cpu
+    splitSize           //--cpu
 );
 
 endmodule 
