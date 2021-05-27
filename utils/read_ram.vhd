@@ -3,16 +3,16 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.numeric_std.ALL;
 
 ENTITY read_ram IS
-GENERIC (size : INTEGER :=5);
+GENERIC (count : INTEGER :=5);
 PORT(
 		clk : IN STD_LOGIC; 
 		enable : IN STD_LOGIC;
 		init_address : IN INTEGER;
-		count : IN INTEGER ;
+		--count : IN INTEGER ;
 		data_in : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
         done : OUT STD_LOGIC;
 		read_address : OUT INTEGER;
-		dataout : OUT  STD_LOGIC_VECTOR((16*size)-1 DOWNTO 0)
+		dataout : OUT  STD_LOGIC_VECTOR((16*count)-1 DOWNTO 0)
 );
 
 END read_ram;
@@ -29,11 +29,11 @@ ARCHITECTURE arch_read_ram OF read_ram IS
 				dataout(i*16+15 DOWNTO i*16)  <= data_in;
 				i := i +1;
 			END IF;
-			IF (i = count) THEN
+			if (i = count) then
 				done <= '1';
-			END IF;
-		END IF;
-		
+			end if;
+			
+		END IF;	
 	END PROCESS;
 			
 		
