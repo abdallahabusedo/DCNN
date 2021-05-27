@@ -21,21 +21,21 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 	COMPONENT convolute_images IS
 		GENERIC (FILTER_SIZE : INTEGER := 3;IMG_SIZE : INTEGER := 5;images_count: INTEGER:=3;filters_count: INTEGER:=1);
 		PORT(
-		IMGs : IN convolution_imags_type;
-		FILTERs : IN convolution_filtters_type;
-		avg_imgs : OUT convolution_imags_type;
-		END_conv :OUT STD_LOGIC;
-		clk,strat_signal:IN STD_LOGIC
-	);
+			IMGs : IN std_logic_vector(images_count*IMG_SIZE*IMG_SIZE*16-1 Downto 0);
+			FILTERs : IN std_logic_vector(images_count*filters_count*FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
+			avg_imgs : OUT std_logic_vector(filters_count*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16-1 Downto 0);
+			end_conv :OUT std_logic;
+			clk,strat_signal,rst:IN std_logic
+		);
 	END COMPONENT;
 	COMPONENT Pooling_layer IS
-		GENERIC (WINDOW_SIZE : INTEGER := 2 ; Maps_Count : INTEGER := 6 ;IMG_SIZE : INTEGER := 4);
+		generic (WINDOW_SIZE : integer := 2 ; Maps_Count : integer := 2 ;IMG_SIZE : integer := 4);
 		PORT(
-		InFeatureMaps : IN convolution_imags_type;                      
-		OutFeatureMaps : OUT convolution_imags_type;	
-		Done : OUT STD_LOGIC := '0';
-		clk,START:IN STD_LOGIC
-	); 
+			InFeatureMaps : IN  std_logic_vector((Maps_Count*IMG_SIZE*IMG_SIZE*16)-1 DOWNTO 0);                     
+			rst , START , clk:IN std_logic;
+			OutFeatureMaps : OUT std_logic_vector((Maps_Count*(IMG_SIZE/2)*(IMG_SIZE/2)*16)-1 DOWNTO 0);	
+			Done : OUT std_logic
+		); 
 	END COMPONENT;
 	COMPONENT read_ram IS
 		GENERIC (size : INTEGER :=5);
@@ -50,8 +50,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 			dataout : OUT  STD_LOGIC_VECTOR((16*size)-1 DOWNTO 0)
 		);
 	END COMPONENT;
-	--wrong COMPONENT either change the COMPONENT or the ARRAY
-	--find solution to USE the same conv AND pool layers
+
 	COMPONENT write_ram IS
 		GENERIC (size : INTEGER :=5);
 		PORT(
@@ -66,25 +65,23 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 		);
 	END COMPONENT;
 	----------------conv signals---------------------------
-	SIGNAL conv0_avg_imgs : convolution_imags_type;
+	SIGNAL conv0_avg_imgs : std_logic_vector(6*28*28*16-1 Downto 0);
 	SIGNAL conv0_END_conv,conv0_start_signal : STD_LOGIC;
-	SIGNAL img_dataout_temp : convolution_imags_type;
-	SIGNAL fil_dataout_temp : convolution_filtters_type;
 	-------------------------------------------------------
-	SIGNAL conv1_avg_imgs : convolution_imags_type;
+	SIGNAL conv1_avg_imgs : std_logic_vector(16*10*10*16-1 Downto 0);
 	SIGNAL conv1_END_conv,conv1_start_signal : STD_LOGIC;
 	-------------------------------------------------------
-	SIGNAL conv2_avg_imgs : convolution_imags_type;
+	SIGNAL conv2_avg_imgs : std_logic_vector((210*16)-1 Downto 0);
 	SIGNAL conv2_END_conv,conv2_start_signal : STD_LOGIC;
 	-------------------------------------------------------
 
 
 	---------------------pooling signals-------------------                     
-	SIGNAL pool0_OutFeatureMaps : convolution_imags_type;	
+	SIGNAL pool0_OutFeatureMaps : std_logic_vector(6*14*14*16-1 DOWNTO 0);	
 	SIGNAL pool0_done : STD_LOGIC := '0';
 	SIGNAL pool0_start: STD_LOGIC;
 	-------------------------------------------------------                     
-	SIGNAL pool1_OutFeatureMaps : convolution_imags_type;	
+	SIGNAL pool1_OutFeatureMaps : std_logic_vector(16*5*5*16-1 DOWNTO 0);
 	SIGNAL pool1_done : STD_LOGIC := '0';
 	SIGNAL pool1_start: STD_LOGIC;
 	---------------------read ram images------------------
@@ -148,7 +145,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 		write_count,
 		conv2_avg_imgs,
 		write_done,
-		write_write_address,
+		write_address,
 		write_dataout
 	);
 	
@@ -158,41 +155,46 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 		conv0_avg_imgs,
 		conv0_END_conv,
 		clk,
-		conv0_start_signal
+		conv0_start_signal,
+		rst
 		);
 	
 	P0:Pooling_layer GENERIC MAP (2,6,28)PORT MAP(
 		conv0_avg_imgs,
-		pool0_OutFeatureMaps,
-		pool0_done,
+		rst,
+		pool0_start,
 		clk,
-		pool0_start
+		pool0_OutFeatureMaps,
+		pool0_done
 		);
 		
 	CONV1:convolute_images GENERIC MAP (5,14,6,16) PORT MAP(
 		pool0_OutFeatureMaps,
-		fil_dataout_temp((5*5*16*16)-1 DOWNTO 0),
+		read_fil_dataout((5*5*16*16)-1 DOWNTO 0),
 		conv1_avg_imgs,
 		conv1_END_conv,
 		clk,
-		conv1_start_signal
+		conv1_start_signal,
+		rst
 		);
 	
 	P1:Pooling_layer GENERIC MAP (2,16,10)PORT MAP(
 		conv1_avg_imgs,
-		pool1_OutFeatureMaps,
-		pool1_done,
+		rst,
+		pool1_start,
 		clk,
-		pool1_start
+		pool1_OutFeatureMaps,
+		pool1_done
 		);
 	
 	CONV2:convolute_images GENERIC MAP (5,5,16,210) PORT MAP(
 		pool1_OutFeatureMaps,
-		fil_dataout_temp((5*5*210*16)-1 DOWNTO 0),
+		read_fil_dataout((5*5*210*16)-1 DOWNTO 0),
 		conv2_avg_imgs,
 		conv2_END_conv,
 		clk,
-		conv2_start_signal
+		conv2_start_signal,
+		rst
 		);
 
 
@@ -230,7 +232,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				step_counter <= 1; 
 			END IF;
 
-			IF(read_img_done = 1 AND step_counter < 3) THEN
+			IF(read_img_done = '1' AND step_counter < 3) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
@@ -243,7 +245,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				step_counter <= 4;
 			END IF;
 
-			IF(read_fil_done = 1 AND step_counter < 6) THEN
+			IF(read_fil_done = '1' AND step_counter < 6) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 			
@@ -255,7 +257,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				step_counter <= 7;
 			END IF;
 
-			IF(conv0_end_conv = 1 AND step_counter < 9) THEN
+			IF(conv0_end_conv = '1' AND step_counter < 9) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
@@ -266,7 +268,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				step_counter <= 10;
 			END IF;
 
-			IF(pool0_done = 1 AND step_counter < 12) THEN
+			IF(pool0_done = '1' AND step_counter < 12) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
@@ -276,11 +278,11 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				WR <= "01"; --read image
 				read_fil_count <= 5*5*16;
 				read_fil_enable <= '1';
-				read_init_address <= 300;
+				read_fil_init_address <= 300;
 				step_counter <= 13;
 			END IF;
 
-			IF(read_fil_done = 1 AND step_counter < 15) THEN
+			IF(read_fil_done = '1' AND step_counter < 15) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
@@ -292,7 +294,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				step_counter <= 16;
 			END IF;
 
-			IF(conv1_end_conv = 1 AND step_counter < 18) THEN
+			IF(conv1_end_conv = '1' AND step_counter < 18) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
@@ -303,21 +305,21 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				step_counter <= 19;
 			END IF;
 
-			IF(pool1_done = 1 AND step_counter < 21) THEN
+			IF(pool1_done = '1' AND step_counter < 21) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
 			IF (pool1_done = '1' AND step_counter = 21) THEN
 				pool1_done <= '0';
 				pool1_start <= '0';
-				WR <= "01" --read image
+				WR <= "01"; --read image
 				read_fil_count <= 5*5*210;
 				read_fil_enable <= '1';
 				read_fil_init_address <= 300;  --- we need to correct it with correct address of image
 				step_counter <= 22;
 			END IF;
 
-			IF(read_fil_done = 1 AND step_counter < 24) THEN
+			IF(read_fil_done = '1' AND step_counter < 24) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
@@ -329,7 +331,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				step_counter <= 25;
 			END IF;
 
-			IF(conv2_end_conv = 1 AND step_counter < 27) THEN
+			IF(conv2_end_conv = '1' AND step_counter < 27) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 

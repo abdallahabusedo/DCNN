@@ -1,27 +1,27 @@
-LIBRARY IEEE;
-LIBRARY work;
-USE IEEE.std_logic_1164.ALL;
-USE IEEE.numeric_std.ALL;
+library ieee;
+library work;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 ------------------------------------------------------------------------
 ENTITY extract_window IS
-GENERIC (FILTER_SIZE : INTEGER:=3 ;IMG_SIZE : INTEGER:=5);
+generic (FILTER_SIZE : integer:=3 ;IMG_SIZE : integer:=5);
 	PORT(
-		IMG : IN STD_LOGIC_VECTOR(IMG_SIZE*IMG_SIZE*16-1 DOWNTO 0);
-		IMG_SIZE_in:IN INTEGER;
-		FILTER_SIZE_in:IN INTEGER;
-		REST:IN STD_LOGIC;
-		OFFSET:IN INTEGER;
-		LAYER : OUT STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0)
+		IMG : IN std_logic_vector(IMG_SIZE*IMG_SIZE*16-1 Downto 0);
+		IMG_SIZE_in:IN integer;
+		FILTER_SIZE_in:IN integer;
+		rst:IN std_logic;
+		OFFSET:IN integer;
+		LAYER : OUT std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0)
 	);
 END ENTITY;
 ------------------------------------------------------------------------
 ARCHITECTURE extract_window_arch OF extract_window IS
 	BEGIN
-		PROCESS(IMG,OFFSET,REST)
-        		VARIABLE k_filter,add_filter,k_img,add_img : INTEGER ;
-        		VARIABLE i,j,l_img,l_filter,fi,im : INTEGER;
-    			BEGIN
-				IF(REST='1')THEN
+		process(IMG,OFFSET,rst)
+        		variable k_filter,add_filter,k_img,add_img : integer ;
+        		variable i,j,l_img,l_filter,fi,im : integer;
+    			begin
+				if(rst='1')then
 					k_filter:=0;
 					add_filter:=0;
 					k_img:=0;
@@ -32,16 +32,16 @@ ARCHITECTURE extract_window_arch OF extract_window IS
 					l_filter:=0;
 					fi:=0;
 					im:=0;
-				END IF;
+				end if;
 				fi :=FILTER_SIZE_in;
 				im :=IMG_SIZE_in ;
 				k_filter:=0;
 				k_img:=OFFSET;
 				add_img:=OFFSET;
 				add_filter:=0;
-    				for i IN 0 to fi-1 loop
-					for p IN 0 to fi-1 loop
-         					LAYER(add_filter*16+15 DOWNTO add_filter*16) <= IMG(add_img*16+15 DOWNTO add_img*16);
+    				for i in 0 to fi-1 loop
+					for p in 0 to fi-1 loop
+         					LAYER(add_filter*16+15 downto add_filter*16) <= IMG(add_img*16+15 downto add_img*16);
 						add_img :=add_img+im;
 						add_filter :=add_filter+fi; 
 					END loop;
@@ -49,6 +49,6 @@ ARCHITECTURE extract_window_arch OF extract_window IS
 					add_img:=k_img;
 					k_filter:=k_filter+1;
 					add_filter:=k_filter;
-    				END loop;
-		END PROCESS;
+    				end loop;
+		end process;
 END extract_window_arch;

@@ -8,11 +8,11 @@ USE IEEE.numeric_std.ALL;
 ENTITY conv_wimdow_1 IS
 GENERIC (FILTER_SIZE : INTEGER := 3);
 	PORT(
-		WINDOW : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
-		FILTER : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
-		PIXEL_OUT : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-		end_conv :OUT STD_LOGIC;
-		clk,strat_signal,REST:IN STD_LOGIC
+		WINDOW : IN std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
+		FILTER : IN std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
+		PIXEL_OUT : OUT std_logic_vector(15 downto 0);
+		end_conv :OUT std_logic;
+		clk,strat_signal,rst:IN std_logic
 	);
 END ENTITY;
 ARCHITECTURE conv_window_arch OF conv_wimdow_1 IS
@@ -24,14 +24,14 @@ COMPONENT sflop IS
 END COMPONENT;  
 	COMPONENT MUL_WIN_FLT IS
 	PORT(
-		WINDOW : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
-		FILTER : IN STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
-		PIXEL : OUT STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0)
+		WINDOW : IN std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
+		FILTER : IN std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
+		PIXEL : OUT std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0)
 	);
 	END COMPONENT;
-	SIGNAL MUL_PIX_FIT:STD_LOGIC_VECTOR(FILTER_SIZE*FILTER_SIZE*16-1 DOWNTO 0);
-	SIGNAL D: sfixed (4 DOWNTO -11):=(others => '0');
-	SIGNAL Q: sfixed (4 DOWNTO -11);
+	SIGNAL MUL_PIX_FIT:std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
+	SIGNAL D: sfixed (4 downto -11):=(others => '0');
+	SIGNAL Q: sfixed (4 downto -11);
 	BEGIN
 		MUL_WIN_FLT1:MUL_WIN_FLT GENERIC MAP (FILTER_SIZE) PORT MAP(WINDOW,FILTER,MUL_PIX_FIT);
 		SUM_Reg:sflop PORT MAP(clk,D,Q);
@@ -39,27 +39,27 @@ END COMPONENT;
 			VARIABLE i:INTEGER :=0 ;
     			BEGIN
 			  
-			  IF (CLK'event AND CLK = '1' AND strat_signal='1') THEN  
-				IF(i<FILTER_SIZE*FILTER_SIZE)THEN 
-					D <= resize (arg => Q+to_sfixed(MUL_PIX_FIT( i*16+15 DOWNTO i*16 ),4,-11) , 
-						left_index => D'HIGH ,
-						right_index => D'LOW ,
+			  if (CLK'event and CLK = '1' and strat_signal='1') then  
+				if(i<FILTER_SIZE*FILTER_SIZE)then 
+					D <= resize (arg => Q+to_sfixed(MUL_PIX_FIT( i*16+15 Downto i*16 ),4,-11) , 
+						left_index => D'high ,
+						right_index => D'low ,
 						round_style => fixed_round, 
 						overflow_style => fixed_saturate); 
 					i:=i+1;
 				end_conv<='0';
-				elsif(i>FILTER_SIZE*FILTER_SIZE) THEN
+				elsif(i>FILTER_SIZE*FILTER_SIZE) then
 					end_conv<='1';
 				else 
 					end_conv<='0';
 					i:=i+1;
-				END IF;
-			elsif(strat_signal='0'or REST='1')THEN
+				end if;
+			elsif(strat_signal='0'or rst='1')then
 				D<=(others => '0');
 				i:=0;
-        		END IF;
+        		end if;
 			
 			PIXEL_OUT<=to_slv (Q); 
-		END PROCESS;
+		end process;
 			
 END conv_window_arch;

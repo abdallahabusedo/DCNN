@@ -14,7 +14,7 @@ generic (IMG_number : integer := 3;IMG_SIZE : integer := 5);
 		start:IN integer;
 		avg_img : OUT std_logic_vector(IMG_SIZE*IMG_SIZE*16-1 Downto 0);
 		end_conv :OUT std_logic;
-		clk,strat_signal,REST:IN std_logic
+		clk,strat_signal,rst:IN std_logic
 	);
 END ENTITY;
 ARCHITECTURE conv_avg_arch OF conv_avg IS
@@ -37,9 +37,8 @@ end component;
 			variable k:integer :=0 ;
 			 
     			begin
-			  if(strat_signal='0'or REST='1')then
-				D<= (0 => "0000000000000000",
-					OTHERS => "0000000000000000");
+			  if(strat_signal='0'or rst='1')then
+				D<= (OTHERS => "0000000000000000");
 				k:=0;
         		end if;
 			  if (CLK'event and CLK = '1' and strat_signal='1' ) then  
