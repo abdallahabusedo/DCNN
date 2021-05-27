@@ -12,7 +12,7 @@ generic (WINDOW_SIZE : INTEGER := 2);
 		WINDOW : IN std_logic_vector((WINDOW_SIZE*WINDOW_SIZE*16)-1 DOWNTO 0);
 		START,rst,clk : IN std_logic;
 		AVR : OUT std_logic_vector(15 downto 0);
-		Done : OUT std_logic := '0'
+		Done : OUT std_logic
 	);
 END ENTITY;
 ARCHITECTURE arch_Pool OF Pool IS
@@ -53,8 +53,7 @@ ARCHITECTURE arch_Pool OF Pool IS
 							round_style => fixed_round, 
 							overflow_style => fixed_saturate); 
 						i:=i+1;
-					END IF;
-					IF(i>WINDOW_SIZE*WINDOW_SIZE)THEN
+					ELSE
 						Done <= '1';
 					END IF;
 					

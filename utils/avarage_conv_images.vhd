@@ -43,13 +43,21 @@ end component;
         		end if;
 			  if (CLK'event and CLK = '1' and strat_signal='1' ) then  
 				if( k < IMG_number) then
-					for p in 0 to IMG_SIZE*IMG_SIZE-1 loop
-         					D(p) <= resize (arg => Q(k)+to_sfixed(img_arr( ((k+start)*IMG_SIZE*IMG_SIZE+p)*16+15 Downto ((k+start)*IMG_SIZE*IMG_SIZE+p)*16),4,-11) , 
-						left_index => D(k)'high ,
-						right_index => D(k)'low ,
-						round_style => fixed_round, 
-						overflow_style => fixed_saturate); 
-					end loop;
+					if(IMG_SIZE > 2) then
+						for p in 0 to IMG_SIZE*IMG_SIZE-1 loop
+							D(p) <= resize (arg => Q(k)+to_sfixed(img_arr( ((k+start)*IMG_SIZE*IMG_SIZE+p)*16+15 Downto ((k+start)*IMG_SIZE*IMG_SIZE+p)*16),4,-11) , 
+								left_index => D(p)'high ,
+								right_index => D(p)'low ,
+								round_style => fixed_round, 
+								overflow_style => fixed_saturate); 
+						end loop;
+					else
+					        D(0) <= resize (arg => Q(0)+to_sfixed(img_arr( ((k+start)*IMG_SIZE*IMG_SIZE)*16+15 Downto ((k+start)*IMG_SIZE*IMG_SIZE)*16),4,-11) , 
+							left_index => D(0)'high ,
+							right_index => D(0)'low ,
+							round_style => fixed_round, 
+							overflow_style => fixed_saturate); 
+					end if;
 				end if;
 			if(k>IMG_number) then
 				end_conv<='1';
@@ -60,15 +68,23 @@ end component;
 			end if;
 			end if;
 			
-	
-			for p in 0 to IMG_SIZE*IMG_SIZE-1 loop
-         				avg_img_out(p) <= resize (arg => Q(p)/IMG_Snumber , 
+			IF (IMG_SIZE > 2) THEN
+				for p in 0 to IMG_SIZE*IMG_SIZE-1 loop
+					avg_img_out(p) <= resize (arg => Q(p)/IMG_Snumber , 
 						left_index => avg_img_out(p)'high ,
 						right_index => avg_img_out(p)'low ,
 						round_style => fixed_round, 
 						overflow_style => fixed_saturate);  
-					avg_img(p*16+15 downto p*16)<=to_slv (avg_img_out(p));
-			end loop;
+						avg_img(p*16+15 downto p*16)<=to_slv (avg_img_out(p));
+				end loop;
+			else
+				avg_img_out(0) <= resize (arg => Q(0)/IMG_Snumber , 
+				left_index => avg_img_out(0)'high ,
+				right_index => avg_img_out(0)'low ,
+				round_style => fixed_round, 
+				overflow_style => fixed_saturate);  
+				avg_img(15 downto 0)<=to_slv (avg_img_out(0));
+			END IF;
 			
 		end process;
 

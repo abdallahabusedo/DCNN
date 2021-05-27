@@ -5,7 +5,7 @@ USE IEEE.numeric_std.ALL;
 ENTITY read_ram IS
 GENERIC (size : INTEGER :=5);
 PORT(
-		clk : IN STD_LOGIC; 
+		clk,rst : IN STD_LOGIC; 
 		enable : IN STD_LOGIC;
 		init_address : IN INTEGER;
 		count : IN INTEGER ;
@@ -20,9 +20,12 @@ END read_ram;
 ARCHITECTURE arch_read_ram OF read_ram IS
 	BEGIN
 
-	PROCESS(clk,enable) IS
+	PROCESS(clk,enable,rst) IS
 		VARIABLE i:INTEGER :=0;
 	Begin
+		IF (rst = '1') THEN
+			i := 0;
+		END IF;
 		IF(rising_edge(clk) AND enable = '1') THEN
 			IF (i < count) THEN 
 				read_address <= init_address + i;

@@ -37,7 +37,7 @@ ARCHITECTURE pool_image_arch OF pool_window IS
 			WINDOW : IN std_logic_vector((WINDOW_SIZE*WINDOW_SIZE*16)-1 DOWNTO 0);
 			START,rst,clk : IN std_logic;
 			AVR : OUT std_logic_vector(15 downto 0);
-			Done : OUT std_logic := '0'
+			Done : OUT std_logic
 		);
 	END component;
 

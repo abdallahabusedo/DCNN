@@ -31,7 +31,11 @@ sim:/cnn_integration/read_fil_data_in \
 sim:/cnn_integration/read_fil_done \
 sim:/cnn_integration/read_fil_read_address \
 sim:/cnn_integration/read_fil_dataout \
-sim:/cnn_integration/step_counter
+sim:/cnn_integration/conv1_avg_imgs \
+sim:/cnn_integration/conv1_END_conv \
+sim:/cnn_integration/conv1_start_signal \
+sim:/cnn_integration/pool0_start \
+sim:/cnn_integration/step_counter 
 force -freeze sim:/cnn_integration/clk 0 0, 1 {50 ps} -r 100
 force -freeze sim:/cnn_integration/rst 1 0
 run
