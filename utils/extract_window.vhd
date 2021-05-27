@@ -1,46 +1,47 @@
 library ieee;
 library work;
-USE ieee.fixed_float_types.ALL;
-USE ieee.fixed_pkg.ALL;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.c_pkg.all;
 ------------------------------------------------------------------------
 ENTITY extract_window IS
-generic (FILTER_SIZE : integer ;IMG_SIZE : integer);
+generic (FILTER_SIZE : integer:=3 ;IMG_SIZE : integer:=5);
 	PORT(
-		IMG : IN img_array;
+		IMG : IN std_logic_vector(IMG_SIZE*IMG_SIZE*16-1 Downto 0);
+		IMG_SIZE_in:IN integer;
+		FILTER_SIZE_in:IN integer;
+		REST:IN std_logic;
 		OFFSET:IN integer;
-		LAYER : OUT filter_array
+		LAYER : OUT std_logic_vector(FILTER_SIZE*FILTER_SIZE*16-1 Downto 0)
 	);
 END ENTITY;
 ------------------------------------------------------------------------
 ARCHITECTURE extract_window_arch OF extract_window IS
-SIGNAL arr:filter_array;
 	BEGIN
-		process(IMG,OFFSET)--,FILTER1)
-        		variable k_filter : integer := 0;
-        		variable add_filter : integer := 0;
-        		variable k_img : integer := 0;
-        		variable add_img : integer := 0;
-        		variable i : integer := 0;
-        		variable j : integer := 0;
-        		variable l_img : integer := 0;
-        		variable l_filter : integer := 0;
-        		variable fi : integer ;
-        		variable im : integer ;
-        		variable count_pixel : integer:=0 ;
-
+		process(IMG,OFFSET,REST)
+        		variable k_filter,add_filter,k_img,add_img : integer ;
+        		variable i,j,l_img,l_filter,fi,im : integer;
     			begin
-				fi :=FILTER_SIZE;
-				im :=IMG_SIZE ;
+				if(REST='1')then
+					k_filter:=0;
+					add_filter:=0;
+					k_img:=0;
+					add_img:=0;
+					i:=0;
+					j:=0;
+					l_img:=0;
+					l_filter:=0;
+					fi:=0;
+					im:=0;
+				end if;
+				fi :=FILTER_SIZE_in;
+				im :=IMG_SIZE_in ;
 				k_filter:=0;
 				k_img:=OFFSET;
 				add_img:=OFFSET;
 				add_filter:=0;
     				for i in 0 to fi-1 loop
 					for p in 0 to fi-1 loop
-         					arr(add_filter) <= IMG(add_img);
+         					LAYER(add_filter*16+15 downto add_filter*16) <= IMG(add_img*16+15 downto add_img*16);
 						add_img :=add_img+im;
 						add_filter :=add_filter+fi; 
 					end loop;
@@ -50,5 +51,4 @@ SIGNAL arr:filter_array;
 					add_filter:=k_filter;
     				end loop;
 		end process;
-		LAYER<=arr;
 END extract_window_arch;
