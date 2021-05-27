@@ -286,7 +286,7 @@ ARCHITECTURE arch_cnn_integration OF cnn_integration IS
 				step_counter <= 13;
 			END IF;
 
-			IF(read_fil_done = '1' AND step_counter < 15) THEN
+			IF(read_fil_done = '1' AND step_counter < 15 AND step_counter > 12) THEN
 				step_counter <= step_counter+1;
 			END IF; 
 
