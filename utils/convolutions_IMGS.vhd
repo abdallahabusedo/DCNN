@@ -8,7 +8,7 @@ USE IEEE.numeric_std.ALL;
 USE IEEE.std_logic_unsigned.ALL;
 
 ENTITY convolute_images IS
-GENERIC (FILTER_SIZE : INTEGER := 3;IMG_SIZE : INTEGER := 5;images_count: INTEGER:=3;filters_count: INTEGER:=1);
+GENERIC (FILTER_SIZE : INTEGER := 3;IMG_SIZE : INTEGER := 4;images_count: INTEGER:=2;filters_count: INTEGER:=2);
 	PORT(
 		IMGs : IN std_logic_vector(images_count*IMG_SIZE*IMG_SIZE*16-1 Downto 0);
 		FILTERs : IN std_logic_vector(images_count*filters_count*FILTER_SIZE*FILTER_SIZE*16-1 Downto 0);
@@ -38,7 +38,7 @@ GENERIC (IMG_number : INTEGER := 3;IMG_SIZE : INTEGER := 5);
 		clk,strat_signal,rst:IN std_logic
 	);
 END COMPONENT;
-signal strat_avg:std_logic:='0';
+signal strat_avg:std_logic;
 signal convoluted_imgs : std_logic_vector(images_count*filters_count*(IMG_SIZE-FILTER_SIZE+1)*(IMG_SIZE-FILTER_SIZE+1)*16-1 Downto 0);
 BEGIN
 loop0: FOR i IN 0 TO filters_count-1 GENERATE 	
