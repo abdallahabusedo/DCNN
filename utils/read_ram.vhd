@@ -28,6 +28,7 @@ ARCHITECTURE arch_read_ram OF read_ram IS
 		END IF;
 		IF(rising_edge(clk) AND enable = '1') THEN
 			IF (i < count) THEN 
+				done<='0';
 				read_address <= init_address + i;
 				dataout(i*16+15 DOWNTO i*16)  <= data_in;
 				i := i +1;
