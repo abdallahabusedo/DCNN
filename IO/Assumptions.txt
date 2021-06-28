@@ -1,0 +1,6 @@
+- Run image compression by rle.py with "tmp.png" as the input image name 
+- Compressed image is out as "out.txt" file
+- CNN data is out as "data.txt" file
+- Run VHDL/Verilog code with image as "out.txt" and cnn-data "data.txt" and put them in the project directory
+- Run do file "run.do" to run the simulation testBench.v file
+- "done" signal is 1 when all the data (image and cnn) gets into ram
