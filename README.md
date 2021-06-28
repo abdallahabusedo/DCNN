@@ -3,7 +3,7 @@
 
 <div align="center">
 
- [![GitHub stars](https://img.shields.io/github/stars/abdallahabusedo/DCNN)](https://github.com/abdallahabusedo/VLSI/stargazers) [![GitHub issues](https://img.shields.io/github/issues/abdallahabusedo/DCNN)](https://github.com/abdallahabusedo/VLSI/issues)  [![GitHub forks](https://img.shields.io/github/forks/abdallahabusedo/DCNN)](https://github.com/abdallahabusedo/VLSI/network)  [![GitHub](https://img.shields.io/github/license/abdallahabusedo/DCNN)](https://github.com/abdallahabusedo/VLSI/blob/main/LICENSE) <img src="https://img.shields.io/github/languages/count/abdallahabusedo/DCNN" />
+ [![GitHub stars](https://img.shields.io/github/stars/abdallahabusedo/DCNN)](https://github.com/abdallahabusedo/DCNN/stargazers) [![GitHub issues](https://img.shields.io/github/issues/abdallahabusedo/DCNN)](https://github.com/abdallahabusedo/DCNN/issues)  [![GitHub forks](https://img.shields.io/github/forks/abdallahabusedo/DCNN)](https://github.com/abdallahabusedo/DCNN/network)  [![GitHub](https://img.shields.io/github/license/abdallahabusedo/DCNN)](https://github.com/abdallahabusedo/DCNN/blob/main/LICENSE) <img src="https://img.shields.io/github/languages/count/abdallahabusedo/DCNN" />
 </div>
 
 ## Description
@@ -76,4 +76,4 @@ Thanks goes to these wonderful people ✨
 
 ## License
 
-> This software is licensed under MIT License, See [License](https://github.com/abdallahabusedo/VLSI/blob/main/LICENSE)
+> This software is licensed under MIT License, See [License](https://github.com/abdallahabusedo/DCNN/blob/main/LICENSE)
